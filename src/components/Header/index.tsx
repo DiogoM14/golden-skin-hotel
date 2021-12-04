@@ -10,11 +10,13 @@ export const Header = () => {
       bgColor="#fff" 
       h="80px"
       boxShadow="md"
+      mb="9"
+      px="12"
     >
       <Flex 
         align="center" 
         h="100%" 
-        justify="space-around"
+        justify="space-between"
       >
         <Heading fontSize="md">Golden Skin</Heading>
 
