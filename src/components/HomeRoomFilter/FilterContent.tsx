@@ -1,6 +1,5 @@
 import { Flex, Icon, Center, Text } from "@chakra-ui/react"
 import { IconType } from "react-icons"
-import { FiCalendar, FiUsers } from 'react-icons/fi'
 
 interface Props {
   name: string

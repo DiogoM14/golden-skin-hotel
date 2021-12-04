@@ -10,14 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { FiTv, FiWifi } from "react-icons/fi";
 
-export const Card = () => {
+export function Card() {
   const property = {
     imageUrl:
       "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
   };
 
   return (
-    <Box maxW='xs' borderRadius='lg' overflow='hidden' position='relative'>
+    <Box borderRadius='lg' overflow='hidden' position='relative'>
       <SimpleGrid
         columns={2}
         spacing='2'
@@ -25,10 +25,10 @@ export const Card = () => {
         top='3'
         right='3'
         zIndex='100'>
-        <Center bg='white' p='2' borderRadius='lg' boxSize='30px'>
+        <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiTv} boxSize='1.25rem' color='green' />
         </Center>
-        <Center bg='white' p='2.5' borderRadius='lg' boxSize='30px'>
+        <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiWifi} boxSize='1.25rem' color='blue' />
         </Center>
       </SimpleGrid>
@@ -63,4 +63,4 @@ export const Card = () => {
       </Box>
     </Box>
   );
-};
+}
