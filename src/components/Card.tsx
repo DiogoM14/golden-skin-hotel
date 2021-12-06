@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FiTv, FiWifi } from "react-icons/fi";
 
-export function Card() {
+export function Card({}) {
   const property = {
     imageUrl:
       "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
