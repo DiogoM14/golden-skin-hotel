@@ -3,7 +3,7 @@ import { HomeRoomFilter } from "../HomeRoomFilter"
 
 export const Banner = () => {
   return (
-    <Box w="100%">
+    <Box w="100%" mt="2rem">
       <Box pos="relative">
         <Image 
           src="banner.png"
