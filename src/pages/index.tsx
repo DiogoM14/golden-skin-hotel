@@ -3,9 +3,9 @@ import type { NextPage } from "next";
 
 import { Container } from "@chakra-ui/react";
 import { Header } from "../components/Header";
-import { Card } from "../components/Card";
 import { Banner } from "../components/Banner";
 import { CardGrid } from '../components/CardGrid'
+import { HomeAboutUsBanner } from "../components/HomeAboutUsBanner";
 
 const Home: NextPage = () => {
   return (
@@ -20,6 +20,7 @@ const Home: NextPage = () => {
 
       <Container maxW='1440px' px="12">
         <Banner />
+        <HomeAboutUsBanner />
         <CardGrid />
       </Container>
     </>
