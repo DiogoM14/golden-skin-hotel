@@ -24,8 +24,7 @@ export function Card({}) {
         position='absolute'
         top='3'
         right='3'
-        zIndex='100'
-      >
+        zIndex='100'>
         <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiTv} boxSize='1.25rem' color='green' />
         </Center>
@@ -34,7 +33,7 @@ export function Card({}) {
           <Icon as={FiWifi} boxSize='1.25rem' color='blue' />
         </Center>
       </SimpleGrid>
-      
+
       <Image maxH='200px' width='100%' src={property.imageUrl} />
 
       <Box p='6' bgColor='white'>
@@ -50,7 +49,7 @@ export function Card({}) {
           <Text fontSize='sm' mr='1' color='gray.500'>
             Desde
           </Text>
-          
+
           <Text fontSize='sm' fontWeight='bold' color='gray.900'>
             47€ / noite
           </Text>
