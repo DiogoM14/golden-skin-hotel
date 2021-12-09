@@ -23,7 +23,6 @@ export const TabsForm = ({ authOption }: any) => {
         <TabList mb='8'>
           <Link href='/auth/login'>
             <Tab
-              as='a'
               _selected={{
                 borderBottom: "2px solid",
                 borderBottomColor: "#F2BB05",
@@ -33,6 +32,7 @@ export const TabsForm = ({ authOption }: any) => {
           </Link>
           <Link href='/auth/register'>
             <Tab
+              
               _selected={{
                 borderBottom: "2px  solid",
                 borderBottomColor: "#F2BB05",

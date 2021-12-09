@@ -25,9 +25,15 @@ export const Header = () => {
         </ Link>
 
         <Wrap spacing='4'>
-          <Text>Sobre nós</Text>
-          <Text>Encontre um quarto</Text>
-          <Text>Serviços</Text>
+          <Link href="/about-us">
+            <Text as="a" cursor="pointer">Sobre nós</Text>
+          </Link>
+          <Link href="/rooms">
+            <Text as="a" cursor="pointer">Encontre um quarto</Text>
+          </Link>
+          <Link href="/services">
+            <Text as="a" cursor="pointer">Serviços</Text>
+          </Link>
         </Wrap>
 
         <AuthButtons />

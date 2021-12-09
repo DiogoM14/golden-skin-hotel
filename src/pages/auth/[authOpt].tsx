@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 
 import { NextPage } from "next";
-import { Header } from "../../components/Header";
 import { AuthWelcome } from "../../components/AuthPage/AuthWelcome";
 import { TabsForm } from "../../components/AuthPage/TabsForm";
 import { useRouter } from "next/router";
@@ -22,7 +21,14 @@ const Login: NextPage = () => {
     <>
       <Container maxW='full' bgColor='#F4F4F5' p={0}>
         <SimpleGrid columns={7} h={gridHeight}>
-          <GridItem colSpan={3} paddingX='32' overflow="scroll" py="12" h="100%">
+          <GridItem 
+            colSpan={3} 
+            paddingX='32' 
+            overflowY="scroll" 
+            py="12" 
+            h="100%"
+            overflowX="hidden"
+          >
             <Box>
               <AuthWelcome />
               <TabsForm authOption={authOpt} />
