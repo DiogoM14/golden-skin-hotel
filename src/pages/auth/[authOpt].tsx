@@ -7,6 +7,8 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 
+import { createBreakpoints } from '@chakra-ui/theme-tools'
+
 import { NextPage } from "next";
 import { AuthWelcome } from "../../components/AuthPage/AuthWelcome";
 import { TabsForm } from "../../components/AuthPage/TabsForm";
@@ -20,10 +22,10 @@ const Login: NextPage = () => {
   return (
     <>
       <Container maxW='full' bgColor='#F4F4F5' p={0}>
-        <SimpleGrid columns={7} h={gridHeight}>
+        <SimpleGrid columns={[1, 1, 1, 5, 7]} h={gridHeight}>
           <GridItem 
-            colSpan={3} 
-            paddingX='32' 
+            colSpan={[1, 1, 1, 3, 3]} 
+            paddingX={['8', '8', '32', '32', '32']} 
             overflowY="scroll" 
             py="12" 
             h="100%"
@@ -34,7 +36,7 @@ const Login: NextPage = () => {
               <TabsForm authOption={authOpt} />
             </Box>
           </GridItem>
-          <GridItem colSpan={4}>
+          <GridItem colSpan={[0, 0, 0, 2, 4]} display={["none", "none", "none", "flex", "flex"]}>
             <Img
               objectFit='cover'
               boxSize='full'

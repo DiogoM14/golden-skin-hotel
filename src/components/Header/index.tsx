@@ -1,9 +1,21 @@
-import { Container, Flex, Heading, Text, Wrap } from "@chakra-ui/react";
+import { Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
 import { AuthButtons } from "./AuthButtons";
 import { UserAuth } from "./UserAuth";
 import Link from 'next/link'
+import { createBreakpoints } from '@chakra-ui/theme-tools'
+import { json } from "stream/consumers";
+import { useRef } from "react";
+import { FiMenu } from 'react-icons/fi'
 
 export const Header = () => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true
+  })
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = useRef()
+
   return (
     <Container
       w='100%'
@@ -24,20 +36,54 @@ export const Header = () => {
           </Heading>
         </ Link>
 
-        <Wrap spacing='4'>
-          <Link href="/about-us">
-            <Text as="a" cursor="pointer">Sobre nós</Text>
-          </Link>
-          <Link href="/rooms">
-            <Text as="a" cursor="pointer">Encontre um quarto</Text>
-          </Link>
-          <Link href="/services">
-            <Text as="a" cursor="pointer">Serviços</Text>
-          </Link>
-        </Wrap>
+        {
+          !isWideVersion ? (
+            <>
 
-        <AuthButtons />
-        {/* <UserAuth /> */}
+              <IconButton bgColor="#FFFAF0" variant="outline" borderColor="#f2bb05" color="#1c1c1c" onClick={onOpen} aria-label="Menu" icon={<FiMenu />} />
+              <Drawer
+                isOpen={isOpen}
+                placement='right'
+                onClose={onClose}
+              >
+                <DrawerOverlay />
+                <DrawerContent>
+                  <DrawerCloseButton />
+                  <DrawerHeader>Create your account</DrawerHeader>
+
+                  <DrawerBody>
+                    <Input placeholder='Type here...' />
+                  </DrawerBody>
+
+                  <DrawerFooter>
+                    <Button variant='outline' mr={3} onClick={onClose}>
+                      Cancel
+                    </Button>
+                    <Button colorScheme='blue'>Save</Button>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+            </>
+          ) : (
+            <>
+            <Wrap spacing='4'>
+              <Link href="/about-us">
+                <Text as="a" cursor="pointer">Sobre nós</Text>
+              </Link>
+              <Link href="/rooms">
+                <Text as="a" cursor="pointer">Encontre um quarto</Text>
+              </Link>
+              <Link href="/services">
+                <Text as="a" cursor="pointer">Serviços</Text>
+              </Link>
+            </Wrap>
+            <AuthButtons />
+            {/* <UserAuth /> */}
+          </>
+          )
+        }
+        
+
       </Flex>
     </Container>
   );
