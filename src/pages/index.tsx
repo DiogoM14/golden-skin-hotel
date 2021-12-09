@@ -16,8 +16,6 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header />
-
       <Container maxW='1440px' px='12'>
         <Banner />
         <HomeAboutUsBanner />

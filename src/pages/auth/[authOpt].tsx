@@ -20,16 +20,13 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <Header />
       <Container maxW='full' bgColor='#F4F4F5' p={0}>
         <SimpleGrid columns={7} h={gridHeight}>
-          <GridItem colSpan={3} paddingX='32'>
-            <Center w='full' h='100%'>
-              <Box>
-                <AuthWelcome />
-                <TabsForm authOption={authOpt} />
-              </Box>
-            </Center>
+          <GridItem colSpan={3} paddingX='32' overflow="scroll" py="12" h="100%">
+            <Box>
+              <AuthWelcome />
+              <TabsForm authOption={authOpt} />
+            </Box>
           </GridItem>
           <GridItem colSpan={4}>
             <Img
