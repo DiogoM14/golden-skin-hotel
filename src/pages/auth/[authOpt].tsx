@@ -26,7 +26,7 @@ const Login: NextPage = () => {
           <GridItem 
             colSpan={[1, 1, 1, 3, 3]} 
             paddingX={['8', '8', '32', '32', '32']} 
-            overflowY="scroll" 
+            overflowY={["visible", "scroll"]} 
             py="12" 
             h="100%"
             overflowX="hidden"

@@ -1,11 +1,9 @@
-import { Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
-import { AuthButtons } from "./AuthButtons";
-import { UserAuth } from "./UserAuth";
-import Link from 'next/link'
-import { createBreakpoints } from '@chakra-ui/theme-tools'
-import { json } from "stream/consumers";
-import { useRef } from "react";
 import { FiMenu } from 'react-icons/fi'
+import Link from 'next/link'
+
+import { Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
+
+import { AuthButtons } from "./AuthButtons";
 
 export const Header = () => {
   const isWideVersion = useBreakpointValue({
@@ -13,8 +11,7 @@ export const Header = () => {
     md: true
   })
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Container
@@ -39,7 +36,6 @@ export const Header = () => {
         {
           !isWideVersion ? (
             <>
-
               <IconButton bgColor="#FFFAF0" variant="outline" borderColor="#f2bb05" color="#1c1c1c" onClick={onOpen} aria-label="Menu" icon={<FiMenu />} />
               <Drawer
                 isOpen={isOpen}
@@ -82,7 +78,6 @@ export const Header = () => {
           </>
           )
         }
-        
 
       </Flex>
     </Container>
