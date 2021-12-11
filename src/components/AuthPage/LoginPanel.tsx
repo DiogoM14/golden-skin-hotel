@@ -18,7 +18,7 @@ export const LoginPanel = () => {
           fontWeight='bold'
           fontSize='xs'
           color='#717171'
-          _hover={{ cursor: "pointer" }}>
+          cursor='pointer'>
           Clique aqui
         </Text>
       </HStack>

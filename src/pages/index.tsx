@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
       <Container maxW='1440px' px={["6", "8", "12"]}>
         <Banner />
-        <HomeAboutUsBanner />
+        {/* <HomeAboutUsBanner /> */}
         <CardGrid />
         <SeeMoreBtn />
       </Container>

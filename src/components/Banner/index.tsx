@@ -30,9 +30,9 @@ export const Banner = () => {
         </Center>
       </Box>
 
-      <Center mt='-60px'>
+      {/* <Center mt='-60px'>
         <HomeRoomFilter />
-      </Center>
+      </Center> */}
     </Box>
   );
 };

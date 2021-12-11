@@ -10,7 +10,7 @@ export function CardGrid({ haveHeader = true }: Props) {
   return (
     <Container maxW='container.lg'>
       {haveHeader && <CardsHeader />}
-      <SimpleGrid columns={3} spacing='6'>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing='6'>
         <Card />
         <Card />
         <Card />
