@@ -13,7 +13,7 @@ export const Footer = () => {
       <Box
         w='full'
         h='xs'
-        mt='28'
+        mt='2.3rem'
         bgColor='#1C1C1C'
         color='white'
         position='relative'>

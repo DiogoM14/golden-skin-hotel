@@ -5,6 +5,7 @@ import { Container } from "@chakra-ui/react";
 import { Banner } from "../components/Banner";
 import { CardGrid } from "../components/CardGrid";
 import { HomeAboutUsBanner } from "../components/HomeAboutUsBanner";
+import { SeeMoreBtn } from "../components/SeeMoreBtn";
 
 const Home: NextPage = () => {
   return (
@@ -17,8 +18,9 @@ const Home: NextPage = () => {
 
       <Container maxW='1440px' px={['6', '8', '12']}>
         <Banner />
-        {/* <HomeAboutUsBanner /> */}
+        <HomeAboutUsBanner />
         <CardGrid />
+        <SeeMoreBtn />
       </Container>
     </>
   );

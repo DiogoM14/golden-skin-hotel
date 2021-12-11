@@ -24,7 +24,7 @@ export function Card({}) {
         position='absolute'
         top='3'
         right='3'
-        zIndex='100'>
+        zIndex='1'>
         <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiTv} boxSize='1.25rem' color='green' />
         </Center>
