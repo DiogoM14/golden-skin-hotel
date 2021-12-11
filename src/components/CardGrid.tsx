@@ -3,13 +3,13 @@ import { Card } from "./Card";
 import { CardsHeader } from "./CardsHeader";
 
 interface Props {
-  haveHeader?: boolean
+  haveHeader?: boolean;
 }
 
 export function CardGrid({ haveHeader = true }: Props) {
   return (
     <Container maxW='container.lg'>
-      { haveHeader && <CardsHeader /> }
+      {haveHeader && <CardsHeader />}
       <SimpleGrid columns={3} spacing='6'>
         <Card />
         <Card />

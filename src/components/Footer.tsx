@@ -1,28 +1,25 @@
-import {
-  Box,
-  Button,
-  Center,
-  GridItem,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Text } from "@chakra-ui/react";
 
 export const Footer = () => {
   return (
     <>
       <Box
+        as='footer'
         w='full'
-        h='xs'
-        mt='2.3rem'
+        py='16'
+        px={{ base: 16, lg: 30, xl: 48 }}
         bgColor='#1C1C1C'
         color='white'
         position='relative'>
-        <SimpleGrid
-          columns={5}
-          paddingX='56'
-          paddingTop='16'
-          textAlign='center'>
-          <GridItem>
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            lg: "repeat(5, 1fr)",
+          }}
+          templateRows={{ base: "repeat(2, 1fr)", sm: "repeat(1, 1fr)" }}
+          gap={{ base: 4 }}>
+          <GridItem colSpan={1} textAlign={{ base: "center" }}>
             <Text fontSize='lg' fontWeight='bold'>
               Golden Skin Hotel
             </Text>
@@ -37,30 +34,38 @@ export const Footer = () => {
               Reserve já
             </Button>
           </GridItem>
-          <GridItem>
-            <Text fontSize='lg' fontWeight='bold'>
-              Links rápidos
-            </Text>
+          <GridItem colSpan={{ base: 1, lg: 4 }}>
+            <Grid
+              textAlign={{ base: "center", sm: "end", lg: "center" }}
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                lg: "repeat(4, 1fr)",
+              }}
+              templateRows={{ base: "repeat(4, 1fr)", lg: "repeat(1, 1fr)" }}
+              gap={{ base: 4 }}>
+              <GridItem>
+                <Text fontSize='lg' fontWeight='bold'>
+                  Links rápidos
+                </Text>
+              </GridItem>
+              <GridItem>
+                <Text fontSize='lg' fontWeight='bold'>
+                  Os nossos serviços
+                </Text>
+              </GridItem>
+              <GridItem>
+                <Text fontSize='lg' fontWeight='bold'>
+                  Galeria
+                </Text>
+              </GridItem>
+              <GridItem>
+                <Text fontSize='lg' fontWeight='bold'>
+                  Contacte-nos
+                </Text>
+              </GridItem>
+            </Grid>
           </GridItem>
-          <GridItem>
-            <Text fontSize='lg' fontWeight='bold'>
-              Os nossos serviços
-            </Text>
-          </GridItem>
-          <GridItem>
-            <Text fontSize='lg' fontWeight='bold'>
-              Galeria
-            </Text>
-          </GridItem>
-          <GridItem>
-            <Text fontSize='lg' fontWeight='bold'>
-              Contacte-nos
-            </Text>
-          </GridItem>
-        </SimpleGrid>
-        <Center position='absolute' w='full' bottom='6'>
-          <Text fontFa>Copyright 2021 - Golden Skin Hotel</Text>
-        </Center>
+        </Grid>
       </Box>
     </>
   );
