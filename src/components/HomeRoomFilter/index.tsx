@@ -5,7 +5,7 @@ import { CollapseCalendar } from "./CollapseCalendar"
 import { CollapsePeople } from "./CollapsePeople"
 
 export const HomeRoomFilter = () => {
-  const { onToggle } = useDisclosure()
+  const { onToggle, isOpen } = useDisclosure()
 
   return (
     <VStack>
@@ -41,6 +41,23 @@ export const HomeRoomFilter = () => {
         
         <Button bgColor="#F2BB05" color="#fff">Procurar</Button>
       </Flex>
+
+      <Collapse in={isOpen} animateOpacity>
+        <Box
+          w="700px" 
+          h="120px" 
+          bgColor="#fff" 
+          borderRadius="lg"
+          boxShadow="lg"
+          alignItems="center"
+          justifyContent="center"
+          py="5"
+          px="4"
+          zIndex="2"
+        >
+          <h1>Pessoas</h1>
+        </Box>
+      </Collapse>
     </VStack>
   )
 }

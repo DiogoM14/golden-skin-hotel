@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { FiTv, FiWifi } from "react-icons/fi";
 
+import NextLink from "next/link";
+
 export function Card({}) {
   const property = {
     imageUrl:
@@ -42,7 +44,7 @@ export function Card({}) {
         </Heading>
 
         <Text color='gray.500' fontSize='sm' mb='6'>
-          Lorem ipsum dolor sit amet, consect adipiscing elit.
+          Lorem ipsum dolor sit amet, consect adipiscing elit. 
         </Text>
 
         <Box display='flex' mb='6'>
@@ -55,18 +57,21 @@ export function Card({}) {
           </Text>
         </Box>
 
-        <Button
-          fontFamily='Poppins'
-          fontWeight='Medium'
-          fontSize='sm'
-          bgColor='white'
-          border='2px'
-          borderColor='#F2BB05'
-          width='125px'
-          height='30px'
-          _hover={{ bg: "transparent" }}>
-          Ver Mais
-        </Button>
+        <NextLink href='/room'>
+          <Button
+            fontFamily='Poppins'
+            fontWeight='Medium'
+            fontSize='sm'
+            bgColor='white'
+            border='2px'
+            borderColor='#F2BB05'
+            width='125px'
+            height='30px'
+            _hover={{ bg: "transparent" }}
+          >
+            Ver Mais
+          </Button>
+        </NextLink>
       </Box>
     </Box>
   );
