@@ -13,16 +13,20 @@ export const Banner = () => {
           borderRadius='xl'
         />
 
-        <Center pos='absolute' top='0' m={["3rem", "5.25rem"]} h='100%'>
+        <Center
+          pos='absolute'
+          top='0'
+          mx={{ base: "3rem", md: "5.25rem" }}
+          h='full'>
           <Box>
-            <Heading color='#fff' fontSize={["xl", "5xl"]}>
+            <Heading color='#fff' fontSize={{ base: "xl", md: "5xl" }}>
               Golden Skin Hotel
             </Heading>
-            <Heading color='#fff' fontSize={["4xl", "5xl"]} mb='4'>
+            <Heading color='#fff' fontSize={{ base: "4xl", md: "5xl" }} mb='4'>
               Desfrute da sua estadia.
             </Heading>
 
-            <Text maxW='xs' color='#D4D4D4'>
+            <Text maxW={{ base: "full", md: "xs" }} color='#D4D4D4'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
               eget ex eu arcu porta vehicula et non ante.
             </Text>
