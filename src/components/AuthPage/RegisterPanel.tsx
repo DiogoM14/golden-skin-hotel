@@ -23,6 +23,9 @@ export const RegisterPanel = () => {
           <Finput type='text' placeholder='Último Nome' />
         </GridItem>
         <GridItem colSpan={2}>
+          <Finput type='tel' placeholder='Telemóvel' />
+        </GridItem>
+        <GridItem colSpan={2}>
           <Finput type='password' placeholder='Palavra-passe' />
         </GridItem>
         <GridItem colSpan={2}>

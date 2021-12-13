@@ -8,27 +8,39 @@ import {
   Button,
   Box,
   Container,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { AwardBox } from "./AwardBox";
 
 export const HomeAboutUsBanner = () => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
+
   return (
     <Container maxW='full'>
-      <Flex mb='10' my='28' wrap={{ base: "wrap", md: "nowrap" }}>
-        <Box
-          paddingLeft={{ base: 0, md: "5rem" }}
-          w={{ base: "100%", md: "574px" }}
-          position='relative'>
-          <AwardBox />
-          <Img
-            w={{ base: "full", lg: "lg" }}
-            h={{ base: "2xs", md: "lg" }}
-            objectFit='cover'
-            borderRadius='2xl'
-            boxShadow='lg'
-            src='aboutUs.png'
-          />
-        </Box>
+      <Flex
+        mb='10'
+        my={{ base: "14", md: "28" }}
+        wrap={{ base: "wrap", md: "nowrap" }}>
+        {isWideVersion ? (
+          <>
+            <Box paddingLeft='5rem' w='574px' position='relative'>
+              <AwardBox />
+              <Img
+                w='lg'
+                h='lg'
+                objectFit='cover'
+                borderRadius='2xl'
+                boxShadow='lg'
+                src='aboutUs.png'
+              />
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
         <Box my='auto' w={{ base: "full", md: "max" }}>
           <Flex
             mt={{ base: 6, md: 0 }}
