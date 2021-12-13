@@ -1,13 +1,26 @@
-import { Box, Text, Image, Heading, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Image,
+  Heading,
+  Center,
+  useBreakpointValue,
+  Flex,
+} from "@chakra-ui/react";
 import { HomeRoomFilter } from "../HomeRoomFilter";
 
 export const Banner = () => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
+
   return (
     <Box w='100%' mt='2rem'>
-      <Box pos='relative'>
+      <Box pos='relative' h='full'>
         <Image
           src='banner.png'
-          h='500px'
+          h={{ base: "400px", md: "500px" }}
           w='100%'
           objectFit='cover'
           borderRadius='xl'
@@ -15,7 +28,7 @@ export const Banner = () => {
 
         <Center
           pos='absolute'
-          top='0'
+          top={{ base: "10%", md: 0 }}
           mx={{ base: "3rem", md: "5.25rem" }}
           h='full'>
           <Box>
@@ -34,9 +47,15 @@ export const Banner = () => {
         </Center>
       </Box>
 
-      <Center mt='-60px'>
-        <HomeRoomFilter />
-      </Center>
+      {isWideVersion ? (
+        <>
+          <Center mt='-60px'>
+            <HomeRoomFilter />
+          </Center>
+        </>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };

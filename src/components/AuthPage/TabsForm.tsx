@@ -32,7 +32,6 @@ export const TabsForm = ({ authOption }: any) => {
           </Link>
           <Link href='/auth/register'>
             <Tab
-              
               _selected={{
                 borderBottom: "2px  solid",
                 borderBottomColor: "#F2BB05",
