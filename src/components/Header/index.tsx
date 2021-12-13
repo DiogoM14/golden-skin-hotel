@@ -70,7 +70,7 @@ export const Header = () => {
                 <Text as="a" cursor="pointer">Encontre um quarto</Text>
               </Link>
               <Link href="/services">
-                <Text as="a" cursor="pointer">Serviços</Text>
+                <Text as="a" cursor="pointer">Contactos</Text>
               </Link>
             </Wrap>
             <AuthButtons />
