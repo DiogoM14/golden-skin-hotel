@@ -67,7 +67,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
       .then(response => {
         const { email, role, user_id } = response.data
-        console.log(email, role, user_id)
 
         setUser({
           email,

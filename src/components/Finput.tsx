@@ -5,7 +5,7 @@ interface Props {
   placeholder: string;
 }
 
-export function Finput({ type, placeholder }: Props) {
+export function Finput({ type, placeholder, ...rest }: any) {
   return (
     <Input
       type={type}
@@ -19,6 +19,7 @@ export function Finput({ type, placeholder }: Props) {
         borderColor: "#F2BB05",
       }}
       mb='4'
+      {...rest}
     />
   );
 }

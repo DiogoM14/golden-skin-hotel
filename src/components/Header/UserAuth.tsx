@@ -5,10 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext"
 
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext)
-
-  console.log(user)
-
-
+  
   return (
     <Flex
       align="center"

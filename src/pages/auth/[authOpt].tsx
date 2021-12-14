@@ -11,24 +11,11 @@ import { NextPage } from "next";
 import { AuthWelcome } from "../../components/AuthPage/AuthWelcome";
 import { TabsForm } from "../../components/AuthPage/TabsForm";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
 
 const Login: NextPage = () => {
   let router = useRouter();
   let { authOpt } = router.query;
   let gridHeight = `calc(100vh - 80px)`;
-
-  const { signIn } = useContext(AuthContext)
-
-  async function handleSignIn() {
-    const data = {
-      email: "pedrocosta2406@pm.me",
-      password: "pedro123"
-    }
-
-    await signIn(data)
-  }
   
   return (
     <>
@@ -43,7 +30,6 @@ const Login: NextPage = () => {
             overflowX="hidden"
           >
             <Box>
-              <Button onClick={handleSignIn}>Entrar</Button>
               <AuthWelcome />
               <TabsForm authOption={authOpt} />
             </Box>
