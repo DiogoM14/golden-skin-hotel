@@ -1,9 +1,9 @@
 import Head from "next/head";
 import type { NextPage } from "next";
 
-import { Button, Container } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { Banner } from "../components/Banner";
-import { CardGrid } from "../components/CardGrid";
+import { CardGrid } from "../components/Cards/CardGrid";
 import { HomeAboutUsBanner } from "../components/HomeAboutUsBanner";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 
