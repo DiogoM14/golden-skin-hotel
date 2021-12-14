@@ -9,14 +9,16 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { FiTv, FiWifi } from "react-icons/fi";
-
+import { RoomProps } from "../../utils/TRoom";
 import NextLink from "next/link";
 
-export function Card({}) {
-  const property = {
-    imageUrl:
-      "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-  };
+type Room = {
+  room: RoomProps;
+};
+
+export function Card({ room }: Room) {
+  let placeholderImg =
+    "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
   return (
     <Box borderRadius='lg' overflow='hidden' position='relative'>
@@ -36,7 +38,7 @@ export function Card({}) {
         </Center>
       </SimpleGrid>
 
-      <Image maxH='200px' width='100%' src={property.imageUrl} />
+      <Image maxH='200px' width='100%' src={placeholderImg} />
 
       <Box p='6' bgColor='white'>
         <Heading as='h6' size='md' fontWeight='Medium' mb='2'>
@@ -44,7 +46,7 @@ export function Card({}) {
         </Heading>
 
         <Text color='gray.500' fontSize='sm' mb='6'>
-          Lorem ipsum dolor sit amet, consect adipiscing elit. 
+          Lorem ipsum dolor sit amet, consect adipiscing elit.
         </Text>
 
         <Box display='flex' mb='6'>
@@ -53,11 +55,11 @@ export function Card({}) {
           </Text>
 
           <Text fontSize='sm' fontWeight='bold' color='gray.900'>
-            47€ / noite
+            {room.price_night}€ / noite
           </Text>
         </Box>
 
-        <NextLink href='/room'>
+        <NextLink href={`/room/${room._id}`}>
           <Button
             fontFamily='Poppins'
             fontWeight='Medium'
@@ -67,8 +69,7 @@ export function Card({}) {
             borderColor='#F2BB05'
             width='125px'
             height='30px'
-            _hover={{ bg: "transparent" }}
-          >
+            _hover={{ bg: "transparent" }}>
             Ver Mais
           </Button>
         </NextLink>
