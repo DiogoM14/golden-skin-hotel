@@ -1,7 +1,14 @@
 import { Flex, Avatar, Text, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"
+import { useContext } from "react"
 import { FiChevronDown } from 'react-icons/fi'
+import { AuthContext } from "../../contexts/AuthContext"
 
 export const UserAuth = () => {
+  const { user, signOut } = useContext(AuthContext)
+
+  console.log(user)
+
+
   return (
     <Flex
       align="center"
@@ -12,14 +19,14 @@ export const UserAuth = () => {
         bg="#F2BB05"
         size="md"
       />
-      <Text mx="2">Diogo Martins</Text>
+      <Text mx="2">{user.email}</Text>
       <Menu isLazy>
         <MenuButton>
           <FiChevronDown />
         </MenuButton>
         <MenuList>
           <MenuItem>Configurações</MenuItem>
-          <MenuItem>Sair</MenuItem>
+          <MenuItem onClick={signOut}>Sair</MenuItem>
         </MenuList>
       </Menu>
     </Flex>

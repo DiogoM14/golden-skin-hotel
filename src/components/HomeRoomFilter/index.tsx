@@ -103,8 +103,11 @@ export const HomeRoomFilter = () => {
       <Collapse in={isOpen} animateOpacity>
         <DateRange
           editableDateInputs={true}
-          onChange={(item) => {
-            setDate([item.selection]);
+          onChange={(item): any => {
+            // const { startDate, endDate, key }: any = [item.selection]
+            // const teste = [item.selection]
+
+            // setDate([item.selection]);
           }}
           moveRangeOnFirstSelection={false}
           ranges={date}

@@ -12,16 +12,17 @@ type SignInCredentials = {
   password: string
 }
 
-type AuthContextData = {
-  signIn(credentials: SignInCredentials): Promise<void>
-  signOut: () => void
-  isAuthenticated: boolean
-}
-
 type User = {
   email: string
   role: string
   user_id: string
+}
+
+type AuthContextData = {
+  signIn(credentials: SignInCredentials): Promise<void>
+  signOut: () => void
+  isAuthenticated: boolean
+  user: User
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -33,7 +34,7 @@ export function signOut() {
   destroyCookie(undefined, 'nextauth.refreshToken')
 
   authChannel.postMessage('signOut')
-
+  
   Router.push('/')
 }
 
@@ -59,17 +60,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { 'nextauth.token': token } = parseCookies()
 
     if (token) {
-      api.get('/auth/me')
-        .then(response => {
+      api.get('/auth/me', {
+        headers: {
+          "x-access-token": token
+        }
+      })
+      .then(response => {
         const { email, role, user_id } = response.data
+        console.log(email, role, user_id)
 
         setUser({
           email,
-          user_id,
           role,
+          user_id,
         })
-
-        console.log(user)
       })
       .catch(() => {
         signOut()
@@ -93,8 +97,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   
       setUser({
         email,
-        user_id,
         role,
+        user_id,
       })
 
       api.defaults.headers.common['x-access-token'] = `${token}`
@@ -105,7 +109,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated }}>
+    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   )

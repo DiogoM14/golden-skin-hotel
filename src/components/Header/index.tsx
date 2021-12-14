@@ -4,8 +4,14 @@ import Link from 'next/link'
 import { Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
 
 import { AuthButtons } from "./AuthButtons";
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { UserAuth } from './UserAuth';
+
 
 export const Header = () => {
+  const { isAuthenticated } = useContext(AuthContext)
+
   const isWideVersion = useBreakpointValue({
     base: false,
     md: true
@@ -73,8 +79,8 @@ export const Header = () => {
                 <Text as="a" cursor="pointer">Contactos</Text>
               </Link>
             </Wrap>
-            <AuthButtons />
-            {/* <UserAuth /> */}
+
+            { isAuthenticated ? <UserAuth /> : <AuthButtons />}
           </>
           )
         }
