@@ -1,6 +1,6 @@
 import { Container, HStack, Menu, MenuButton, Text, Button, MenuList, MenuItem, Flex, useDisclosure, MenuGroup, MenuDivider, MenuOptionGroup, MenuItemOption, Center } from "@chakra-ui/react"
 import { FiChevronDown, FiFilter, FiArrowUp, FiArrowDown } from 'react-icons/fi'
-import { CardGrid } from "../components/CardGrid"
+import { CardGrid } from "../components/Cards/CardGrid"
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 
 const Rooms = () => {
