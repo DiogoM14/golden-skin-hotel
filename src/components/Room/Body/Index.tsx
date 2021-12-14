@@ -1,5 +1,5 @@
 import { SimpleGrid, Flex, Box, Divider, Button } from "@chakra-ui/react"
-import { Amenities } from "./amenities"
+import { Amenities } from "./Amenities"
 import { Description } from "./Description"
 import { Header } from "./Header"
 
