@@ -7,8 +7,22 @@ import Header from "../../components/Room/Header";
 import Images from "../../components/Room/Images";
 import { Suggestions } from "../../components/Room/Suggestions";
 import { Body } from "../../components/Room/Body/Index";
+import { api } from "../../services/apiClient";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { RoomProps } from "../../utils/TRoom";
 
 const Room: NextPage = () => {
+  const router = useRouter();
+  const [room, setRoom] = useState<RoomProps>();
+  const { id } = router.query;
+
+  useEffect(() => {
+    api.get(`/rooms/${id}`).then((response) => {
+      setRoom(response.data);
+    });
+  }, []);
+
   return (
     <>
       <Head>
@@ -18,10 +32,16 @@ const Room: NextPage = () => {
       </Head>
 
       <Container maxW='1000px' px={["6", "8", "12"]}>
-        <Header />
-        <Images />
-        <Body />
-        <Suggestions />
+        {room ? (
+          <>
+            <Header price={room.price_night} />
+            <Images />
+            <Body room={room} />
+            <Suggestions />
+          </>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );

@@ -1,11 +1,11 @@
-interface Amenities {
+export type Amenities = {
   wifi: boolean;
   tv: boolean;
   crib: boolean;
   airConditioning: boolean;
   iron: boolean;
   smokeAlarm: boolean;
-}
+};
 
 interface ReservedDates {
   _id: string;

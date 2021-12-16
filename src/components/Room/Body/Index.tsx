@@ -1,44 +1,45 @@
-import { SimpleGrid, Flex, Box, Divider, Button } from "@chakra-ui/react"
-import { Amenities } from "./Amenities"
-import { Description } from "./Description"
-import { Header } from "./Header"
+import { SimpleGrid, Flex, Box, Divider, Button } from "@chakra-ui/react";
+import { Amenities } from "./Amenities";
+import { Description } from "./Description";
+import { Header } from "./Header";
+import { RoomProps } from "../../../utils/TRoom";
 
-export const Body = () => {
+interface Room {
+  room: RoomProps;
+}
+
+export const Body = ({ room }: Room) => {
   return (
-    <SimpleGrid columns={2} my="4" gap="12">
-      <Flex flexDir="column">
-
+    <SimpleGrid columns={2} my='4' gap='12'>
+      <Flex flexDir='column'>
         <Header />
 
-        <Divider my="4" borderColor="#bbbbbb" />
+        <Divider my='4' borderColor='#bbbbbb' />
 
-        <Amenities />
+        <Amenities amenities={room.amenities} />
 
         <Button
-          mt="6"
+          mt='6'
           fontFamily='Poppins'
           fontWeight='Medium'
           fontSize='sm'
           bgColor='white'
           border='2px'
           borderColor='#F2BB05'
-          maxW="300px"
+          maxW='300px'
           height='30px'
-          _hover={{ bg: "transparent" }}
-        >
+          _hover={{ bg: "transparent" }}>
           Mostrar todas as comodidades
         </Button>
 
-        <Divider my="4" borderColor="#bbbbbb" />
+        <Divider my='4' borderColor='#bbbbbb' />
 
         <Description />
 
-        <Divider my="4" borderColor="#bbbbbb" />
+        <Divider my='4' borderColor='#bbbbbb' />
       </Flex>
 
-      <Box bgColor="#fff" borderRadius="lg" maxH="400px" shadow="md">
-
-      </Box>
+      <Box bgColor='#fff' borderRadius='lg' maxH='400px' shadow='md'></Box>
     </SimpleGrid>
-  )
-}
+  );
+};
