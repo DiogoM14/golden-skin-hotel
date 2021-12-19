@@ -1,20 +1,21 @@
-import { Container, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { CardsHeader } from "./CardsHeader";
-import { api } from "../../services/apiClient";
-import { useEffect, useState } from "react";
 import { RoomProps } from "../../utils/TRoom";
+import { api } from "../../services/apiClient";
 
 interface Props {
   haveHeader?: boolean;
+  filter: any;
 }
 
-export function CardGrid({ haveHeader = true }: Props) {
+export function CardGrid({ haveHeader = true, filter }: Props) {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    api.post("/rooms").then((response) => {
-      setRooms(response.data);
+    api.get("/rooms/filter", { params: filter }).then((res) => {
+      setRooms(res.data);
     });
   }, []);
 
@@ -22,11 +23,8 @@ export function CardGrid({ haveHeader = true }: Props) {
     <Container maxW='container.lg'>
       {haveHeader && <CardsHeader />}
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing='6'>
-        {rooms ? (
-          rooms.map((room: RoomProps) => <Card key={room._id} room={room} />)
-        ) : (
-          <></>
-        )}
+        {rooms &&
+          rooms.map((room: RoomProps) => <Card key={room._id} room={room} />)}
       </SimpleGrid>
     </Container>
   );

@@ -2,8 +2,6 @@ import {
   Flex,
   Button,
   Divider,
-  useDisclosure,
-  Collapse,
   VStack,
   NumberInput,
   NumberInputField,
@@ -13,23 +11,52 @@ import {
   Center,
   Icon,
   Text,
+  Box,
 } from "@chakra-ui/react";
-import { FilterContent } from "./FilterContent";
-import { FiCalendar, FiUsers } from "react-icons/fi";
-import { DateRange } from "react-date-range";
 import { useState } from "react";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import { useRouter } from "next/router";
+import DatePicker, { registerLocale } from "react-datepicker";
+import { FiCalendar, FiUsers } from "react-icons/fi";
+import { FilterContent } from "./FilterContent";
+import format from "date-fns/format";
+import pt from "date-fns/locale/pt";
+registerLocale("pt", pt);
+import "react-datepicker/dist/react-datepicker.css";
 
 export const HomeRoomFilter = () => {
-  const { onToggle, isOpen } = useDisclosure();
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const [people, setPeople] = useState(1);
+
+  const onChange = (dates: [any, any]) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setIsOpen(false);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+    return true;
+  };
+
+  const handlePeople = (e: any) => {
+    setPeople(e);
+  };
+
+  const handleSearch = () => {
+    endDate &&
+      router.push({
+        pathname: "/rooms",
+        query: {
+          checkIn: format(startDate, "yyyy-MM-dd"),
+          checkOut: format(endDate, "yyyy-MM-dd"),
+          capacityGT: people,
+        },
+      });
+  };
 
   return (
     <VStack>
@@ -43,28 +70,37 @@ export const HomeRoomFilter = () => {
         justifyContent='center'
         py='5'
         px='4'
-        zIndex='2'>
+        zIndex='2'
+        position='relative'>
         <Button
-          onClick={onToggle}
+          onClick={handleOpen}
           bgColor='transparent'
           _hover={{ bgColor: "transparent" }}>
           <FilterContent
             icon={FiCalendar}
             name='Check-in'
-            description='ago-22'
+            description={format(startDate, "dd-MMM-yyyy", {
+              locale: pt,
+            })}
           />
         </Button>
 
         <Divider orientation='vertical' mx={{ base: 5, lg: 14 }} />
 
         <Button
-          onClick={onToggle}
+          onClick={handleOpen}
           bgColor='transparent'
           _hover={{ bgColor: "transparent" }}>
           <FilterContent
             icon={FiCalendar}
             name='Check-out'
-            description='ago-22'
+            description={
+              endDate
+                ? format(endDate, "dd-MMM-yyyy", {
+                    locale: pt,
+                  })
+                : "Sem data"
+            }
           />
         </Button>
 
@@ -81,7 +117,8 @@ export const HomeRoomFilter = () => {
                   maxW={16}
                   defaultValue={1}
                   min={1}
-                  allowMouseWheel>
+                  allowMouseWheel
+                  onChange={handlePeople}>
                   <NumberInputField />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
@@ -95,24 +132,35 @@ export const HomeRoomFilter = () => {
 
         <Divider orientation='vertical' mx={{ base: 5, lg: 14 }} />
 
-        <Button bgColor='#F2BB05' color='#fff'>
+        <Button
+          bgColor='#F2BB05'
+          color='#fff'
+          _hover={{ bg: "#e0ae09" }}
+          disabled={endDate == null}
+          onClick={handleSearch}>
           Procurar
         </Button>
+
+        {isOpen && (
+          <Box
+            position='absolute'
+            top='100px'
+            zIndex='1000'
+            boxShadow='dark-lg'>
+            <DatePicker
+              closeOnScroll={handleOpen}
+              selected={startDate}
+              onChange={onChange}
+              startDate={startDate}
+              endDate={endDate}
+              minDate={new Date()}
+              selectsRange
+              inline
+              locale={pt}
+            />
+          </Box>
+        )}
       </Flex>
-
-      <Collapse in={isOpen} animateOpacity>
-        <DateRange
-          editableDateInputs={true}
-          onChange={(item): any => {
-            // const { startDate, endDate, key }: any = [item.selection]
-            // const teste = [item.selection]
-
-            // setDate([item.selection]);
-          }}
-          moveRangeOnFirstSelection={false}
-          ranges={date}
-        />
-      </Collapse>
     </VStack>
   );
 };
