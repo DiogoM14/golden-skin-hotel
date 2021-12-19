@@ -7,7 +7,7 @@ import { api } from "../../services/apiClient";
 
 interface Props {
   haveHeader?: boolean;
-  filter: any;
+  filter?: any;
 }
 
 export function CardGrid({ haveHeader = true, filter }: Props) {
