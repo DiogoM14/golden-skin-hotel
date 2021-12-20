@@ -16,28 +16,29 @@ export const RegisterPanel = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm()
+  } = useForm();
 
   const address = {
-    "street": "teste",
-    "city": "teste",
-    "postal_code": "teste",
-    "country": "teste",
-  }
+    street: "teste",
+    city: "teste",
+    postal_code: "teste",
+    country: "teste",
+  };
 
-  const nifImprovisado = Math.random() * 1000000000
+  const nifImprovisado = Math.random() * 1000000000;
 
   function onSubmit(values: any) {
-    console.log(values)
+    console.log(values);
     api.post("auth/register", {
-      name: values.firstName,
+      first_name: values.firstName,
+      last_name: values.lastName,
       email: values.email,
       phone_number: values.phone,
       birthday: "10-01-2020",
       address: address,
       nif: nifImprovisado,
-      password: values.password
-    })
+      password: values.password,
+    });
   }
 
   return (
@@ -45,28 +46,38 @@ export const RegisterPanel = () => {
       <FormControl id='signUp'>
         <SimpleGrid columns={2} columnGap='4'>
           <GridItem colSpan={2}>
-            <Input type='email' placeholder='E-mail' {...register('email')} />
-
+            <Input type='email' placeholder='E-mail' {...register("email")} />
           </GridItem>
           <GridItem colSpan={1}>
-            <Input type='text' placeholder='Primeiro Nome' {...register('firstName')} />
-
+            <Input
+              type='text'
+              placeholder='Primeiro Nome'
+              {...register("firstName")}
+            />
           </GridItem>
           <GridItem colSpan={1}>
-            <Input type='text' placeholder='Último Nome' {...register('lastName')} />
-
+            <Input
+              type='text'
+              placeholder='Último Nome'
+              {...register("lastName")}
+            />
           </GridItem>
           <GridItem colSpan={2}>
-            <Input type='tel' placeholder='Telemóvel' {...register('phone')} />
-
+            <Input type='tel' placeholder='Telemóvel' {...register("phone")} />
           </GridItem>
           <GridItem colSpan={2}>
-            <Input type='password' placeholder='Palavra-passe' {...register('password')} />
-
+            <Input
+              type='password'
+              placeholder='Palavra-passe'
+              {...register("password")}
+            />
           </GridItem>
           <GridItem colSpan={2}>
-            <Input type='password' placeholder='Repita a Palavra-passe' {...register('repeatPassword')} />
-
+            <Input
+              type='password'
+              placeholder='Repita a Palavra-passe'
+              {...register("repeatPassword")}
+            />
           </GridItem>
 
           <GridItem colSpan={2}>
@@ -87,8 +98,7 @@ export const RegisterPanel = () => {
               fontWeight='medium'
               fontSize='md'
               isLoading={isSubmitting}
-              type="submit"
-            >
+              type='submit'>
               Registar
             </Button>
           </GridItem>
