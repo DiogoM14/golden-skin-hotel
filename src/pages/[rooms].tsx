@@ -3,30 +3,44 @@ import {
   HStack,
   Menu,
   MenuButton,
-  Text,
   Button,
   MenuList,
   MenuItem,
   Flex,
-  useDisclosure,
   MenuOptionGroup,
   MenuItemOption,
+  useRadioGroup,
+  Box,
 } from "@chakra-ui/react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { FiChevronDown, FiFilter } from "react-icons/fi";
+import Head from "next/head";
+import { GetServerSideProps } from "next";
 import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
+import { RadioCard } from "../components/RadioCard";
+import { useRouter } from "next/router";
 
-const Rooms = () => {
+const Rooms = ({ query }: any) => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [filter, setFilter] = useState({});
+  const options = ["Todos", "Single", "Double", "King", "Deluxe"];
 
-  if (router.query != filter) {
-    setFilter(router.query);
-  }
+  const handleType = (e: any) => {
+    if (e == "Todos") {
+      delete query.type;
+      router.push({ pathname: "/rooms", query: query });
+    } else {
+      e = e.toLowerCase();
+      router.push({ pathname: "/rooms", query: { ...query, type: e } });
+    }
+  };
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "type",
+    defaultValue: "Todos",
+    onChange: handleType,
+  });
+
+  const group = getRootProps();
 
   return (
     <>
@@ -39,26 +53,16 @@ const Rooms = () => {
       <Container maxW='1440px' px={["6", "8", "12"]} mt='2.3rem' w='100%'>
         <Flex justify='space-between' mb='2.3rem' maxW='container.lg' mx='auto'>
           <HStack spacing='1.5rem' color='#717171' fontFamily='Poppins'>
-            <Text cursor='pointer' color='#1c1c1c' fontWeight='medium'>
-              Todos
-            </Text>
-            <Text cursor='pointer'>Suites</Text>
-            <Text cursor='pointer'>Quartos familiar</Text>
-            <Text cursor='pointer'>Quarto single</Text>
-            <Menu isOpen={isOpen} onClose={onClose}>
-              <MenuButton as={Text} cursor='pointer' onMouseOver={onOpen}>
-                <Flex align='center'>
-                  Mais
-                  <FiChevronDown />
-                </Flex>
-              </MenuButton>
-              <MenuList zIndex='10'>
-                <MenuItem>Tipo 1</MenuItem>
-                <MenuItem>Tipo 2</MenuItem>
-                <MenuItem>Tipo 3</MenuItem>
-                <MenuItem>Tipo 4</MenuItem>
-              </MenuList>
-            </Menu>
+            <HStack {...group}>
+              {options.map((value) => {
+                const radio = getRadioProps({ value });
+                return (
+                  <RadioCard key={value} {...radio}>
+                    {value}
+                  </RadioCard>
+                );
+              })}
+            </HStack>
           </HStack>
           <HStack spacing='1.5rem'>
             <Menu closeOnSelect={false}>
@@ -96,11 +100,22 @@ const Rooms = () => {
             </Menu>
           </HStack>
         </Flex>
-        <CardGrid filter={filter} haveHeader={false} />
+        <CardGrid filter={query} haveHeader={false} />
         <SeeMoreBtn />
       </Container>
     </>
   );
+};
+
+// implement ssr with nextjs
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  delete query.rooms;
+
+  return {
+    props: {
+      query,
+    },
+  };
 };
 
 export default Rooms;

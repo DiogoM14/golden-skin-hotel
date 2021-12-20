@@ -17,7 +17,7 @@ export function CardGrid({ haveHeader = true, filter }: Props) {
     api.get("/rooms/filter", { params: filter }).then((res) => {
       setRooms(res.data);
     });
-  }, []);
+  }, [filter]);
 
   return (
     <Container maxW='container.lg'>
