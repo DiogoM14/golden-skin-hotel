@@ -19,6 +19,7 @@ import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { RadioCard } from "../components/RadioCard";
 import { useRouter } from "next/router";
+import { FilterRoomsBtn } from "../components/FilterRoomsBtn";
 
 const Rooms = ({ query }: any) => {
   const router = useRouter();
@@ -82,22 +83,7 @@ const Rooms = ({ query }: any) => {
                 </MenuOptionGroup>
               </MenuList>
             </Menu>
-            <Menu>
-              <MenuButton
-                as={Button}
-                bgColor='#EFEFEF'
-                fontWeight='regular'
-                rightIcon={<FiFilter />}>
-                Filtrar por
-              </MenuButton>
-              <MenuList zIndex='10'>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
-              </MenuList>
-            </Menu>
+            <FilterRoomsBtn />
           </HStack>
         </Flex>
         <CardGrid filter={query} haveHeader={false} />

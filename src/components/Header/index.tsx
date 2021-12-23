@@ -1,16 +1,16 @@
 import { FiMenu } from 'react-icons/fi'
 import Link from 'next/link'
 
-import { Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
+import { Avatar, Button, Center, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, HStack, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
 
 import { AuthButtons } from "./AuthButtons";
 import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext, signOut } from '../../contexts/AuthContext';
 import { UserAuth } from './UserAuth';
 
 
 export const Header = () => {
-  const { isAuthenticated } = useContext(AuthContext)
+  const { isAuthenticated, user } = useContext(AuthContext)
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -51,18 +51,37 @@ export const Header = () => {
                 <DrawerOverlay />
                 <DrawerContent>
                   <DrawerCloseButton />
-                  <DrawerHeader>Create your account</DrawerHeader>
+                  <DrawerHeader>Configurações</DrawerHeader>
 
-                  <DrawerBody>
-                    <Input placeholder='Type here...' />
-                  </DrawerBody>
+                  { isAuthenticated ? (
+                    <>
+                    <DrawerBody>
+                      <HStack>
+                        <Avatar
+                          name="Diogo Martins" 
+                          src="https://www.github.com/diogom14.png" 
+                          bg="#F2BB05"
+                          size="md"
+                        />
+                        <Text mx="2">{user.email}</Text>
+                      </HStack>
+                    </DrawerBody>
 
-                  <DrawerFooter>
-                    <Button variant='outline' mr={3} onClick={onClose}>
-                      Cancel
-                    </Button>
-                    <Button colorScheme='blue'>Save</Button>
-                  </DrawerFooter>
+                    <DrawerFooter>
+                      <HStack>
+                        <Button>Configurações</Button>
+                        <Button bgColor="#F2BB05" color="#fff" onClick={signOut}>Sair</Button>
+                      </HStack>
+                    </DrawerFooter>
+                  </>
+                  ) : (
+                    <DrawerBody>
+                      <Center>
+                        <AuthButtons />
+                      </Center>
+                    </DrawerBody>
+                  )}
+                  
                 </DrawerContent>
               </Drawer>
             </>

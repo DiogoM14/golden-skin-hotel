@@ -1,5 +1,5 @@
 import Head from "next/head";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { Container } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -10,16 +10,8 @@ import { Body } from "../../components/Room/Body/Index";
 import { api } from "../../services/apiClient";
 import { RoomProps } from "../../utils/TRoom";
 
-const Room: NextPage = () => {
-  const router = useRouter();
-  const [room, setRoom] = useState<RoomProps>();
-  const { id } = router.query;
-
-  useEffect(() => {
-    api.get(`/rooms/id/${id}`).then((response) => {
-      setRoom(response.data);
-    });
-  }, []);
+const Room: NextPage = ({ data }: any) => {
+  const room = data
 
   return (
     <>
@@ -42,5 +34,29 @@ const Room: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id }: any = params
+
+  const res = await api.get(`/rooms/id/${id}`)
+
+  const data: RoomProps = {
+    _id: res.data._id,
+    room_no: res.data.room_no,
+    type: res.data.type,
+    no_beds: res.data.no_beds,
+    capacity: res.data.capacity,
+    amenities: res.data.amenities,
+    price_night: res.data.price_night,
+    images: res.data.images,
+    reserved: res.data.reserved,
+  }
+
+  return {
+    props: {
+      data
+    }
+  }
+}
 
 export default Room;
