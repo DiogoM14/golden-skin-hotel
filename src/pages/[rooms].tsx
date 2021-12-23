@@ -1,3 +1,7 @@
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+
 import {
   Container,
   HStack,
@@ -5,21 +9,18 @@ import {
   MenuButton,
   Button,
   MenuList,
-  MenuItem,
   Flex,
   MenuOptionGroup,
   MenuItemOption,
   useRadioGroup,
-  Box,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiFilter } from "react-icons/fi";
-import Head from "next/head";
-import { GetServerSideProps } from "next";
+
+import { FiChevronDown } from "react-icons/fi";
+
 import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { RadioCard } from "../components/RadioCard";
-import { useRouter } from "next/router";
-import { FilterRoomsBtn } from "../components/FilterRoomsBtn";
+import { FilterRoomsBtn } from "../components/FilterRoom";
 
 const Rooms = ({ query }: any) => {
   const router = useRouter();

@@ -1,16 +1,16 @@
+import {  useState } from "react"
 import { Button, Drawer, DrawerBody, DrawerCloseButton, RadioGroup, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Radio, Stack, useDisclosure, Text, Heading, Divider, RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, HStack, Tag, TagLeftIcon, TagLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack } from "@chakra-ui/react"
-import { useRef, useState } from "react"
-import { FiFilter, FiMoreHorizontal } from "react-icons/fi"
+import { FiFilter } from "react-icons/fi"
+
+import { RadioButtons } from "./RadioButtons"
+import { RangeSliderComponent } from "./RangeSlider"
+import { StepperButtons } from "./StepperButtons"
 
 
 export const FilterRoomsBtn = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [value, setValue] = useState('1')
-  const [sliderValue, setSliderValue] = useState([0, 500])
-
-  function handleChangeSliderValue(e: any) {
-    setSliderValue(e)
-  }
+  const [orderByName, setOrderByName] = useState('1')
+  const [orderByPrice, setOrderByPrice] = useState('1')
 
   return (
     <>
@@ -34,75 +34,34 @@ export const FilterRoomsBtn = () => {
           <DrawerHeader>Filtrar por</DrawerHeader>
 
           <DrawerBody>
-            <RadioGroup onChange={setValue} value={value}>
-              <Stack>
-                <Heading fontSize="md">Nome</Heading>
-                <Radio value='1'>Ascendente</Radio>
-                <Radio value='2'>Descendente</Radio>
-              </Stack>
+            <RadioGroup onChange={setOrderByName} value={orderByName}>
+              <RadioButtons title="Nome" radioName={["Ascendente", "Descendente"]} />
             </RadioGroup>
 
             <Divider my="4" />
 
-            <RadioGroup onChange={setValue} value={value}>
+            <RadioGroup onChange={setOrderByPrice} value={orderByPrice}>
               <Stack>
-                <Heading fontSize="md">Preço</Heading>
-                <Radio value='1'>Ascendente</Radio>
-                <Radio value='2'>Descendente</Radio>
+                <RadioButtons title="Preço" radioName={["Ascendente", "Descendente"]} />
               </Stack>
             </RadioGroup>
 
             <Divider my="4" />
 
             <HStack spacing={8}>
-              <VStack>
-                <Heading fontSize="md">Pessoas</Heading>
-                <NumberInput size='sm' maxW={20} defaultValue={2} min={1}>
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </VStack>
-
-              <VStack>
-                <Heading fontSize="md">Camas</Heading>
-                <NumberInput size='sm' maxW={20} defaultValue={1} min={1}>
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </VStack>
+              <StepperButtons title="Pessoas" defaultValue={2} min={1} />
+              <StepperButtons title="Camas" defaultValue={1} min={1} />
             </HStack>
 
             <Divider my="4" />
 
-            <Heading fontSize="md" mb="4">Preço</Heading>
-            <HStack spacing={4}>
-              <Text>{sliderValue[0]}€</Text>
-              <RangeSlider
-                aria-label={['min', 'max']}
-                min={0} max={500} step={10}
-                colorScheme="yellow"
-                defaultValue={sliderValue}
-                onChange={(e) => handleChangeSliderValue(e)}
-              >
-                <RangeSliderTrack>
-                  <RangeSliderFilledTrack />
-                </RangeSliderTrack>
-                <RangeSliderThumb index={0} />
-                <RangeSliderThumb index={1} />
-              </RangeSlider>
-              <Text>{sliderValue[1]}€</Text>
-            </HStack>
+            <RangeSliderComponent />
 
             <Divider my="4" />
 
             <Heading fontSize="md" mb="4">Tags</Heading>
             <HStack spacing={4}>
+              {/* Vai levar map */}
               <Tag variant='subtle' colorScheme='cyan'>
                 <TagLabel>Cyan</TagLabel>
               </Tag>
@@ -121,6 +80,7 @@ export const FilterRoomsBtn = () => {
 
             <RadioGroup>
               <Stack>
+                {/* Vai levar map */}
                 <Heading fontSize="md">Extras</Heading>
                 <Radio>Extra</Radio>
                 <Radio value='1'>Extra</Radio>
