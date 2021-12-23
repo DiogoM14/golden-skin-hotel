@@ -21,7 +21,7 @@ const Login: NextPage = () => {
     if (isAuthenticated) {
       Router.push("/");
     }
-  }, [isAuthenticated]);
+  }, []);
 
   let router = useRouter();
   let { authOpt } = router.query;

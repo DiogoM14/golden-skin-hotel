@@ -71,9 +71,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const { email, role, user_id } = response.data;
 
           setUser({
-            email,
-            role,
-            user_id,
+            email: email,
+            role: role,
+            user_id: user_id,
           });
         })
         .catch(() => {
