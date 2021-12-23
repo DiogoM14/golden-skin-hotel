@@ -13,10 +13,10 @@ import {
   MenuOptionGroup,
   MenuItemOption,
   useRadioGroup,
+  IconButton,
 } from "@chakra-ui/react";
-
 import { FiChevronDown } from "react-icons/fi";
-
+import { RiFilterOffLine } from "react-icons/ri";
 import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { RadioCard } from "../components/RadioCard";
@@ -34,6 +34,18 @@ const Rooms = ({ query }: any) => {
       e = e.toLowerCase();
       router.push({ pathname: "/rooms", query: { ...query, type: e } });
     }
+  };
+
+  const handleOrder = (e: any) => {
+    router.push({
+      pathname: "/rooms",
+      query: { ...query, orderBy: "price_night", direction: e },
+    });
+  };
+
+  const clearFilters = () => {
+    // delete all fields of query object
+    router.push({ pathname: "/rooms", query: {} });
   };
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -76,7 +88,7 @@ const Rooms = ({ query }: any) => {
                 Ordenar por
               </MenuButton>
               <MenuList minWidth='240px' zIndex='10'>
-                <MenuOptionGroup defaultValue='asc' type='radio'>
+                <MenuOptionGroup type='radio' onChange={handleOrder}>
                   <MenuItemOption value='asc'>Preço ascendente</MenuItemOption>
                   <MenuItemOption value='desc'>
                     Preço descendente
@@ -85,6 +97,13 @@ const Rooms = ({ query }: any) => {
               </MenuList>
             </Menu>
             <FilterRoomsBtn />
+
+            <IconButton
+              bgColor='#EFEFEF'
+              aria-label='Clear filters'
+              icon={<RiFilterOffLine />}
+              onClick={clearFilters}
+            />
           </HStack>
         </Flex>
         <CardGrid filter={query} haveHeader={false} />
