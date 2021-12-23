@@ -69,7 +69,11 @@ export const HomeAboutUsBanner = () => {
               eget ex eu arcu porta vehicula et non ante.
             </Text>
 
-            <Button bgColor='#F2BB05' color='#fff' w='120px'>
+            <Button
+              bgColor='#F2BB05'
+              color='#fff'
+              _hover={{ bg: "#e0ae09" }}
+              w='min-content'>
               Ver mais
             </Button>
           </Flex>

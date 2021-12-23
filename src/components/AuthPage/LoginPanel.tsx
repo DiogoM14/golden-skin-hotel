@@ -1,6 +1,6 @@
 import { Center, Text, FormControl, HStack, Button } from "@chakra-ui/react";
 import { useContext } from "react";
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { Input } from "../Finput";
@@ -11,29 +11,31 @@ export const LoginPanel = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm()
+  } = useForm();
 
-  const { signIn } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
 
   async function onSubmit({ email, password }: any) {
-    await signIn({ email, password })
+    await signIn({ email, password });
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl id='login' isInvalid={errors.name}>
-        <Input 
-          type='email' 
-          placeholder='E-mail' 
+        <Input
+          id='email'
+          type='email'
+          placeholder='E-mail'
           error={errors.email}
-          {...register('email')} 
+          {...register("email")}
         />
 
-        <Input 
-          type='password' 
-          placeholder='Palavra-passe' 
+        <Input
+          id='password'
+          type='password'
+          placeholder='Palavra-passe'
           error={errors.password}
-          {...register('password')} 
+          {...register("password")}
         />
 
         <HStack spacing='1'>
@@ -60,8 +62,7 @@ export const LoginPanel = () => {
             fontWeight='medium'
             fontSize='md'
             isLoading={isSubmitting}
-            type='submit'
-          >
+            type='submit'>
             Entrar
           </Button>
         </Center>

@@ -67,8 +67,7 @@ export function Card({ room }: Room) {
             bgColor='white'
             border='2px'
             borderColor='#F2BB05'
-            width='125px'
-            height='30px'
+            size='sm'
             _hover={{ bg: "transparent" }}>
             Ver Mais
           </Button>

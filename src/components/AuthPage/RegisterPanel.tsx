@@ -46,10 +46,16 @@ export const RegisterPanel = () => {
       <FormControl id='signUp'>
         <SimpleGrid columns={2} columnGap='4'>
           <GridItem colSpan={2}>
-            <Input type='email' placeholder='E-mail' {...register("email")} />
+            <Input
+              id='email'
+              type='email'
+              placeholder='E-mail'
+              {...register("email")}
+            />
           </GridItem>
           <GridItem colSpan={1}>
             <Input
+              id='firstName'
               type='text'
               placeholder='Primeiro Nome'
               {...register("firstName")}
@@ -57,16 +63,23 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={1}>
             <Input
+              id='lastName'
               type='text'
               placeholder='Último Nome'
               {...register("lastName")}
             />
           </GridItem>
           <GridItem colSpan={2}>
-            <Input type='tel' placeholder='Telemóvel' {...register("phone")} />
+            <Input
+              id='telephone'
+              type='tel'
+              placeholder='Telemóvel'
+              {...register("phone")}
+            />
           </GridItem>
           <GridItem colSpan={2}>
             <Input
+              id='password'
               type='password'
               placeholder='Palavra-passe'
               {...register("password")}
@@ -74,6 +87,7 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Input
+              id='passwordConfirm'
               type='password'
               placeholder='Repita a Palavra-passe'
               {...register("repeatPassword")}

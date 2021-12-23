@@ -23,14 +23,10 @@ export const Footer = () => {
             <Text fontSize='lg' fontWeight='bold'>
               Golden Skin Hotel
             </Text>
-            <Text fontSize='md' mt='6' fontWeight='regular'>
+            <Text fontSize='md' my='6' fontWeight='regular'>
               Rua do pelourinho 120 Portugal, Lousada
             </Text>
-            <Button
-              mt='6'
-              bgColor='#F2BB05'
-              color='#fff'
-              _hover={{ bg: "#e0ae09" }}>
+            <Button bgColor='#F2BB05' color='#fff' _hover={{ bg: "#e0ae09" }}>
               Reserve já
             </Button>
           </GridItem>
