@@ -7,6 +7,7 @@ import { AuthButtons } from "./AuthButtons";
 import { useContext } from 'react';
 import { AuthContext, signOut } from '../../contexts/AuthContext';
 import { UserAuth } from './UserAuth';
+import { UserAuthDrawer } from './UserAuthDrawer';
 
 
 export const Header = () => {
@@ -54,26 +55,7 @@ export const Header = () => {
                   <DrawerHeader>Configurações</DrawerHeader>
 
                   { isAuthenticated ? (
-                    <>
-                    <DrawerBody>
-                      <HStack>
-                        <Avatar
-                          name="Diogo Martins" 
-                          src="https://www.github.com/diogom14.png" 
-                          bg="#F2BB05"
-                          size="md"
-                        />
-                        <Text mx="2">{user.email}</Text>
-                      </HStack>
-                    </DrawerBody>
-
-                    <DrawerFooter>
-                      <HStack>
-                        <Button>Configurações</Button>
-                        <Button bgColor="#F2BB05" color="#fff" onClick={signOut}>Sair</Button>
-                      </HStack>
-                    </DrawerFooter>
-                  </>
+                    <UserAuthDrawer user={user.email} />
                   ) : (
                     <DrawerBody>
                       <Center>
