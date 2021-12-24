@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-
 import {
   Container,
   HStack,
@@ -44,7 +43,11 @@ const Rooms = ({ query }: any) => {
   };
 
   const clearFilters = () => {
-    // delete all fields of query object
+    // map through all query params and delete them
+    Object.keys(query).map((key) => {
+      delete query[key];
+    });
+
     router.push({ pathname: "/rooms", query: {} });
   };
 
@@ -96,7 +99,7 @@ const Rooms = ({ query }: any) => {
                 </MenuOptionGroup>
               </MenuList>
             </Menu>
-            <FilterRoomsBtn />
+            <FilterRoomsBtn filter={query} />
 
             <IconButton
               bgColor='#EFEFEF'

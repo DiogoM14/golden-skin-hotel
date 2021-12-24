@@ -5,7 +5,9 @@ export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
 
   const api = axios.create({
-    baseURL: "https://golden-skin-hotel.herokuapp.com",
+    //https://golden-skin-hotel.herokuapp.com/
+    //http://localhost:3333
+    baseURL: "https://golden-skin-hotel.herokuapp.com/",
     // headers: {
     //   "x-access-token": `${cookies['nextauth.token']}`
     // }
