@@ -7,8 +7,13 @@ import {
   SimpleGrid,
   Icon,
   Center,
+  HStack,
+  Divider,
+  IconButton,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
-import { FiTv, FiWifi } from "react-icons/fi";
+import { AiOutlineHeart } from "react-icons/ai";
 import { RoomProps } from "../../utils/TRoom";
 import NextLink from "next/link";
 
@@ -21,14 +26,8 @@ export function Card({ room }: Room) {
     "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
   return (
-    <Box borderRadius='lg' overflow='hidden' position='relative'>
-      <SimpleGrid
-        columns={2}
-        spacing='2'
-        position='absolute'
-        top='3'
-        right='3'
-        zIndex='1'>
+    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='lg'>
+      {/* <SimpleGrid columns={2} spacing='2'>
         <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiTv} boxSize='1.25rem' color='green' />
         </Center>
@@ -36,42 +35,53 @@ export function Card({ room }: Room) {
         <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiWifi} boxSize='1.25rem' color='blue' />
         </Center>
-      </SimpleGrid>
+      </SimpleGrid> */}
+
+      <IconButton
+        aria-label='Bookmark room'
+        position='absolute'
+        top='3'
+        right='3'
+        zIndex='1'
+        size='sm'
+        icon={<AiOutlineHeart />}
+      />
 
       <Image maxH='200px' width='100%' src={placeholderImg} />
 
-      <Box p='6' bgColor='white'>
-        <Heading as='h6' size='md' fontWeight='Medium' mb='2'>
-          Single room
-        </Heading>
-
-        <Text color='gray.500' fontSize='sm' mb='6'>
-          Lorem ipsum dolor sit amet, consect adipiscing elit.
-        </Text>
-
-        <Box display='flex' mb='6'>
-          <Text fontSize='sm' mr='1' color='gray.500'>
-            Desde
+      <Box p='4' bgColor='white'>
+        <Flex mb='4' alignItems='center'>
+          <Heading as='h6' fontSize='xl' fontWeight='md'>
+            Quarto {room.type}
+          </Heading>
+          <Spacer />
+          <Text color='gray.500' fontSize='sm'>
+            42m&sup2;
           </Text>
-
-          <Text fontSize='sm' fontWeight='bold' color='gray.900'>
-            {room.price_night}€ / noite
-          </Text>
-        </Box>
-
-        <NextLink href={`/room/${room._id}`}>
-          <Button
-            fontFamily='Poppins'
-            fontWeight='Medium'
-            fontSize='sm'
-            bgColor='white'
-            border='2px'
-            borderColor='#F2BB05'
-            size='sm'
-            _hover={{ bg: "transparent" }}>
-            Ver Mais
-          </Button>
-        </NextLink>
+        </Flex>
+        <Flex alignItems='center'>
+          <Flex>
+            <Text fontSize='sm' fontWeight='bold' color='gray.900'>
+              {room.price_night}€
+            </Text>
+            <Text fontSize='sm' color='gray.500'>
+              / noite
+            </Text>
+          </Flex>
+          <Spacer />
+          <NextLink href={`/room/${room._id}`}>
+            <Button
+              fontFamily='Poppins'
+              fontWeight='Medium'
+              bgColor='white'
+              border='2px'
+              borderColor='#F2BB05'
+              size='sm'
+              _hover={{ bgColor: "#EDF2F7" }}>
+              Ver Mais
+            </Button>
+          </NextLink>
+        </Flex>
       </Box>
     </Box>
   );

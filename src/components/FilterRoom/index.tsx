@@ -56,7 +56,7 @@ export const FilterRoomsBtn = ({ filter }: any) => {
         fontWeight='regular'
         rightIcon={<FiFilter />}
         onClick={onOpen}>
-        Filtrar por
+        Filtrar
       </Button>
       <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
         <DrawerOverlay />

@@ -14,7 +14,8 @@ import {
   useRadioGroup,
   IconButton,
 } from "@chakra-ui/react";
-import { FiChevronDown } from "react-icons/fi";
+import { BiSortAlt2 } from "react-icons/bi";
+import { BsSortUp, BsSortDown } from "react-icons/bs";
 import { RiFilterOffLine } from "react-icons/ri";
 import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
@@ -87,14 +88,22 @@ const Rooms = ({ query }: any) => {
                 as={Button}
                 bgColor='#EFEFEF'
                 fontWeight='regular'
-                rightIcon={<FiChevronDown />}>
-                Ordenar por
+                rightIcon={<BiSortAlt2 />}>
+                Ordenar
               </MenuButton>
               <MenuList minWidth='240px' zIndex='10'>
                 <MenuOptionGroup type='radio' onChange={handleOrder}>
-                  <MenuItemOption value='asc'>Preço ascendente</MenuItemOption>
-                  <MenuItemOption value='desc'>
+                  <MenuItemOption icon={<BsSortUp />} value='priceAsc'>
+                    Preço ascendente
+                  </MenuItemOption>
+                  <MenuItemOption icon={<BsSortDown />} value='priceDesc'>
                     Preço descendente
+                  </MenuItemOption>
+                  <MenuItemOption icon={<BsSortUp />} value='areaAsc'>
+                    Área ascendente
+                  </MenuItemOption>
+                  <MenuItemOption icon={<BsSortDown />} value='areaDesc'>
+                    Área descendente
                   </MenuItemOption>
                 </MenuOptionGroup>
               </MenuList>
