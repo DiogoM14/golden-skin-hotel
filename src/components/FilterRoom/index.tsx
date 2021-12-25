@@ -15,37 +15,64 @@ import {
   Tag,
   TagLabel,
   Spacer,
+  Flex,
+  useToast,
 } from "@chakra-ui/react";
 import { FiFilter } from "react-icons/fi";
 import { RangeSliderComponent } from "./RangeSlider";
 import { StepperButtons } from "./StepperButtons";
 import { CheckboxList } from "./CheckboxList";
 import { useRouter } from "next/router";
+import { ReservationDates } from "./ReservationDates";
 
 export const FilterRoomsBtn = ({ filter }: any) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const [priceRange, setPriceRange] = useState({ priceGT: 0, priceLT: 500 });
   const [capacity, setCapacity] = useState({ capacityGT: 1 });
   const [beds, setBeds] = useState({ no_bedsGT: 1 });
   const [amenities, setAmenities] = useState({});
+  const [checkIn, setCheckIn] = useState();
+  const [checkOut, setCheckOut] = useState();
 
   useEffect(() => {
     if (filter) {
-      let { priceGT, priceLT, amenities } = filter;
+      let { priceGT, priceLT, checkIn, checkOut, amenities } = filter;
       setPriceRange(priceGT && { priceGT, priceLT });
       setCapacity(filter.capacityGT);
       setBeds(filter.no_bedsGT);
       setAmenities(amenities && { amenities });
+      setCheckIn(checkIn && checkIn);
+      setCheckOut(checkOut && checkOut);
     }
   }, [filter]);
 
   const submitFilters = () => {
-    router.push({
-      pathname: "/rooms",
-      query: { ...filter, ...priceRange, ...capacity, ...beds, ...amenities },
-    });
-    onClose();
+    if (checkIn && checkOut) {
+      if (checkIn > checkOut) {
+        toast({
+          title: "Check-in date must be before check-out date",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        router.push({
+          pathname: "/rooms",
+          query: {
+            ...filter,
+            ...priceRange,
+            ...capacity,
+            ...beds,
+            ...amenities,
+            checkIn,
+            checkOut,
+          },
+        });
+        onClose();
+      }
+    }
   };
 
   return (
@@ -65,7 +92,7 @@ export const FilterRoomsBtn = ({ filter }: any) => {
           <DrawerHeader>Filtrar por</DrawerHeader>
 
           <DrawerBody>
-            <HStack spacing={8}>
+            <Flex>
               <StepperButtons
                 title='Pessoas'
                 value={capacity && capacity.capacityGT}
@@ -85,7 +112,7 @@ export const FilterRoomsBtn = ({ filter }: any) => {
                   setBeds({ no_bedsGT: value });
                 }}
               />
-            </HStack>
+            </Flex>
 
             <Divider my='4' />
 
@@ -125,6 +152,21 @@ export const FilterRoomsBtn = ({ filter }: any) => {
               {...(amenities ? { values: amenities } : {})}
               handleAmntChange={(values: any) => {
                 setAmenities({ amenities: values.join(",") });
+              }}
+            />
+
+            <Divider my='4' />
+
+            <ReservationDates
+              checkIn={checkIn}
+              checkOut={checkOut}
+              handleDateChanges={(date: any) => {
+                if (date.isCheckIn) {
+                  setCheckIn(date.date);
+                }
+                if (!date.isCheckIn) {
+                  setCheckOut(date.date);
+                }
               }}
             />
           </DrawerBody>
