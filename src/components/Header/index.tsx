@@ -1,11 +1,11 @@
 import { FiMenu } from 'react-icons/fi'
 import Link from 'next/link'
 
-import { Avatar, Button, Center, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, HStack, IconButton, Input, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
+import { Center, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Heading, IconButton, Text, useBreakpointValue, useDisclosure, Wrap } from "@chakra-ui/react";
 
 import { AuthButtons } from "./AuthButtons";
 import { useContext } from 'react';
-import { AuthContext, signOut } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { UserAuth } from './UserAuth';
 import { UserAuthDrawer } from './UserAuthDrawer';
 
@@ -55,7 +55,7 @@ export const Header = () => {
                   <DrawerHeader>Configurações</DrawerHeader>
 
                   { isAuthenticated ? (
-                    <UserAuthDrawer user={user.email} />
+                    <UserAuthDrawer user={user} />
                   ) : (
                     <DrawerBody>
                       <Center>

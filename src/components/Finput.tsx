@@ -12,10 +12,7 @@ interface InputProps extends ChakraInputProps {
   error?: FieldError;
 }
 
-const Finput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { error = null, type, ...rest },
-  ref
-) => {
+const Finput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ error = null, type, ...rest }, ref) => {
   return (
     <FormControl isInvalid={!!error}>
       <ChakraInput

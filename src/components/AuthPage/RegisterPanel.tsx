@@ -6,39 +6,29 @@ import {
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/apiClient";
 import { Input } from "../Finput";
 import { AuthOptions } from "./AuthOptions";
 
 export const RegisterPanel = () => {
+  const router = useRouter()
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const address = {
-    street: "teste",
-    city: "teste",
-    postal_code: "teste",
-    country: "teste",
-  };
-
-  const nifImprovisado = Math.random() * 1000000000;
-
   function onSubmit(values: any) {
-    console.log(values);
     api.post("auth/register", {
       first_name: values.firstName,
       last_name: values.lastName,
       email: values.email,
       phone_number: values.phone,
-      birthday: "10-01-2020",
-      address: address,
-      nif: nifImprovisado,
       password: values.password,
-    });
+    }).then(() => router.push("/auth/login"))
   }
 
   return (
@@ -59,7 +49,7 @@ export const RegisterPanel = () => {
               type='text'
               placeholder='Primeiro Nome'
               {...register("firstName")}
-            />
+              />
           </GridItem>
           <GridItem colSpan={1}>
             <Input

@@ -26,7 +26,7 @@ export function Card({ room }: Room) {
     "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
   return (
-    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='lg'>
+    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md'>
       {/* <SimpleGrid columns={2} spacing='2'>
         <Center bg='white' borderRadius='lg' boxSize='30px'>
           <Icon as={FiTv} boxSize='1.25rem' color='green' />

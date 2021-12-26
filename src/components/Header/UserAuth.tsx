@@ -15,15 +15,18 @@ import { AuthContext } from "../../contexts/AuthContext";
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext);
 
+  let name = `${ user.first_name } ${ user.last_name }`
+
   return (
     <Flex align='center'>
       <Avatar
-        name='Diogo Martins'
-        src='https://www.github.com/diogom14.png'
+        name={name} 
         bg='#F2BB05'
+        color="#fff"
         size='md'
+        src={user.avatar}
       />
-      <Text mx='2'>{user.email}</Text>
+      <Text mx='2'>{name}</Text>
       <Menu isLazy>
         <MenuButton>
           <FiChevronDown />

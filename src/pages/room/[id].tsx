@@ -1,8 +1,6 @@
 import Head from "next/head";
 import type { GetServerSideProps, NextPage } from "next";
-import { useRouter } from "next/router";
 import { Container } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import Header from "../../components/Room/Header";
 import Images from "../../components/Room/Images";
 import { Suggestions } from "../../components/Room/Suggestions";

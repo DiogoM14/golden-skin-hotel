@@ -13,6 +13,9 @@ type SignInCredentials = {
 };
 
 type User = {
+  first_name: string;
+  last_name: string;
+  avatar: string;
   email: string;
   role: string;
   user_id: string;
@@ -31,7 +34,6 @@ let authChannel: BroadcastChannel;
 
 export function signOut() {
   destroyCookie(undefined, "nextauth.token");
-  destroyCookie(undefined, "nextauth.refreshToken");
 
   authChannel.postMessage("signOut");
 
@@ -62,19 +64,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     if (token) {
       api
-        .get("/auth/me", {
+        .get("/me/myInfo", {
           headers: {
             "x-access-token": token,
           },
         })
         .then((response) => {
-          const { email, role, user_id } = response.data;
+          const { email, role, user_id, avatar, first_name, last_name } = response.data;
 
           setUser({
             email: email,
             role: role,
             user_id: user_id,
+            avatar,
+            first_name,
+            last_name,
           });
+
         })
         .catch(() => {
           signOut();
@@ -86,22 +92,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const response = await api.post("auth/login", {
         email,
-        password,
-      });
+        password
+      })
 
-      const { token, user_id, role } = response.data;
+      const { token } = response.data;
 
       setCookie(undefined, "nextauth.token", token, {
-        maxAge: 60 * 60 * 24 * 30, // 30 days
         path: "/",
       });
 
-      setUser({
-        email,
-        role,
-        user_id,
-      });
+      if (token) {
+        api
+        .get("/me/myInfo", {
+          headers: {
+            "x-access-token": token,
+          },
+        })
+        .then((response) => {
+          const { email, role, user_id, avatar, first_name, last_name } = response.data;
 
+          setUser({
+            email: email,
+            role: role,
+            user_id: user_id,
+            avatar,
+            first_name,
+            last_name,
+          });
+        })
+      }
+      
       api.defaults.headers.common["x-access-token"] = `${token}`;
 
       Router.push("/");

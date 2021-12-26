@@ -3,22 +3,26 @@ import Link from "next/link"
 
 import { signOut } from "../../contexts/AuthContext"
 
-interface Props {
-  user: string
-}
+type Props = {
+  email?: string;
+  role: string;
+  user_id: string;
+  name?: string
+  avatar?: string
+};
 
-export const UserAuthDrawer = ({ user }: Props) => {
+export const UserAuthDrawer = ({ user }: any) => {
   return (
     <>
       <DrawerBody>
         <HStack>
           <Avatar
-            name="Diogo Martins" 
+            name={user.email}
             src="https://www.github.com/diogom14.png" 
             bg="#F2BB05"
             size="md"
           />
-          <Text mx="2">{user}</Text>
+          <Text mx="2">{user.name}</Text>
         </HStack>
 
         <SimpleGrid mt="10" columns={2} gap="4">
