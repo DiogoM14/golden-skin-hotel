@@ -7,7 +7,7 @@ import { Box, Button, Flex, Heading, Spacer } from "@chakra-ui/react";
 import { format } from "date-fns";
 
 export const ReservationDates = (props: any) => {
-  const [startDate, setStartDate] = useState(new Date() as any);
+  const [startDate, setStartDate] = useState(null as any);
   const [endDate, setEndDate] = useState(null as any);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ export const ReservationDates = (props: any) => {
   }, [props.checkIn, props.checkOut]);
 
   const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
-    <Button fontWeight='regular' onClick={onClick} ref={ref}>
-      {value ? value : "xx-xx-xxxx"}
+    <Button fontWeight='regular' onClick={onClick} ref={ref} width='32'>
+      {value ? value : "--/---/----"}
     </Button>
   ));
   return (
@@ -36,6 +36,7 @@ export const ReservationDates = (props: any) => {
           <DatePicker
             selected={startDate}
             minDate={new Date()}
+            dateFormat={"dd/MMM/yyyy"}
             onChange={(date: Date) =>
               props.handleDateChanges({
                 date: format(date, "yyyy-MM-dd"),
@@ -58,6 +59,7 @@ export const ReservationDates = (props: any) => {
           </Heading>
           <DatePicker
             selected={endDate}
+            dateFormat={"dd/MMM/yyyy"}
             onChange={(date: Date) =>
               props.handleDateChanges({
                 date: format(date, "yyyy-MM-dd"),
