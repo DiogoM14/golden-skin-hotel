@@ -4,51 +4,101 @@ import {
   Heading,
   Text,
   Button,
-  SimpleGrid,
-  Icon,
-  Center,
-  HStack,
-  Divider,
   IconButton,
   Flex,
   Spacer,
 } from "@chakra-ui/react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RoomProps } from "../../utils/TRoom";
 import NextLink from "next/link";
+import { api } from "../../services/apiClient";
+import { parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 
 type Room = {
   room: RoomProps;
 };
 
 export function Card({ room }: Room) {
+  const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState();
+  const { "nextauth.token": token } = parseCookies();
+
+  useEffect(() => {
+    if (token) {
+      api
+        .get("/me/myInfo", {
+          headers: {
+            "x-access-token": token,
+          },
+        })
+        .then((res) => {
+          setUser(res.data);
+        });
+    }
+  }, [isLiked]);
+
+  useEffect(() => {
+    if (user) {
+      const { fav_rooms }: any = user;
+      if (fav_rooms.includes(room._id)) {
+        setIsLiked(true);
+      }
+    }
+  }, [user]);
+
+  const handleLike = () => {
+    if (!isLiked) {
+      api
+        .put(
+          `me/favRooms?room_id=${room._id}`,
+          {},
+          {
+            headers: {
+              "x-access-token": token,
+            },
+          }
+        )
+        .then((res) => {
+          setIsLiked(true);
+        });
+    } else {
+      api
+        .delete(`me/favRooms?room_id=${room._id}`, {
+          headers: {
+            "x-access-token": token,
+          },
+        })
+        .then((res) => {
+          setIsLiked(false);
+        });
+    }
+  };
+
   return (
     <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md'>
-      {/* <SimpleGrid columns={2} spacing='2'>
-        <Center bg='white' borderRadius='lg' boxSize='30px'>
-          <Icon as={FiTv} boxSize='1.25rem' color='green' />
-        </Center>
-
-        <Center bg='white' borderRadius='lg' boxSize='30px'>
-          <Icon as={FiWifi} boxSize='1.25rem' color='blue' />
-        </Center>
-      </SimpleGrid> */}
-
       <IconButton
+        onClick={handleLike}
         aria-label='Bookmark room'
         position='absolute'
         top='3'
         right='3'
         zIndex='1'
         size='sm'
-        icon={<AiOutlineHeart />}
+        icon={
+          !isLiked ? (
+            <AiOutlineHeart fill='#E53E3E' />
+          ) : (
+            <AiFillHeart fill='#E53E3E' />
+          )
+        }
       />
 
-      <Image 
-        maxH='200px' 
-        h="100%"
-        width='100%' 
-        src={room.images[0]} 
+      <Image
+        maxH='200px'
+        h='100%'
+        width='100%'
+        src={room.images[0]}
         objectFit='cover'
       />
 
