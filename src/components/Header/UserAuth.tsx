@@ -15,14 +15,14 @@ import { AuthContext } from "../../contexts/AuthContext";
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext);
 
-  let name = `${ user.first_name } ${ user.last_name }`
+  let name = `${user.first_name} ${user.last_name}`;
 
   return (
     <Flex align='center'>
       <Avatar
-        name={name} 
+        name={name}
         bg='#F2BB05'
-        color="#fff"
+        color='#fff'
         size='md'
         src={user.avatar}
       />
@@ -32,6 +32,12 @@ export const UserAuth = () => {
           <FiChevronDown />
         </MenuButton>
         <MenuList>
+          <Link href='/my-bookings'>
+            <MenuItem>Minhas reservas</MenuItem>
+          </Link>
+          <Link href='/fav-rooms'>
+            <MenuItem>Meus quartos favoritos</MenuItem>
+          </Link>
           <Link href='/edit-profile'>
             <MenuItem>Editar perfil</MenuItem>
           </Link>
