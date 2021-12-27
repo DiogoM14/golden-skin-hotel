@@ -17,8 +17,6 @@ type User = {
   last_name: string;
   avatar: string;
   email: string;
-  role: string;
-  user_id: string;
 };
 
 type AuthContextData = {
@@ -70,17 +68,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
           },
         })
         .then((response) => {
-          const { email, role, user_id, avatar, first_name, last_name } = response.data;
+          const { email, avatar, first_name, last_name } = response.data;
 
           setUser({
             email: email,
-            role: role,
-            user_id: user_id,
-            avatar,
+            avatar: avatar,
             first_name,
             last_name,
           });
-
+          console.log(user)
         })
         .catch(() => {
           signOut();
@@ -109,12 +105,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           },
         })
         .then((response) => {
-          const { email, role, user_id, avatar, first_name, last_name } = response.data;
+          const { email, avatar, first_name, last_name } = response.data;
 
           setUser({
             email: email,
-            role: role,
-            user_id: user_id,
             avatar,
             first_name,
             last_name,

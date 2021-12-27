@@ -22,9 +22,6 @@ type Room = {
 };
 
 export function Card({ room }: Room) {
-  let placeholderImg =
-    "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
-
   return (
     <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md'>
       {/* <SimpleGrid columns={2} spacing='2'>
@@ -47,7 +44,13 @@ export function Card({ room }: Room) {
         icon={<AiOutlineHeart />}
       />
 
-      <Image maxH='200px' width='100%' src={placeholderImg} />
+      <Image 
+        maxH='200px' 
+        h="100%"
+        width='100%' 
+        src={room.images[0]} 
+        objectFit='cover'
+      />
 
       <Box p='4' bgColor='white'>
         <Flex mb='4' alignItems='center'>
