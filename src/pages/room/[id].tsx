@@ -9,7 +9,7 @@ import { api } from "../../services/apiClient";
 import { RoomProps } from "../../utils/TRoom";
 
 const Room: NextPage = ({ data }: any) => {
-  const room = data
+  const room = data;
 
   return (
     <>
@@ -34,9 +34,9 @@ const Room: NextPage = ({ data }: any) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id }: any = params
+  const { id }: any = params;
 
-  const res = await api.get(`/rooms/id/${id}`)
+  const res = await api.get(`/rooms/id/${id}`);
 
   const data: RoomProps = {
     _id: res.data._id,
@@ -48,13 +48,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     price_night: res.data.price_night,
     images: res.data.images,
     reserved: res.data.reserved,
-  }
+    fav_rooms: res.data.fav_rooms,
+  };
 
   return {
     props: {
-      data
-    }
-  }
-}
+      data,
+    },
+  };
+};
 
 export default Room;
