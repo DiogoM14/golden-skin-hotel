@@ -13,6 +13,7 @@ import {
   MenuItemOption,
   useRadioGroup,
   IconButton,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { BiSortAlt2 } from "react-icons/bi";
 import { BsSortUp, BsSortDown } from "react-icons/bs";
@@ -36,10 +37,17 @@ const Rooms = ({ query }: any) => {
     }
   };
 
-  const handleOrder = (e: any) => {
+  const handlePriceOrder = (e: any) => {
     router.push({
       pathname: "/rooms",
-      query: { ...query, orderBy: "price_night", direction: e },
+      query: { ...query, orderByPrice: e },
+    });
+  };
+
+  const handleAreaOrder = (e: any) => {
+    router.push({
+      pathname: "/rooms",
+      query: { ...query, orderByArea: e },
     });
   };
 
@@ -92,17 +100,26 @@ const Rooms = ({ query }: any) => {
                 Ordenar
               </MenuButton>
               <MenuList minWidth='240px' zIndex='10'>
-                <MenuOptionGroup type='radio' onChange={handleOrder}>
-                  <MenuItemOption icon={<BsSortUp />} value='priceAsc'>
+                <MenuOptionGroup
+                  type='radio'
+                  title='Preço'
+                  onChange={handlePriceOrder}>
+                  <MenuItemOption icon={<BsSortUp />} value='asc'>
                     Preço ascendente
                   </MenuItemOption>
-                  <MenuItemOption icon={<BsSortDown />} value='priceDesc'>
+                  <MenuItemOption icon={<BsSortDown />} value='desc'>
                     Preço descendente
                   </MenuItemOption>
-                  <MenuItemOption icon={<BsSortUp />} value='areaAsc'>
+                </MenuOptionGroup>
+                <MenuDivider />
+                <MenuOptionGroup
+                  type='radio'
+                  title='Área'
+                  onChange={handleAreaOrder}>
+                  <MenuItemOption icon={<BsSortUp />} value='asc'>
                     Área ascendente
                   </MenuItemOption>
-                  <MenuItemOption icon={<BsSortDown />} value='areaDesc'>
+                  <MenuItemOption icon={<BsSortDown />} value='desc'>
                     Área descendente
                   </MenuItemOption>
                 </MenuOptionGroup>

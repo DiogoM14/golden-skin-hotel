@@ -197,7 +197,7 @@ export const EditProfile: NextPage = () => {
                       {...register("country")}
                     />
                   </GridItem>
-                  <GridItem colSpan={1}>
+                  <GridItem colSpan={2}>
                     <FormLabel fontWeight='regular' htmlFor='street'>
                       Rua
                     </FormLabel>
@@ -224,7 +224,7 @@ export const EditProfile: NextPage = () => {
                       {...register("postal_code")}
                     />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem colSpan={1}>
                     <FormLabel fontWeight='regular' htmlFor='city'>
                       Localidade
                     </FormLabel>

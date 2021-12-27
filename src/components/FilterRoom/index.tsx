@@ -9,11 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
-  Heading,
   Divider,
-  HStack,
-  Tag,
-  TagLabel,
   Spacer,
   Flex,
   useToast,
@@ -57,22 +53,21 @@ export const FilterRoomsBtn = ({ filter }: any) => {
           duration: 5000,
           isClosable: true,
         });
-      } else {
-        router.push({
-          pathname: "/rooms",
-          query: {
-            ...filter,
-            ...priceRange,
-            ...capacity,
-            ...beds,
-            ...amenities,
-            checkIn,
-            checkOut,
-          },
-        });
-        onClose();
       }
     }
+    router.push({
+      pathname: "/rooms",
+      query: {
+        ...filter,
+        ...priceRange,
+        ...capacity,
+        ...beds,
+        ...amenities,
+        checkIn,
+        checkOut,
+      },
+    });
+    onClose();
   };
 
   return (
@@ -126,27 +121,6 @@ export const FilterRoomsBtn = ({ filter }: any) => {
             />
 
             <Divider my='4' />
-
-            {/* <Heading fontSize='md' mb='4'>
-              Tags
-            </Heading>
-            <HStack spacing={4}>
-              Vai levar map
-              <Tag variant='subtle' colorScheme='cyan'>
-                <TagLabel>Cyan</TagLabel>
-              </Tag>
-              <Tag variant='subtle' colorScheme='cyan'>
-                <TagLabel>Cyan</TagLabel>
-              </Tag>
-              <Tag variant='subtle' colorScheme='cyan'>
-                <TagLabel>Cyan</TagLabel>
-              </Tag>
-              <Tag variant='subtle' colorScheme='cyan'>
-                <TagLabel>Cyan</TagLabel>
-              </Tag>
-            </HStack>
-
-            <Divider my='4' /> */}
 
             <CheckboxList
               {...(amenities ? { values: amenities } : {})}
