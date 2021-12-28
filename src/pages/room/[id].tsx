@@ -22,7 +22,7 @@ const Room: NextPage = ({ data }: any) => {
       <Container maxW='1000px' px={["6", "8", "12"]}>
         {room && (
           <>
-            <Header price={room.price_night} />
+            <Header price={room.price_night} room_id={room._id} />
             <Images />
             <Body room={room} />
             <Suggestions type={room.type} />
