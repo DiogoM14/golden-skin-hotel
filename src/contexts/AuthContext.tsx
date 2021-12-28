@@ -36,7 +36,7 @@ export function signOut() {
   authChannel.postMessage("signOut");
 
   Router.push("/");
-  Router.reload()
+  Router.reload();
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
@@ -76,7 +76,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
             first_name,
             last_name,
           });
-          console.log(user)
         })
         .catch(() => {
           signOut();
@@ -88,8 +87,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const response = await api.post("auth/login", {
         email,
-        password
-      })
+        password,
+      });
 
       const { token } = response.data;
 
@@ -99,23 +98,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       if (token) {
         api
-        .get("/me/myInfo", {
-          headers: {
-            "x-access-token": token,
-          },
-        })
-        .then((response) => {
-          const { email, avatar, first_name, last_name } = response.data;
+          .get("/me/myInfo", {
+            headers: {
+              "x-access-token": token,
+            },
+          })
+          .then((response) => {
+            const { email, avatar, first_name, last_name } = response.data;
 
-          setUser({
-            email: email,
-            avatar,
-            first_name,
-            last_name,
+            setUser({
+              email: email,
+              avatar,
+              first_name,
+              last_name,
+            });
           });
-        })
       }
-      
+
       api.defaults.headers.common["x-access-token"] = `${token}`;
 
       Router.push("/");

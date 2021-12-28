@@ -22,6 +22,5 @@ export type RoomProps = {
   amenities: Amenities;
   price_night: Number;
   images: Array<string>;
-  fav_rooms: Array<string>;
   reserved: Array<ReservedDates>;
 };

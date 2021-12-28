@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     price_night: res.data.price_night,
     images: res.data.images,
     reserved: res.data.reserved,
-    fav_rooms: res.data.fav_rooms,
   };
 
   return {
