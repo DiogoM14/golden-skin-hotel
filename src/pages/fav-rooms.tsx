@@ -1,8 +1,18 @@
-import { Container } from "@chakra-ui/react";
+import {
+  Center,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Text,
+} from "@chakra-ui/react";
 import { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import { CardGrid } from "../components/Cards/CardGrid";
+import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { api } from "../services/apiClient";
 
 export const FavRooms: NextPage = () => {
@@ -11,13 +21,13 @@ export const FavRooms: NextPage = () => {
   useEffect(() => {
     const { "nextauth.token": token } = parseCookies();
     api
-      .get("/me/fav-rooms", {
+      .get("/me/favRooms", {
         headers: {
           "x-access-token": token,
         },
       })
       .then((res) => {
-        setRooms(res.data);
+        setRooms(res.data.fav_rooms);
       });
   }, []);
 
@@ -28,7 +38,40 @@ export const FavRooms: NextPage = () => {
         <meta name='description' content='Melhor hotel do mundo' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Container></Container>
+      <Container maxW='container.xl' px={["6", "8", "12"]} mt='2.3rem' w='100%'>
+        <Heading
+          fontFamily='ubuntu'
+          fontSize='4xl'
+          fontWeight='bold'
+          mt='8'
+          mb='12'>
+          Meus quartos favoritos
+        </Heading>
+        {rooms.length >= 1 ? (
+          <>
+            <CardGrid haveHeader={false} roomsList={rooms} />
+            <SeeMoreBtn />
+          </>
+        ) : (
+          <Center mb='16'>
+            <Flex direction='column'>
+              <Heading fontSize='2xl' fontWeight='regular' mb='4'>
+                Ainda não adicionaste quartos aos teus favoritos
+              </Heading>
+              <Center>
+                <Flex>
+                  <Text mr='1'>Começa por</Text>
+                  <Link href='/rooms'>
+                    <Text cursor='pointer' fontWeight='semibold'>
+                      procurar um quarto aqui
+                    </Text>
+                  </Link>
+                </Flex>
+              </Center>
+            </Flex>
+          </Center>
+        )}
+      </Container>
     </>
   );
 };

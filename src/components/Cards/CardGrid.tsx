@@ -8,16 +8,21 @@ import { api } from "../../services/apiClient";
 interface Props {
   haveHeader?: boolean;
   filter?: any;
+  roomsList?: any;
 }
 
-export function CardGrid({ haveHeader = true, filter }: Props) {
+export function CardGrid({ haveHeader = true, filter, roomsList }: Props) {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    api.get("/rooms/filter", { params: filter }).then((res) => {
-      setRooms(res.data);
-    });
-  }, [filter]);
+    if (roomsList) {
+      setRooms(roomsList);
+    } else {
+      api.get("/rooms/filter", { params: filter }).then((res) => {
+        setRooms(res.data);
+      });
+    }
+  }, [filter, roomsList]);
 
   return (
     <Container maxW='container.lg'>

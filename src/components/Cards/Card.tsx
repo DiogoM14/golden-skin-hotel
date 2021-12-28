@@ -14,6 +14,7 @@ import NextLink from "next/link";
 import { api } from "../../services/apiClient";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 type Room = {
   room: RoomProps;
@@ -23,6 +24,7 @@ export function Card({ room }: Room) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
   const { "nextauth.token": token } = parseCookies();
+  const router = useRouter();
 
   useEffect(() => {
     if (token) {
@@ -48,30 +50,34 @@ export function Card({ room }: Room) {
   }, [user]);
 
   const handleLike = () => {
-    if (!isLiked) {
-      api
-        .put(
-          `me/favRooms?room_id=${room._id}`,
-          {},
-          {
+    if (!token) {
+      router.push("/auth/login");
+    } else {
+      if (!isLiked) {
+        api
+          .put(
+            `me/favRooms?room_id=${room._id}`,
+            {},
+            {
+              headers: {
+                "x-access-token": token,
+              },
+            }
+          )
+          .then((res) => {
+            setIsLiked(true);
+          });
+      } else {
+        api
+          .delete(`me/favRooms?room_id=${room._id}`, {
             headers: {
               "x-access-token": token,
             },
-          }
-        )
-        .then((res) => {
-          setIsLiked(true);
-        });
-    } else {
-      api
-        .delete(`me/favRooms?room_id=${room._id}`, {
-          headers: {
-            "x-access-token": token,
-          },
-        })
-        .then((res) => {
-          setIsLiked(false);
-        });
+          })
+          .then((res) => {
+            setIsLiked(false);
+          });
+      }
     }
   };
 
