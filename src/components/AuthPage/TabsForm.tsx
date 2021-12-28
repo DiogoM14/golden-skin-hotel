@@ -6,7 +6,7 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
 
 import { LoginPanel } from "./LoginPanel";
 import { RegisterPanel } from "./RegisterPanel";
@@ -21,7 +21,7 @@ export const TabsForm = ({ authOption }: any) => {
         variant='unstyled'
         mt='20'>
         <TabList mb='8'>
-          <Link href='/auth/login'>
+          <NextLink href='/auth/login'>
             <Tab
               _selected={{
                 borderBottom: "2px solid",
@@ -29,8 +29,8 @@ export const TabsForm = ({ authOption }: any) => {
               }}>
               <Text fontFamily='Poppins'>Entrar</Text>
             </Tab>
-          </Link>
-          <Link href='/auth/register'>
+          </NextLink>
+          <NextLink href='/auth/register'>
             <Tab
               _selected={{
                 borderBottom: "2px  solid",
@@ -38,7 +38,7 @@ export const TabsForm = ({ authOption }: any) => {
               }}>
               <Text fontFamily='Poppins'>Registar</Text>
             </Tab>
-          </Link>
+          </NextLink>
         </TabList>
         <TabPanels>
           <TabPanel p={0}>

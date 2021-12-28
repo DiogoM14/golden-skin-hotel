@@ -7,7 +7,7 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useContext } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -32,15 +32,15 @@ export const UserAuth = () => {
           <FiChevronDown />
         </MenuButton>
         <MenuList>
-          <Link href='/my-bookings'>
+          <NextLink href='/my-bookings'>
             <MenuItem>Minhas reservas</MenuItem>
-          </Link>
-          <Link href='/fav-rooms'>
+          </NextLink>
+          <NextLink href='/fav-rooms'>
             <MenuItem>Meus quartos favoritos</MenuItem>
-          </Link>
-          <Link href='/edit-profile'>
+          </NextLink>
+          <NextLink href='/edit-profile'>
             <MenuItem>Editar perfil</MenuItem>
-          </Link>
+          </NextLink>
           <MenuItem onClick={signOut}>Sair</MenuItem>
         </MenuList>
       </Menu>

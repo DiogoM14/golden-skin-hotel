@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
+import NextLink from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { CardGrid } from "../components/Cards/CardGrid";
@@ -61,11 +61,11 @@ export const FavRooms: NextPage = () => {
               <Center>
                 <Flex>
                   <Text mr='1'>Começa por</Text>
-                  <Link href='/rooms'>
+                  <NextLink href='/rooms'>
                     <Text cursor='pointer' fontWeight='semibold'>
                       procurar um quarto aqui
                     </Text>
-                  </Link>
+                  </NextLink>
                 </Flex>
               </Center>
             </Flex>
