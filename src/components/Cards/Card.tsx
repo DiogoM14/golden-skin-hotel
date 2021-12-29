@@ -115,7 +115,7 @@ export function Card({ room }: Room) {
           </Heading>
           <Spacer />
           <Text color='gray.500' fontSize='sm'>
-            42m&sup2;
+            {room.area}m&sup2;
           </Text>
         </Flex>
         <Flex alignItems='center'>
