@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { FiUsers } from "react-icons/fi";
 import { HomeResDates } from "./HomeResDates";
+import { format } from "date-fns";
 
 export const HomeRoomFilter = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ export const HomeRoomFilter = () => {
         router.push({
           pathname: "/rooms",
           query: {
-            checkIn: startDate,
+            checkIn: format(new Date(startDate), "yyyy-MM-dd"),
             checkOut: endDate,
             capacityGT: people,
           },
