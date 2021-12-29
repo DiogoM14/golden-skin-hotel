@@ -9,7 +9,6 @@ import {
   List,
   ListItem,
   SimpleGrid,
-  Spacer,
   Text,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
@@ -98,13 +97,11 @@ export const BookingCard = ({ booking }: any) => {
           flex='1/2'
           overflow='hidden'
           position='relative'
-          h='100%'
           mt={{ base: 4, lg: 0 }}>
           <Image
             borderRadius='lg'
             maxH={{ sm: "150px", lg: "200px" }}
-            h='100%'
-            width='100%'
+            width={{ base: "100%", lg: "300px" }}
             src={booking.room.images[0]}
             objectFit='cover'
           />
