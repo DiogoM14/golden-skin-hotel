@@ -6,19 +6,22 @@ import {
   Center,
   Button,
   useDisclosure,
+  Text,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Amenities } from "./Amenities";
+import { Description } from "./Description";
+import { Header } from "./Header";
+import { RoomProps } from "../../../utils/TRoom";
 
 import DatePicker, { registerLocale } from "react-datepicker";
 import { eachDayOfInterval, format, parseISO } from "date-fns";
 import pt from "date-fns/locale/pt";
 registerLocale("pt", pt);
 import "react-datepicker/dist/react-datepicker.css";
-import { Amenities } from "./Amenities";
-import { Description } from "./Description";
-import { Header } from "./Header";
-import { RoomProps } from "../../../utils/TRoom";
+
+import { useEffect, useState } from "react";
+
 import { ReservationModal } from "../../RevervationModal";
 
 interface Room {
@@ -55,24 +58,28 @@ export const Body = ({ room }: Room) => {
 
   function handleSubmitDates() {
     if (startDate && endDate) {
-      // check if selected dates include some days in excluded dates
+      // check if selected dates include any days from excluded dates
       if (
-        excludedDates.some((date: Date) => {
-          return (
-            date.getDay() >= startDate.getDay() &&
-            date.getDay() <= new Date(endDate).getDay()
-          );
+        eachDayOfInterval({
+          start: new Date(startDate),
+          end: new Date(endDate),
+        }).some((date: any) => {
+          return excludedDates.some((excluded: any) => {
+            return (
+              format(date, "yyyy-MM-dd") === format(excluded, "yyyy-MM-dd")
+            );
+          });
         })
       ) {
-        onOpen();
-      } else {
         toast({
-          title: "Por favor, selecione outras datas",
+          title: "Selecione outras datas",
           description: "As datas selecionadas não estão disponíveis",
           status: "error",
           duration: 3000,
           isClosable: true,
         });
+      } else {
+        onOpen();
       }
     }
   }
