@@ -6,6 +6,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  MenuGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useContext } from "react";
@@ -32,16 +34,33 @@ export const UserAuth = () => {
           <FiChevronDown />
         </MenuButton>
         <MenuList>
-          <NextLink href='/my-bookings'>
-            <MenuItem>Minhas reservas</MenuItem>
-          </NextLink>
-          <NextLink href='/fav-rooms'>
-            <MenuItem>Meus quartos favoritos</MenuItem>
-          </NextLink>
-          <NextLink href='/edit-profile'>
-            <MenuItem>Editar perfil</MenuItem>
-          </NextLink>
-          <MenuItem onClick={signOut}>Sair</MenuItem>
+          <MenuGroup title='Administrador'>
+            <NextLink href='/admin/rooms'>
+              <MenuItem>Quartos</MenuItem>
+            </NextLink>
+            <NextLink href='/admin/bookings'>
+              <MenuItem>Reservas</MenuItem>
+            </NextLink>
+            <NextLink href='/admin/users'>
+              <MenuItem>Utilizadores</MenuItem>
+            </NextLink>
+          </MenuGroup>
+          <MenuDivider />
+          <MenuGroup title='Hóspede'>
+            <NextLink href='/my-bookings'>
+              <MenuItem>Minhas reservas</MenuItem>
+            </NextLink>
+            <NextLink href='/fav-rooms'>
+              <MenuItem>Meus quartos favoritos</MenuItem>
+            </NextLink>
+            <NextLink href='/edit-profile'>
+              <MenuItem>Editar perfil</MenuItem>
+            </NextLink>
+          </MenuGroup>
+          <MenuDivider />
+          <MenuGroup>
+            <MenuItem onClick={signOut}>Sair</MenuItem>
+          </MenuGroup>
         </MenuList>
       </Menu>
     </Flex>
