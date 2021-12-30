@@ -35,7 +35,7 @@ export const Rooms: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Container maxW='container.xl'>
-        <Table size='lg' variant='striped' colorScheme='black' mb='16'>
+        <Table size='lg' variant='striped' colorScheme='black' mt='16' mb='32'>
           <TableCaption placement='top'>Lista de Quartos</TableCaption>
           <Thead bgColor='#F2BB05'>
             <Tr>

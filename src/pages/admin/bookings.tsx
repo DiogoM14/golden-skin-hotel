@@ -46,7 +46,7 @@ export const Bookings: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Container maxW='container.xl'>
-        <Table size='lg' variant='striped' colorScheme='black' mb='16'>
+        <Table size='lg' variant='striped' colorScheme='black' mt='16' mb='32'>
           <TableCaption placement='top'>Lista de Reservas</TableCaption>
           <Thead bgColor='#F2BB05'>
             <Tr>
@@ -72,9 +72,9 @@ export const Bookings: NextPage = () => {
                 </Link>
 
                 <Td>
-                  {format(new Date(booking.dates.from), "yyy-MM-dd") +
+                  {format(new Date(booking.dates.from), "dd-MM-yyyy") +
                     " - " +
-                    format(new Date(booking.dates.to), "yyy-MM-dd")}
+                    format(new Date(booking.dates.to), "dd-MM-yyyy")}
                 </Td>
                 <Td>{booking.no_guests}</Td>
                 <Td>
