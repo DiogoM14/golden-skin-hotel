@@ -1,3 +1,4 @@
+import { Container, Text } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { api } from "../../../services/apiClient";
@@ -12,6 +13,11 @@ export const EditRoom: NextPage = ({ data }: any) => {
         <meta name='description' content='Melhor hotel do mundo' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Container>
+        <Text fontFamily='Poppins' mt='20' fontSize='2xl'>
+          Editar Quarto
+        </Text>
+      </Container>
     </>
   );
 };

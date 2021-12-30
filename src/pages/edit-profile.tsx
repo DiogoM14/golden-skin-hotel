@@ -116,7 +116,7 @@ export const EditProfile: NextPage = () => {
       </Head>
 
       <Container>
-        <Text fontFamily='Poppins' mt='20' fontSize='2xl'>
+        <Text fontFamily='Poppins' mt='20' fontSize='4xl'>
           Editar perfil
         </Text>
         <Center>

@@ -34,17 +34,20 @@ export const UserAuth = () => {
           <FiChevronDown />
         </MenuButton>
         <MenuList>
-          { user.role.includes("ADMIN") && (
+          {user.role.includes("ADMIN") && (
             <>
               <MenuGroup title='Administrador'>
                 <NextLink href='/admin/rooms'>
-                  <MenuItem>Quartos</MenuItem>
+                  <MenuItem>Listar Quartos</MenuItem>
+                </NextLink>
+                <NextLink href='/admin/create-room'>
+                  <MenuItem>Criar Quarto</MenuItem>
                 </NextLink>
                 <NextLink href='/admin/bookings'>
-                  <MenuItem>Reservas</MenuItem>
+                  <MenuItem>Listar Reservas</MenuItem>
                 </NextLink>
                 <NextLink href='/admin/users'>
-                  <MenuItem>Utilizadores</MenuItem>
+                  <MenuItem>Listar Utilizadores</MenuItem>
                 </NextLink>
               </MenuGroup>
               <MenuDivider />
