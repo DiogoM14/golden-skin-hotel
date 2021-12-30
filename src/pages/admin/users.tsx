@@ -7,15 +7,13 @@ import {
   Thead,
   Tr,
   Td,
-  Button,
-  Center,
   Avatar,
 } from "@chakra-ui/react";
+
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { api } from "../../services/apiClient";
 import { UserProps } from "../../utils/TUser";
-import NextLink from "next/link";
 import Head from "next/head";
 import { parseCookies } from "nookies";
 
