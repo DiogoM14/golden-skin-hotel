@@ -11,17 +11,14 @@ import {
   Link,
   Center,
 } from "@chakra-ui/react";
-import { NextPage } from "next";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/apiClient";
-import { RoomProps } from "../../utils/TRoom";
 import NextLink from "next/link";
-import Head from "next/head";
 import { BookingProps } from "../../utils/TBooking";
 import { parseCookies } from "nookies";
 import { format } from "date-fns";
 
-export const Bookings: NextPage = () => {
+export const Bookings = () => {
   const [bookings, setBookings] = useState([] as BookingProps[]);
   const { "nextauth.token": token } = parseCookies();
 
@@ -40,11 +37,6 @@ export const Bookings: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Golden Skin Hotel</title>
-        <meta name='description' content='Melhor hotel do mundo' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
       <Container maxW='container.xl'>
         <Table size='lg' variant='striped' colorScheme='black' mt='16' mb='32'>
           <TableCaption placement='top'>Lista de Reservas</TableCaption>
@@ -92,4 +84,3 @@ export const Bookings: NextPage = () => {
   );
 };
 
-export default Bookings;

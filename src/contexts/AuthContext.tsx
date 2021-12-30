@@ -70,14 +70,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
         .then((response) => {
           const { email, avatar, first_name, last_name, role } = response.data;
-
+          
           setUser({
             email: email,
             avatar: avatar,
             first_name,
             last_name,
             role
-          });
+          });          
         })
         .catch(() => {
           signOut();

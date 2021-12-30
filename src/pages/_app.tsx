@@ -7,13 +7,13 @@ import { AuthProvider } from "../contexts/AuthContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <AuthProvider>
+    <AuthProvider>
+      <ChakraProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
         <Footer />
-      </AuthProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </AuthProvider>
   );
 }
 
