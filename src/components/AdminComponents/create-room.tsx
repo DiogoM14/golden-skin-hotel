@@ -5,6 +5,8 @@ import {
   Container,
   Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   GridItem,
   Menu,
@@ -27,7 +29,12 @@ import { useEffect, useState } from "react";
 import { RoomProps } from "../../utils/TRoom";
 import { api } from "../../services/apiClient";
 import { parseCookies } from "nookies";
-import { storage, ref, uploadBytesResumable, getDownloadURL } from "../../services/firebase";
+import {
+  storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "../../services/firebase";
 
 export const CreateRoom = () => {
   const {
@@ -35,62 +42,113 @@ export const CreateRoom = () => {
     register,
     formState: { errors, isSubmitting },
     setValue,
+    reset,
   } = useForm();
   const toast = useToast();
   const [type, setType] = useState("" as string);
   const [amenities, setAmenities] = useState({} as any);
-  const [images, setImages] = useState([] as any);
 
   const onSubmit = async (data: any) => {
+    if (data.images.length < 5) {
+      toast({
+        title: "Selecione pelo menos 5 imagens",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     const { "nextauth.token": token } = parseCookies();
 
-    let imageFiles: any = [data.images]
+    let imageFiles: any = [data.images][0];
 
-    console.log(imageFiles.name)
+    let uploadPromises: any[] = [];
 
-    imageFiles.map((image: any) => {
+    uploadPromises.push(
+      [...imageFiles].map(async (file: any) => {
+        const storageRef = ref(storage, "images/" + file.name);
+        await uploadBytesResumable(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        return downloadURL;
+      })
+    );
+
+    data.images = [];
+
+    await Promise.all(uploadPromises[0]).then(
+      (values: any) => (data.images = values)
+    );
+
+    /*     await Promise.all(imageUrls).then((values: any) =>
+      values[0].map((url: any) =>
+        url.then((url: any) => {
+          data.images.push(url);
+          console.log(data.images);
+        })
+      )
+    ); */
+
+    /*     newURLS[0].map(async (element: any) => {
+      await element.then((url: any) => {
+        imageUrls.push(url);
+      });
+    }); */
+
+    /*     imageFiles.map(async (file: any) => {
+      const storageRef = ref(storage, "images/" + file.name);
+      let uploadTask = await uploadBytesResumable(storageRef, file.name);
+
+      let downloadUrl = getDownloadURL(storageRef);
+      console.log(downloadUrl);
+      setImages(images.concat(downloadUrl));
+    }); */
+
+    /*     imageFiles.map((image: any) => {
       const storageRef = ref(storage, 'images/' + image.name);
       uploadBytesResumable(storageRef, image);
       getDownloadURL(storageRef)
       .then(async (res) => {
         return setImages([...images, res]);
       })
-    })
+    }) */
 
     let newRoom: RoomProps = {
       ...data,
-      images,
       type,
       amenities,
     };
 
     api
-    .post("/admin/rooms", newRoom, {
-      headers: {
-        "x-access-token": token,
-      },
-    })
-    .then((res) => {
-      toast({
-        title: "Quarto criado",
-        description: "Quarto " + res.data.room_no + " criado com sucesso",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
+      .post("/admin/rooms", newRoom, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then((res) => {
+        toast({
+          title: "Quarto criado",
+          description: "Quarto " + res.data.room_no + " criado com sucesso",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setAmenities({});
+        reset();
+      })
+      .catch((err) => {
+        toast({
+          title: "Erro",
+          description:
+            "Certifique-se que o número do quarto não existe e que todos os campos estão preenchidos",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom",
+        });
       });
-    })
-    .catch((err) => {
-      toast({
-        title: "Erro",
-        description:
-          "Certifique-se que o número do quarto não existe e que todos os campos estão preenchidos",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
-    });
   };
 
   return (
@@ -114,7 +172,13 @@ export const CreateRoom = () => {
                 <SimpleGrid columns={2} spacing={4} row={5}>
                   <GridItem colSpan={2}>
                     <FormLabel htmlFor='images'>Imagens</FormLabel>
-                    <Input type='file' id='images' multiple {...register("images")} />
+                    <Input
+                      isRequired
+                      type='file'
+                      id='images'
+                      multiple
+                      {...register("images")}
+                    />
                   </GridItem>
                   <GridItem colSpan={1}>
                     <FormLabel htmlFor='room_no'>Número do quarto</FormLabel>
@@ -141,7 +205,7 @@ export const CreateRoom = () => {
                   <GridItem colSpan={1}>
                     <FormLabel>Tipo de quarto</FormLabel>
                     <Center>
-                      <Menu closeOnSelect={false}>
+                      <Menu closeOnSelect={true}>
                         <MenuButton
                           as={Button}
                           w='100%'
