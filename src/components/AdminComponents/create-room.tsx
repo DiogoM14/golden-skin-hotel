@@ -5,24 +5,19 @@ import {
   Container,
   Flex,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
   GridItem,
   Menu,
   MenuButton,
-  MenuItem,
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
-  Select,
   SimpleGrid,
   Tag,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import { Input } from "../Finput";
-import { NextPage } from "next";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -80,39 +75,6 @@ export const CreateRoom = () => {
     await Promise.all(uploadPromises[0]).then(
       (values: any) => (data.images = values)
     );
-
-    /*     await Promise.all(imageUrls).then((values: any) =>
-      values[0].map((url: any) =>
-        url.then((url: any) => {
-          data.images.push(url);
-          console.log(data.images);
-        })
-      )
-    ); */
-
-    /*     newURLS[0].map(async (element: any) => {
-      await element.then((url: any) => {
-        imageUrls.push(url);
-      });
-    }); */
-
-    /*     imageFiles.map(async (file: any) => {
-      const storageRef = ref(storage, "images/" + file.name);
-      let uploadTask = await uploadBytesResumable(storageRef, file.name);
-
-      let downloadUrl = getDownloadURL(storageRef);
-      console.log(downloadUrl);
-      setImages(images.concat(downloadUrl));
-    }); */
-
-    /*     imageFiles.map((image: any) => {
-      const storageRef = ref(storage, 'images/' + image.name);
-      uploadBytesResumable(storageRef, image);
-      getDownloadURL(storageRef)
-      .then(async (res) => {
-        return setImages([...images, res]);
-      })
-    }) */
 
     let newRoom: RoomProps = {
       ...data,

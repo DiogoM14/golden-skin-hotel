@@ -23,7 +23,7 @@ const Room: NextPage = ({ data }: any) => {
         {room && (
           <>
             <Header price={room.price_night} room_id={room._id} />
-            <Images />
+            <Images images={room.images} />
             <Body room={room} />
             <Suggestions type={room.type} />
           </>
