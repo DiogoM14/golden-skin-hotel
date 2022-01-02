@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Center,
   Container,
@@ -6,19 +7,25 @@ import {
   FormControl,
   FormLabel,
   GridItem,
-  Img,
   SimpleGrid,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Input } from "../components/Finput";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { api } from "../services/apiClient";
 import { parseCookies } from "nookies";
 import { useForm } from "react-hook-form";
+import {
+  storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "../services/firebase";
 
 type userInfo = {
   email: string;
@@ -35,6 +42,7 @@ type userInfo = {
   last_name: string;
   phone_number: string;
   birthday: string;
+  avatar: string;
 };
 
 export const EditProfile: NextPage = () => {
@@ -46,6 +54,8 @@ export const EditProfile: NextPage = () => {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm();
+  const toast = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -61,15 +71,15 @@ export const EditProfile: NextPage = () => {
         })
         .then((res) => {
           res.data.email && setValue("email", res.data.email);
-          res.data.first_name && setValue("firstName", res.data.first_name);
-          res.data.last_name && setValue("lastName", res.data.last_name);
+          res.data.first_name && setValue("fist_name", res.data.first_name);
+          res.data.last_name && setValue("last_name", res.data.last_name);
           res.data.phone_number &&
-            setValue("phoneNumber", res.data.phone_number);
+            setValue("phone_number", res.data.phone_number);
           res.data.birthday && setValue("birthday", res.data.birthday);
           res.data.address &&
             (setValue("street", res.data.address.street),
             setValue("city", res.data.address.city),
-            setValue("postalCode", res.data.address.postal_code),
+            setValue("postal_code", res.data.address.postal_code),
             setValue("country", res.data.address.country));
           res.data.nif && setValue("nif", res.data.nif);
 
@@ -78,8 +88,16 @@ export const EditProfile: NextPage = () => {
     }
   }, []);
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
     const { "nextauth.token": token } = parseCookies();
+
+    if (values.avatar[0]) {
+      const storageRef = ref(storage, "avatar/" + values.avatar[0].name);
+      await uploadBytesResumable(storageRef, values.avatar[0]);
+      values.avatar = await getDownloadURL(storageRef);
+    } else {
+      delete values.avatar;
+    }
 
     Object.keys(values).map((key) => {
       if (values[key] === "") {
@@ -94,6 +112,10 @@ export const EditProfile: NextPage = () => {
         postal_code: values.postal_code ? values.postal_code : null,
         country: values.country ? values.country : null,
       };
+      delete values.street;
+      delete values.city;
+      delete values.postal_code;
+      delete values.country;
     }
 
     api
@@ -103,7 +125,24 @@ export const EditProfile: NextPage = () => {
         },
       })
       .then((res) => {
+        toast({
+          title: "Successo",
+          description: "Perfil atualizado com sucesso",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         setUserInfo(res.data);
+        router.reload();
+      })
+      .catch((err) => {
+        toast({
+          title: "Erro",
+          description: "Erro ao atualizar o perfil",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
@@ -122,18 +161,22 @@ export const EditProfile: NextPage = () => {
         <Center>
           <Flex direction='column' alignItems='center'>
             <Flex direction='column' alignItems='center' mt='10'>
-              <Img
-                src='aboutUs.png'
-                objectFit='cover'
+              <Avatar
+                name={`${userInfo?.first_name} ${userInfo?.last_name}`}
+                bg='#F2BB05'
+                color='#fff'
                 boxSize='32'
-                borderRadius='full'
+                size='md'
+                objectFit='cover'
+                src={userInfo?.avatar}
               />
-              <Text
-                fontWeight='regular'
-                mt='2'
-                _hover={{ textDecoration: "underline", cursor: "pointer" }}>
-                Alterar foto de perfil
-              </Text>
+              <Text>Alterar foto de perfil</Text>
+              <Input
+                type='file'
+                id='avatar'
+                {...register("avatar")}
+                size='sm'
+              />
             </Flex>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl mt='3'>
@@ -161,7 +204,7 @@ export const EditProfile: NextPage = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
-                    <FormLabel fontWeight='regular' htmlFor='telephone'>
+                    <FormLabel fontWeight='regular' htmlFor='phone_number'>
                       Telemóvel
                     </FormLabel>
                     <Input
@@ -169,8 +212,8 @@ export const EditProfile: NextPage = () => {
                         userInfo?.phone_number && userInfo.phone_number
                       }
                       type='tel'
-                      id='telephone'
-                      {...register("telephone")}
+                      id='phone_number'
+                      {...register("phone_number")}
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
