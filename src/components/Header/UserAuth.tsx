@@ -33,7 +33,7 @@ export const UserAuth = () => {
         <MenuButton>
           <FiChevronDown />
         </MenuButton>
-        <MenuList>
+        <MenuList zIndex={1000}>
           {user.role.includes("ADMIN") && (
             <>
               <MenuGroup title='Administrador'>
