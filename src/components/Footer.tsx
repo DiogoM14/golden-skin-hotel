@@ -1,68 +1,68 @@
-import { Box, Button, Grid, GridItem, Text } from "@chakra-ui/react";
+import {
+  Box,
+  chakra,
+  Container,
+  Stack,
+  Text,
+  VisuallyHidden,
+} from "@chakra-ui/react";
+import { FaInstagram, FaTwitter, FaFacebook } from "react-icons/fa";
+import { ReactNode } from "react";
+
+const SocialButton = ({
+  children,
+  label,
+}: {
+  children: ReactNode;
+  label: string;
+}) => {
+  return (
+    <chakra.button
+      color='#F2BB05'
+      bgColor='#1C1C1C'
+      _hover={{ bgColor: "#4f4f4f" }}
+      rounded={"full"}
+      w={8}
+      h={8}
+      cursor={"pointer"}
+      as={"a"}
+      display={"inline-flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      transition={"background 0.3s ease"}>
+      <VisuallyHidden>{label}</VisuallyHidden>
+      {children}
+    </chakra.button>
+  );
+};
 
 export const Footer = () => {
   return (
-    <>
-      <Box
-        as='footer'
-        w='full'
-        py='16'
-        px={{ base: 16, lg: 30, xl: 48 }}
-        bgColor='#1C1C1C'
-        color='white'
-        position='relative'>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            lg: "repeat(5, 1fr)",
-          }}
-          templateRows={{ base: "repeat(2, 1fr)", sm: "repeat(1, 1fr)" }}
-          gap={{ base: 4 }}>
-          <GridItem colSpan={1} textAlign={{ base: "center" }}>
-            <Text fontSize='lg' fontWeight='bold'>
-              Golden Skin Hotel
-            </Text>
-            <Text fontSize='md' my='6' fontWeight='regular'>
-              Rua do pelourinho 120 Portugal, Lousada
-            </Text>
-            <Button bgColor='#F2BB05' color='#fff' _hover={{ bg: "#e0ae09" }}>
-              Reserve já
-            </Button>
-          </GridItem>
-          <GridItem colSpan={{ base: 1, lg: 4 }}>
-            <Grid
-              textAlign={{ base: "center", sm: "end", lg: "center" }}
-              templateColumns={{
-                base: "repeat(1, 1fr)",
-                lg: "repeat(4, 1fr)",
-              }}
-              templateRows={{ base: "repeat(4, 1fr)", lg: "repeat(1, 1fr)" }}
-              gap={{ base: 4 }}>
-              <GridItem>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Links rápidos
-                </Text>
-              </GridItem>
-              <GridItem>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Os nossos serviços
-                </Text>
-              </GridItem>
-              <GridItem>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Galeria
-                </Text>
-              </GridItem>
-              <GridItem>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Contacte-nos
-                </Text>
-              </GridItem>
-            </Grid>
-          </GridItem>
-        </Grid>
-      </Box>
-    </>
+    <Box bgColor='#1C1C1C' color='white'>
+      <Container
+        as={Stack}
+        maxW={"6xl"}
+        py={4}
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        justify={{ base: "center", md: "space-between" }}
+        align={{ base: "center", md: "center" }}>
+        <Text fontSize='lg' fontWeight='extrabold'>
+          Golden Skin Hotel
+        </Text>
+        <Text>© 2022 Golden Skin Hotel. All rights reserved</Text>
+        <Stack direction={"row"} spacing={6}>
+          <SocialButton label={"Twitter"}>
+            <FaTwitter />
+          </SocialButton>
+          <SocialButton label={"Facebook"}>
+            <FaFacebook />
+          </SocialButton>
+          <SocialButton label={"Instagram"}>
+            <FaInstagram />
+          </SocialButton>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
