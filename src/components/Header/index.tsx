@@ -92,7 +92,7 @@ export const Header = () => {
                   Encontre um quarto
                 </Text>
               </NextLink>
-              <NextLink href='/services'>
+              <NextLink href='/contact-us'>
                 <Text as='a' cursor='pointer'>
                   Contactos
                 </Text>
