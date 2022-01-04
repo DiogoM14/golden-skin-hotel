@@ -9,6 +9,7 @@ import {
   GridItem,
   SimpleGrid,
   Text,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { Input } from "../components/Finput";
@@ -26,6 +27,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "../services/firebase";
+import { ForgotPWModal } from "../components/ForgotPWModal";
 
 type userInfo = {
   email: string;
@@ -54,6 +56,7 @@ export const EditProfile: NextPage = () => {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const router = useRouter();
 
@@ -282,6 +285,17 @@ export const EditProfile: NextPage = () => {
                   </GridItem>
                 </SimpleGrid>
 
+                <Center mt='2'>
+                  <Text
+                    fontWeight='bold'
+                    fontSize='sm'
+                    color='#717171'
+                    cursor='pointer'
+                    onClick={onOpen}>
+                    Repor palavra-passe
+                  </Text>
+                </Center>
+
                 <Center mt='6' mb='20'>
                   <Button
                     color='#fff'
@@ -298,6 +312,7 @@ export const EditProfile: NextPage = () => {
           </Flex>
         </Center>
       </Container>
+      <ForgotPWModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

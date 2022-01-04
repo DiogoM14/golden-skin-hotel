@@ -34,8 +34,6 @@ let authChannel: BroadcastChannel;
 export function signOut() {
   destroyCookie(undefined, "nextauth.token");
 
-  authChannel.postMessage("signOut");
-
   Router.push("/");
   Router.reload();
 }
@@ -70,14 +68,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
         .then((response) => {
           const { email, avatar, first_name, last_name, role } = response.data;
-          
+
           setUser({
             email: email,
             avatar: avatar,
             first_name,
             last_name,
-            role
-          });          
+            role,
+          });
         })
         .catch(() => {
           signOut();
@@ -106,7 +104,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             },
           })
           .then((response) => {
-            const { email, avatar, first_name, last_name, role } = response.data;
+            const { email, avatar, first_name, last_name, role } =
+              response.data;
 
             setUser({
               email: email,
