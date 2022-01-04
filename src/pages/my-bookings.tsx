@@ -20,7 +20,7 @@ export const MyBookings: NextPage = () => {
         },
       })
       .then((res) => {
-        setBookings(res.data.bookings);
+        setBookings(res.data);
       });
   }, []);
 

@@ -27,7 +27,7 @@ export const FavRooms: NextPage = () => {
         },
       })
       .then((res) => {
-        setRooms(res.data.fav_rooms);
+        setRooms(res.data);
       });
   }, []);
 
