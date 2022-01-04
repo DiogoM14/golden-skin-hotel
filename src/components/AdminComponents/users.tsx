@@ -30,8 +30,7 @@ export const Users = () => {
       .then((res) => {
         setUsers(res.data);
       });
-  }),
-    [];
+  }, []);
 
   return (
     <Container maxW='container.xl'>
@@ -68,4 +67,3 @@ export const Users = () => {
     </Container>
   );
 };
-

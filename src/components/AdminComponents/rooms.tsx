@@ -23,8 +23,7 @@ export const Rooms = () => {
     api.get("/rooms").then((res) => {
       setRooms(res.data);
     });
-  }),
-    [];
+  }, []);
 
   return (
     <Container maxW='container.xl'>

@@ -32,8 +32,7 @@ export const Bookings = () => {
       .then((res) => {
         setBookings(res.data);
       });
-  }),
-    [];
+  }, []);
 
   return (
     <>
@@ -83,4 +82,3 @@ export const Bookings = () => {
     </>
   );
 };
-
