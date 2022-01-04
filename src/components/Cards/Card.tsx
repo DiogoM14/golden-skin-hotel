@@ -7,6 +7,7 @@ import {
   IconButton,
   Flex,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RoomProps } from "../../utils/TRoom";
@@ -15,12 +16,14 @@ import { api } from "../../services/apiClient";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useRooms } from "../../hooks/useRooms";
 
 type Room = {
   room: RoomProps;
 };
 
 export function Card({ room }: Room) {
+  const { isLoading, isFetching } = useRooms()
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
   const { "nextauth.token": token } = parseCookies();
@@ -112,6 +115,7 @@ export function Card({ room }: Room) {
         <Flex mb='4' alignItems='center'>
           <Heading as='h6' fontSize='xl' fontWeight='md'>
             Quarto {room.type}
+            { !isLoading && isFetching && <Spinner size="sm" color="#F2BB05" ml="4" /> }
           </Heading>
           <Spacer />
           <Text color='gray.500' fontSize='sm'>
