@@ -1,7 +1,16 @@
-import { Box, Circle, Container, Heading, HStack, Img, Text } from "@chakra-ui/react"
-import Head from "next/head"
-import { BigSeparator } from "../components/BigSeparator"
-import { SmallerSeparator } from "../components/SmallerSeparator"
+import {
+  Avatar,
+  Box,
+  Circle,
+  Container,
+  Heading,
+  HStack,
+  Img,
+  Text,
+} from "@chakra-ui/react";
+import Head from "next/head";
+import { BigSeparator } from "../components/BigSeparator";
+import { SmallerSeparator } from "../components/SmallerSeparator";
 
 const AboutUs = () => {
   return (
@@ -12,22 +21,27 @@ const AboutUs = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Container maxW="container.xl" mt="8">
+      <Container maxW='container.xl' mt='8'>
         <Circle
-          bgColor="#fff"
-          width="800px"
-          height="800px"
-          pos="absolute"
-          top="0"
-          left="-10%"
-          zIndex="-1"
-        >
+          bgColor='#fff'
+          width='800px'
+          height='800px'
+          pos='absolute'
+          top='0'
+          left='-10%'
+          zIndex='-1'>
           <Text></Text>
         </Circle>
-        <HStack h="100vh" pb="24">
-          <BigSeparator />
+        <HStack h='100vh' pb='24'>
+          <BigSeparator
+            title='Origem'
+            subtitle='Como surgiu o Golden Skin Hotel.'
+            text=' O Golden Sking Hotel é um projeto que surgiu no âmbito da cadeira
+              de Programação para a Web Avançada, do 2º ano do CTeSP
+              Desenvolvimento para a Web e Dispositivos Móveis.'
+          />
 
-          <Box pos="relative" w="100%">
+          <Box pos='relative' w='100%'>
             <Img
               w='646px'
               h='md'
@@ -35,12 +49,12 @@ const AboutUs = () => {
               borderRadius='md'
               boxShadow='lg'
               src='about.jpeg'
-              shadow="md"
+              shadow='md'
             />
 
             <Box
               bottom='-60px'
-              left="50px"
+              left='50px'
               py='4'
               px='6'
               w='2xs'
@@ -48,8 +62,7 @@ const AboutUs = () => {
               position='absolute'
               bgColor='white'
               borderRadius='lg'
-              boxShadow='xl'
-            >
+              boxShadow='xl'>
               <Heading as='h6' fontSize='lg' fontWeight='bold' mb='2'>
                 Golden Skin Hotel
               </Heading>
@@ -63,25 +76,33 @@ const AboutUs = () => {
           </Box>
         </HStack>
 
-      <Box h="calc(100vh - 100px)">
-        <SmallerSeparator />
+        <Box h='calc(100vh - 100px)'>
+          <SmallerSeparator />
 
-        <HStack justify="space-between" w="100%" mb="8">
-          <Img
-            w='lg'
-            h='lg'
-            objectFit='cover'
-            borderRadius='2xl'
-            boxShadow='lg'
-            src='aboutUs.png'
-          />
+          <HStack justify='space-between' w='100%' mb='8'>
+            <Img
+              w='lg'
+              h='lg'
+              objectFit='cover'
+              borderRadius='2xl'
+              boxShadow='lg'
+              src='aboutUs.png'
+            />
 
-          <BigSeparator />
-        </HStack>
-      </Box>
+            <BigSeparator
+              title='Sócios'
+              subtitle='Os fundadores do projeto Golden Skin Hotel'
+              text=''>
+              <>
+                <Avatar src='https://github.com/diogom14.png' />
+                <Avatar src='https://github.com/pedrocosta24.png' />
+              </>
+            </BigSeparator>
+          </HStack>
+        </Box>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default AboutUs
+export default AboutUs;

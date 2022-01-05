@@ -1,7 +1,16 @@
-import { Box, Button, Container, Divider, Flex, Heading, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Flex,
+  Heading,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-export const BigSeparator = () => {
+export const BigSeparator = ({ title, subtitle, text, children }: any) => {
   const router = useRouter();
 
   const isWideVersion = useBreakpointValue({
@@ -11,19 +20,13 @@ export const BigSeparator = () => {
 
   return (
     <Container maxW='full'>
-      <Flex
-        ml="10"
-        mb='10'
-        wrap={{ base: "wrap", md: "nowrap" }}>
-      
+      <Flex ml='10' mb='10' wrap={{ base: "wrap", md: "nowrap" }}>
         <Box my='auto' w={{ base: "full", md: "max" }}>
-          <Flex
-            maxW={{ base: "full", md: "444px" }}
-            direction='column'>
+          <Flex maxW={{ base: "full", md: "444px" }} direction='column'>
             <Flex w='100%' alignItems='center'>
               <Box mr='2'>
                 <Text color='#717171' fontWeight='medium' fontSize='lg' w='max'>
-                  Origem
+                  {title}
                 </Text>
               </Box>
               <Divider
@@ -35,11 +38,11 @@ export const BigSeparator = () => {
             </Flex>
 
             <Heading color='#1c1c1c' py='4'>
-            Como surgiu o Golden Skin Hotel.
+              {subtitle}
             </Heading>
             <Text color='#717171' fontSize='lg' pb='4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              eget ex eu arcu porta vehicula et non ante.
+              {text && text}
+              {children}
             </Text>
 
             <Button
@@ -47,8 +50,7 @@ export const BigSeparator = () => {
               color='#fff'
               _hover={{ bg: "#e0ae09" }}
               w='min-content'
-              onClick={() => router.push("/rooms")}
-            >
+              onClick={() => router.push("/rooms")}>
               Fazer reserva
             </Button>
           </Flex>
