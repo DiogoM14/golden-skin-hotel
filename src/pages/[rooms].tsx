@@ -29,7 +29,7 @@ import { useEffect, useState } from "react";
 const Rooms = ({ query }: any) => {
   const router = useRouter();
   const options = ["Todos", "Single", "Double", "King", "Deluxe"];
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<number>();
   const [totalCount, setTotalCount] = useState(6);
 
   const isWideVersion = useBreakpointValue({
@@ -84,7 +84,9 @@ const Rooms = ({ query }: any) => {
   };
 
   useEffect(() => {
-    handlePage();
+    if (page) {
+      handlePage();
+    }
   }, [page]);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -104,47 +106,48 @@ const Rooms = ({ query }: any) => {
       </Head>
 
       <Container maxW='1440px' px={["6", "8", "12"]} mt='2.3rem' w='100%'>
-        <Flex 
-          justify={'space-between'} 
-          mb='2.3rem' 
-          maxW='container.lg' 
-          mx='auto'
-        >
-          { isWideVersion ? (
-            <VStack w="100%">
-              <HStack 
-                w="100%"
-                justify="space-between"
-                spacing='1.5rem' 
-                color='#1c1c1c' 
-              >
+        <Flex
+          justify={"space-between"}
+          mb='2.3rem'
+          maxW='container.lg'
+          mx='auto'>
+          {isWideVersion ? (
+            <VStack w='100%'>
+              <HStack
+                w='100%'
+                justify='space-between'
+                spacing='1.5rem'
+                color='#1c1c1c'>
                 <Menu closeOnSelect={false}>
                   <MenuButton
-                  w="50%"
+                    w='50%'
                     as={Button}
                     bgColor='#F2BB05'
-                    color="#fff"
-                    fontWeight='regular'
-                  >
+                    _active={{ bg: "#e0ae09" }}
+                    _hover={{
+                      bgColor: "#e0ae09",
+                    }}
+                    color='#fff'
+                    fontWeight='regular'>
                     Quartos
                   </MenuButton>
                   <MenuList minWidth='240px' zIndex='10'>
                     <MenuOptionGroup>
-                    {options.map((value) => {
-                      const radio = getRadioProps({ value });
-                      return (
-                        <RadioCard key={value} {...radio}>
-                          {value}
-                        </RadioCard>
-                      );
-                    })}
+                      {options.map((value) => {
+                        const radio = getRadioProps({ value });
+                        return (
+                          <RadioCard key={value} {...radio}>
+                            {value}
+                          </RadioCard>
+                        );
+                      })}
                     </MenuOptionGroup>
                   </MenuList>
                 </Menu>
 
                 <Menu closeOnSelect={false}>
-                  <MenuButton 
-                  w="50%"
+                  <MenuButton
+                    w='50%'
                     as={Button}
                     bgColor='#EFEFEF'
                     fontWeight='regular'
@@ -179,29 +182,21 @@ const Rooms = ({ query }: any) => {
                 </Menu>
               </HStack>
 
-              <HStack spacing='1.5rem' w="100%" justify="flex-end">
-                <HStack
-                  w="48%"
-                >
-                <FilterRoomsBtn filter={query} />
-                <IconButton
-                  bgColor='#EFEFEF'
-                  aria-label='Clear filters'
-                  icon={<RiFilterOffLine />}  
-                  onClick={clearFilters}
-                />
-
+              <HStack spacing='1.5rem' w='100%' justify='flex-end'>
+                <HStack w='48%'>
+                  <FilterRoomsBtn filter={query} />
+                  <IconButton
+                    bgColor='#EFEFEF'
+                    aria-label='Clear filters'
+                    icon={<RiFilterOffLine />}
+                    onClick={clearFilters}
+                  />
                 </HStack>
-
               </HStack>
             </VStack>
           ) : (
             <>
-              <HStack 
-                spacing='1.5rem' 
-                color='#717171' 
-                fontFamily='Poppins' 
-              >
+              <HStack spacing='1.5rem' color='#717171' fontFamily='Poppins'>
                 <HStack {...group}>
                   {options.map((value) => {
                     const radio = getRadioProps({ value });
@@ -258,7 +253,7 @@ const Rooms = ({ query }: any) => {
                 />
               </HStack>
             </>
-          ) }
+          )}
         </Flex>
         <CardGrid
           filter={query}

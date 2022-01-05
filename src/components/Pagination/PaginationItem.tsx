@@ -18,8 +18,9 @@ export const PaginationItem = ({
         fontSize='xs'
         w='4'
         bg='#F2BB05'
+        color='#fff'
         _hover={{
-          bg: "gray.500",
+          bgColor: "#e0ae09",
         }}
         onClick={() => handleChangePage(number)}>
         {number}
@@ -34,7 +35,8 @@ export const PaginationItem = ({
       w='4'
       bg='#fff'
       _hover={{
-        bg: "gray.500",
+        color: "#fff",
+        bgColor: "#e0ae09",
       }}
       onClick={() => handleChangePage(number)}>
       {number}

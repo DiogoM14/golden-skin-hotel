@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineShareAlt, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { api } from "../../services/apiClient";
 
-const Header = ({ price, room_id }: any) => {
+const Header = ({ type, room_no, price, room_id }: any) => {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
   const { "nextauth.token": token } = parseCookies();
@@ -70,7 +70,7 @@ const Header = ({ price, room_id }: any) => {
     <HStack justify='space-between' mt='2.3rem'>
       <HStack>
         <Heading fontWeight='medium' fontSize='2xl'>
-          Suite Executiva
+          Quarto {type} - {room_no}
         </Heading>
         <Text color='#383838' pl='2'>
           Desde {price}€ /noite

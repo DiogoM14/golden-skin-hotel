@@ -82,8 +82,10 @@ export const Header = () => {
           <>
             <Wrap spacing='4'>
               <Text
-                as='a'
                 cursor='pointer'
+                _hover={{
+                  borderBottom: "2px solid #f2bb05",
+                }}
                 borderBottomWidth={router.route == "/about-us" ? 2 : 0}
                 borderBottomColor={
                   router.route == "/about-us" ? "#F2BB05" : ""
@@ -91,15 +93,19 @@ export const Header = () => {
                 <NextLink href='/about-us'>Sobre nós</NextLink>
               </Text>
               <Text
-                as='a'
                 cursor='pointer'
+                _hover={{
+                  borderBottom: "2px solid #f2bb05",
+                }}
                 borderBottomWidth={router.route == "/[rooms]" ? 2 : 0}
                 borderBottomColor={router.route == "/[rooms]" ? "#F2BB05" : ""}>
                 <NextLink href='/rooms'>Encontre um quarto</NextLink>
               </Text>
               <Text
-                as='a'
                 cursor='pointer'
+                _hover={{
+                  borderBottom: "2px solid #f2bb05",
+                }}
                 borderBottomWidth={router.route == "/contact-us" ? 2 : 0}
                 borderBottomColor={
                   router.route == "/contact-us" ? "#F2BB05" : ""
