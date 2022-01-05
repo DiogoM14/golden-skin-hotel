@@ -5,6 +5,8 @@ import { CardsHeader } from "./CardsHeader";
 import { RoomProps } from "../../utils/TRoom";
 import { api } from "../../services/apiClient";
 import { useRooms } from "../../hooks/useRooms";
+import { useRouter } from "next/router";
+
 
 interface Props {
   haveHeader?: boolean;
@@ -13,11 +15,11 @@ interface Props {
 }
 
 export function CardGrid({ haveHeader = true, filter, roomsList }: Props) {
-  const { data, isLoading, error } = useRooms()
-  const [rooms, setRooms] = useState([]);
+  const { isLoading, error } = useRooms(1)
+  const [rooms, setRooms] = useState<any>([]);
 
   useEffect(() => {
-    if (roomsList) {
+    if (filter != {}) {
       setRooms(roomsList);
     } else {
       api.get("/rooms/filter", { params: filter }).then((res) => {

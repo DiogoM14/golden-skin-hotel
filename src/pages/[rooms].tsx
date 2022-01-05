@@ -22,10 +22,15 @@ import { CardGrid } from "../components/Cards/CardGrid";
 import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { RadioCard } from "../components/RadioCard";
 import { FilterRoomsBtn } from "../components/FilterRoom";
+import { Pagination } from "../components/Pagination";
+import { useState } from "react";
+import { useRooms } from "../hooks/useRooms";
 
 const Rooms = ({ query }: any) => {
   const router = useRouter();
   const options = ["Todos", "Single", "Double", "King", "Deluxe"];
+  const [page, setPage] = useState(1)
+  const { data } = useRooms(page)
 
   const handleType = (e: any) => {
     if (e == "Todos") {
@@ -135,8 +140,13 @@ const Rooms = ({ query }: any) => {
             />
           </HStack>
         </Flex>
-        <CardGrid filter={query} haveHeader={false} />
-        <SeeMoreBtn />
+        <CardGrid filter={query} haveHeader={false} roomsList={data?.rooms} />
+
+        <Pagination                 
+          totalCountOfRegisters={12}
+          currentPage={page}
+          onPageChange={setPage} 
+        />
       </Container>
     </>
   );

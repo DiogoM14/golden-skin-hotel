@@ -23,11 +23,12 @@ type Room = {
 };
 
 export function Card({ room }: Room) {
-  const { isLoading, isFetching } = useRooms()
+  const { "nextauth.token": token } = parseCookies();
+
+  const router = useRouter();
+  const { isLoading, isFetching } = useRooms(1)
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
-  const { "nextauth.token": token } = parseCookies();
-  const router = useRouter();
 
   useEffect(() => {
     if (token) {
@@ -85,7 +86,7 @@ export function Card({ room }: Room) {
   };
 
   return (
-    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md'>
+    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md' h="300px">
       <IconButton
         onClick={handleLike}
         aria-label='Bookmark room'

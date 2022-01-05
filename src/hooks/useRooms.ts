@@ -2,10 +2,21 @@ import { useQuery } from 'react-query'
 import { api } from '../services/apiClient';
 import { RoomProps } from '../utils/TRoom'
 
-export async function getRooms() {
-  const { data } = await api.get("/rooms");
+type GetRoomsResponse = {
+  totalCount: number
+  rooms: RoomProps[]
+}
 
-  const rooms = data.map((room: any) => {
+export async function getRooms(page: number): Promise<GetRoomsResponse> {
+  const { data, headers } = await api.get('/rooms', {
+    params: {
+      page,
+    }
+  })
+
+  const totalCount = Number(headers['x-total-count'])
+
+  const rooms = data.map((room: RoomProps) => {
     return {
       _id: room._id,
       room_no: room.room_no,
@@ -20,11 +31,14 @@ export async function getRooms() {
     }
   })
 
-  return rooms;
+  return {
+    rooms,
+    totalCount
+  };
 }
 
-export function useRooms() {
-  return useQuery<RoomProps[]>('rooms', getRooms, {
-    staleTime: 1000 * 60 * 5
+export function useRooms(page: number) {
+  return useQuery(['rooms', page], () => getRooms(page), {
+    staleTime: 1000 * 60 * 10
   });
 }
