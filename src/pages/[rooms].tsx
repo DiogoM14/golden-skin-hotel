@@ -19,24 +19,26 @@ import { BiSortAlt2 } from "react-icons/bi";
 import { BsSortUp, BsSortDown } from "react-icons/bs";
 import { RiFilterOffLine } from "react-icons/ri";
 import { CardGrid } from "../components/Cards/CardGrid";
-import { SeeMoreBtn } from "../components/SeeMoreBtn";
 import { RadioCard } from "../components/RadioCard";
 import { FilterRoomsBtn } from "../components/FilterRoom";
 import { Pagination } from "../components/Pagination";
-import { useState } from "react";
-import { useRooms } from "../hooks/useRooms";
+import { useEffect, useState } from "react";
 
 const Rooms = ({ query }: any) => {
   const router = useRouter();
   const options = ["Todos", "Single", "Double", "King", "Deluxe"];
-  const [page, setPage] = useState(1)
-  const { data } = useRooms(page)
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(6);
 
   const handleType = (e: any) => {
+    delete query.page;
     if (e == "Todos") {
       delete query.type;
+      setPage(1);
       router.push({ pathname: "/rooms", query: query });
     } else {
+      delete query.type;
+      setPage(1);
       e = e.toLowerCase();
       router.push({ pathname: "/rooms", query: { ...query, type: e } });
     }
@@ -62,8 +64,21 @@ const Rooms = ({ query }: any) => {
       delete query[key];
     });
 
+    setPage(1);
+
     router.push({ pathname: "/rooms", query: {} });
   };
+
+  const handlePage = () => {
+    router.push({
+      pathname: "/rooms",
+      query: { ...query, page: page },
+    });
+  };
+
+  useEffect(() => {
+    handlePage();
+  }, [page]);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "type",
@@ -140,12 +155,18 @@ const Rooms = ({ query }: any) => {
             />
           </HStack>
         </Flex>
-        <CardGrid filter={query} haveHeader={false} roomsList={data?.rooms} />
+        <CardGrid
+          filter={query}
+          haveHeader={false}
+          handlePage={(value: any) => {
+            setTotalCount(value);
+          }}
+        />
 
-        <Pagination                 
-          totalCountOfRegisters={12}
+        <Pagination
+          totalCountOfRegisters={totalCount}
           currentPage={page}
-          onPageChange={setPage} 
+          handleChangePage={setPage}
         />
       </Container>
     </>

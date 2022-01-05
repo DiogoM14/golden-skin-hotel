@@ -16,7 +16,6 @@ import { api } from "../../services/apiClient";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useRooms } from "../../hooks/useRooms";
 
 type Room = {
   room: RoomProps;
@@ -26,7 +25,6 @@ export function Card({ room }: Room) {
   const { "nextauth.token": token } = parseCookies();
 
   const router = useRouter();
-  const { isLoading, isFetching } = useRooms(1)
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
 
@@ -86,7 +84,12 @@ export function Card({ room }: Room) {
   };
 
   return (
-    <Box borderRadius='lg' overflow='hidden' position='relative' boxShadow='md' h="300px">
+    <Box
+      borderRadius='lg'
+      overflow='hidden'
+      position='relative'
+      boxShadow='md'
+      h='300px'>
       <IconButton
         onClick={handleLike}
         aria-label='Bookmark room'
@@ -116,7 +119,6 @@ export function Card({ room }: Room) {
         <Flex mb='4' alignItems='center'>
           <Heading as='h6' fontSize='xl' fontWeight='md'>
             Quarto {room.type}
-            { !isLoading && isFetching && <Spinner size="sm" color="#F2BB05" ml="4" /> }
           </Heading>
           <Spacer />
           <Text color='gray.500' fontSize='sm'>
