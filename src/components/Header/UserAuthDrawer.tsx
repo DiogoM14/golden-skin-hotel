@@ -4,10 +4,9 @@ import {
   Divider,
   DrawerBody,
   DrawerFooter,
-  GridItem,
   HStack,
-  SimpleGrid,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
@@ -27,63 +26,84 @@ export const UserAuthDrawer = ({ user }: any) => {
   return (
     <>
       <DrawerBody>
-        <HStack>
-          <Avatar
-            name={name}
-            src={user.avatar}
-            bg='#F2BB05'
-            size='md'
-          />
-          <Text fontWeight="medium" mx='2'>{name}</Text>
+        <HStack mt='12'>
+          <Avatar name={name} src={user.avatar} bg='#F2BB05' size='md' />
+          <Text fontWeight='medium' mx='2'>
+            {name}
+          </Text>
         </HStack>
 
-        { user.role.includes("ADMIN") && (
-            <>
-              <Divider mt='10' />
+        <Divider mt='6' mb='6' />
 
-              <SimpleGrid mt='10' columns={2} gap='4'>
-                <Button>
-                  <NextLink href='/admin/rooms'>Quartos</NextLink>
-                </Button>
-
-                <Button>
-                  <NextLink href='/admin/bookings'>Reservas</NextLink>
-                </Button>
-
-                <GridItem colSpan={2} justifySelf='center'>
-                  <Button>
-                    <NextLink href='/admin/users'>Utilizadores</NextLink>
-                  </Button>
-                </GridItem>
-              </SimpleGrid>
-
-              <Divider mt='10' />
-            </>
-          )}
-
-        <SimpleGrid mt='10' columns={2} gap='4'>
-          <Button>
+        <VStack alignItems={"end"} mt='6'>
+          <Text
+            fontSize={"2xl"}
+            fontWeight={"bold"}
+            mb='3'
+            bgGradient='linear-gradient(45deg, rgba(247,222,37,1) 25%, rgba(242,187,5,1) 75%)'
+            bgClip='text'>
+            Golden Skin
+          </Text>
+          <Text _hover={{ textDecoration: "underline" }}>
             <NextLink href='/about-us'>Sobre nós</NextLink>
-          </Button>
-
-          <Button>
+          </Text>
+          <Text _hover={{ textDecoration: "underline" }}>
+            <NextLink href='/rooms'>Encontre um quarto</NextLink>
+          </Text>
+          <Text _hover={{ textDecoration: "underline" }}>
             <NextLink href='/services'>Contactos</NextLink>
-          </Button>
+          </Text>
+        </VStack>
 
-          <GridItem colSpan={2} justifySelf='center'>
-            <Button>
-              <NextLink href='/rooms'>Encontre um quarto</NextLink>
-            </Button>
-          </GridItem>
-        </SimpleGrid>
+        {user.role.includes("ADMIN") && (
+          <>
+            <Divider mt='6' mb='6' />
+            <VStack alignItems={"end"} mt='6'>
+              <Text fontSize={"xl"} fontWeight={"bold"} mb='3'>
+                Administrador
+              </Text>
+              <Text _hover={{ textDecoration: "underline" }}>
+                <NextLink href='/admin/rooms'>Quartos</NextLink>
+              </Text>
+              <Text _hover={{ textDecoration: "underline" }}>
+                <NextLink href='/admin/create-room'>Criar Quartos</NextLink>
+              </Text>
+              <Text _hover={{ textDecoration: "underline" }}>
+                <NextLink href='/admin/bookings'>Reservas</NextLink>
+              </Text>
+              <Text _hover={{ textDecoration: "underline" }}>
+                <NextLink href='/admin/users'>Utilizadores</NextLink>
+              </Text>
+            </VStack>
+          </>
+        )}
+
+        <Divider mt='6' mb='6' />
+
+        <VStack alignItems={"end"} mt='6'>
+          <Text fontSize={"xl"} fontWeight={"bold"} mb='3'>
+            Utilizador
+          </Text>
+          <Text _hover={{ textDecoration: "underline" }}>
+            <NextLink href='/my-bookings'>Minhas reservas</NextLink>
+          </Text>
+
+          <Text _hover={{ textDecoration: "underline" }}>
+            <NextLink href='/fav-rooms'>Meus quartos favoritos</NextLink>
+          </Text>
+        </VStack>
       </DrawerBody>
 
       <DrawerFooter>
         <HStack>
           <Button>
-            <NextLink href='/edit-profile'>Configurações</NextLink>
+            <NextLink href='/edit-profile'>Editar perfil</NextLink>
           </Button>
-          <Button bgColor='#F2BB05' color='#fff' onClick={signOut}>
+          <Button
+            bgColor='#F2BB05'
+            color='#fff'
+            _hover={{ bg: "#e0ae09" }}
+            onClick={signOut}>
             Sair
           </Button>
         </HStack>

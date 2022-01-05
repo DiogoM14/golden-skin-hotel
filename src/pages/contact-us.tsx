@@ -44,7 +44,11 @@ const Contacts: NextPage = () => {
             <Heading>Venha visitar-nos.</Heading>
             <Flex mb='8' wrap={"wrap"}>
               <Heading mr='2'>Para uma estadia</Heading>
-              <Heading color='#E9A916'>DOURADA</Heading>
+              <Heading
+                bgGradient='linear-gradient(45deg, rgba(247,222,37,1) 25%, rgba(242,187,5,1) 75%)'
+                bgClip='text'>
+                DOURADA
+              </Heading>
             </Flex>
             <Stack color='#717171' mb='8'>
               <Text>Largo do Pelourinho N° 11 Loja 19</Text>

@@ -8,7 +8,6 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Heading,
@@ -24,16 +23,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserAuth } from "./UserAuth";
 import { UserAuthDrawer } from "./UserAuthDrawer";
+import { useRouter } from "next/router";
 
 export const Header = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   const isWideVersion = useBreakpointValue({
     base: false,
     md: true,
   });
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Container
@@ -65,7 +65,6 @@ export const Header = () => {
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Configurações</DrawerHeader>
 
                 {isAuthenticated ? (
                   <UserAuthDrawer user={user} />
@@ -82,21 +81,31 @@ export const Header = () => {
         ) : (
           <>
             <Wrap spacing='4'>
-              <NextLink href='/about-us'>
-                <Text as='a' cursor='pointer'>
-                  Sobre nós
-                </Text>
-              </NextLink>
-              <NextLink href='/rooms'>
-                <Text as='a' cursor='pointer'>
-                  Encontre um quarto
-                </Text>
-              </NextLink>
-              <NextLink href='/contact-us'>
-                <Text as='a' cursor='pointer'>
-                  Contactos
-                </Text>
-              </NextLink>
+              <Text
+                as='a'
+                cursor='pointer'
+                borderBottomWidth={router.route == "/about-us" ? 2 : 0}
+                borderBottomColor={
+                  router.route == "/about-us" ? "#F2BB05" : ""
+                }>
+                <NextLink href='/about-us'>Sobre nós</NextLink>
+              </Text>
+              <Text
+                as='a'
+                cursor='pointer'
+                borderBottomWidth={router.route == "/[rooms]" ? 2 : 0}
+                borderBottomColor={router.route == "/[rooms]" ? "#F2BB05" : ""}>
+                <NextLink href='/rooms'>Encontre um quarto</NextLink>
+              </Text>
+              <Text
+                as='a'
+                cursor='pointer'
+                borderBottomWidth={router.route == "/contact-us" ? 2 : 0}
+                borderBottomColor={
+                  router.route == "/contact-us" ? "#F2BB05" : ""
+                }>
+                <NextLink href='/contact-us'>Contactos</NextLink>
+              </Text>
             </Wrap>
 
             {isAuthenticated ? <UserAuth /> : <AuthButtons />}

@@ -5,7 +5,6 @@ import {
   Heading,
   Center,
   useBreakpointValue,
-  Flex,
 } from "@chakra-ui/react";
 import { HomeRoomFilter } from "../HomeRoomFilter";
 
@@ -32,7 +31,11 @@ export const Banner = () => {
           mx={{ base: "3rem", md: "5.25rem" }}
           h='full'>
           <Box>
-            <Heading color='#fff' fontSize={{ base: "xl", md: "5xl" }}>
+            <Heading
+              color='#fff'
+              fontSize={{ base: "xl", md: "5xl" }}
+              bgGradient='linear-gradient(45deg, rgba(247,222,37,1) 25%, rgba(242,187,5,1) 75%)'
+              bgClip='text'>
               Golden Skin Hotel
             </Heading>
             <Heading color='#fff' fontSize={{ base: "4xl", md: "5xl" }} mb='4'>

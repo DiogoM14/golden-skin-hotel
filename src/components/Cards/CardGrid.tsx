@@ -1,10 +1,9 @@
-import { Container, Flex, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { CardsHeader } from "./CardsHeader";
 import { RoomProps } from "../../utils/TRoom";
 import { api } from "../../services/apiClient";
-import { useRouter } from "next/router";
 
 interface Props {
   haveHeader?: boolean;
@@ -20,7 +19,6 @@ export function CardGrid({
   handlePage,
 }: Props) {
   const [rooms, setRooms] = useState<any>([]);
-  const [totalCount, setTotalCount] = useState(6);
 
   useEffect(() => {
     if (roomsList) {
@@ -29,7 +27,9 @@ export function CardGrid({
       api.get("/rooms/filter", { params: filter }).then((res) => {
         setRooms(res.data);
         const headers = res.headers;
-        handlePage(Number(headers["x-total-count"]));
+        if (handlePage) {
+          handlePage(Number(headers["x-total-count"]));
+        }
       });
     }
   }, [filter, roomsList]);
