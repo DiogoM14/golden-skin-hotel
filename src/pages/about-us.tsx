@@ -3,14 +3,18 @@ import {
   Box,
   Circle,
   Container,
+  Divider,
+  Flex,
   Heading,
   HStack,
+  IconButton,
   Img,
   Text,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { BigSeparator } from "../components/BigSeparator";
 import { SmallerSeparator } from "../components/SmallerSeparator";
+import { SiGithub } from "react-icons/si";
 
 const AboutUs = () => {
   return (
@@ -90,12 +94,37 @@ const AboutUs = () => {
             />
 
             <BigSeparator
-              title='Sócios'
+              title='Fundadores'
               subtitle='Os fundadores do projeto Golden Skin Hotel'
               text=''>
               <>
-                <Avatar src='https://github.com/diogom14.png' />
-                <Avatar src='https://github.com/pedrocosta24.png' />
+                <Flex direction='column' mt='4' mb='8'>
+                  <HStack>
+                    <Avatar src='https://github.com/diogom14.png' />
+                    <Text>Diogo Martins - 8200129</Text>
+                    <IconButton
+                      aria-label='GitHub Diogo'
+                      color='black'
+                      as='a'
+                      href='https://www.github.com/diogom14'
+                      borderRadius={"full"}
+                      icon={<SiGithub />}
+                    />
+                  </HStack>
+                  <Divider my='4' borderColor='#bbbbbb' />
+                  <HStack>
+                    <Avatar src='https://github.com/pedrocosta24.png' />
+                    <Text>Pedro Costa - 8200138</Text>
+                    <IconButton
+                      aria-label='GitHub Pedro'
+                      color='black'
+                      as='a'
+                      href='https://www.github.com/pedrocosta24'
+                      borderRadius={"full"}
+                      icon={<SiGithub />}
+                    />
+                  </HStack>
+                </Flex>
               </>
             </BigSeparator>
           </HStack>
