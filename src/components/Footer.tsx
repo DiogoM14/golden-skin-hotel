@@ -38,7 +38,7 @@ const SocialButton = ({
 
 export const Footer = () => {
   return (
-    <Box bgColor='#1C1C1C' color='white'>
+    <Box bgColor='#1C1C1C' color='white' pos="absolute" bottom="-100px" w="100%">
       <Container
         as={Stack}
         maxW={"6xl"}
