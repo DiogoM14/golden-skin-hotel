@@ -73,6 +73,7 @@ export const FilterRoomsBtn = ({ filter }: any) => {
   return (
     <>
       <Button
+        w={["100%", "100%", "100%", "auto"]}
         bgColor='#EFEFEF'
         color='#1c1c1c'
         fontWeight='regular'

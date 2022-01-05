@@ -14,6 +14,8 @@ import {
   useRadioGroup,
   IconButton,
   MenuDivider,
+  useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
 import { BiSortAlt2 } from "react-icons/bi";
 import { BsSortUp, BsSortDown } from "react-icons/bs";
@@ -29,6 +31,11 @@ const Rooms = ({ query }: any) => {
   const options = ["Todos", "Single", "Double", "King", "Deluxe"];
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(6);
+
+  const isWideVersion = useBreakpointValue({
+    base: true,
+    lg: false,
+  });
 
   const handleType = (e: any) => {
     delete query.page;
@@ -97,63 +104,161 @@ const Rooms = ({ query }: any) => {
       </Head>
 
       <Container maxW='1440px' px={["6", "8", "12"]} mt='2.3rem' w='100%'>
-        <Flex justify='space-between' mb='2.3rem' maxW='container.lg' mx='auto'>
-          <HStack spacing='1.5rem' color='#717171' fontFamily='Poppins'>
-            <HStack {...group}>
-              {options.map((value) => {
-                const radio = getRadioProps({ value });
-                return (
-                  <RadioCard key={value} {...radio}>
-                    {value}
-                  </RadioCard>
-                );
-              })}
-            </HStack>
-          </HStack>
-          <HStack spacing='1.5rem'>
-            <Menu closeOnSelect={false}>
-              <MenuButton
-                as={Button}
-                bgColor='#EFEFEF'
-                fontWeight='regular'
-                rightIcon={<BiSortAlt2 />}>
-                Ordenar
-              </MenuButton>
-              <MenuList minWidth='240px' zIndex='10'>
-                <MenuOptionGroup
-                  type='radio'
-                  title='Preço'
-                  onChange={handlePriceOrder}>
-                  <MenuItemOption icon={<BsSortUp />} value='asc'>
-                    Preço ascendente
-                  </MenuItemOption>
-                  <MenuItemOption icon={<BsSortDown />} value='desc'>
-                    Preço descendente
-                  </MenuItemOption>
-                </MenuOptionGroup>
-                <MenuDivider />
-                <MenuOptionGroup
-                  type='radio'
-                  title='Área'
-                  onChange={handleAreaOrder}>
-                  <MenuItemOption icon={<BsSortUp />} value='asc'>
-                    Área ascendente
-                  </MenuItemOption>
-                  <MenuItemOption icon={<BsSortDown />} value='desc'>
-                    Área descendente
-                  </MenuItemOption>
-                </MenuOptionGroup>
-              </MenuList>
-            </Menu>
-            <FilterRoomsBtn filter={query} />
+        <Flex 
+          justify={'space-between'} 
+          mb='2.3rem' 
+          maxW='container.lg' 
+          mx='auto'
+        >
+          { isWideVersion ? (
+            <VStack w="100%">
+              <HStack 
+                w="100%"
+                justify="space-between"
+                spacing='1.5rem' 
+                color='#1c1c1c' 
+              >
+                <Menu closeOnSelect={false}>
+                  <MenuButton
+                  w="50%"
+                    as={Button}
+                    bgColor='#F2BB05'
+                    color="#fff"
+                    fontWeight='regular'
+                  >
+                    Quartos
+                  </MenuButton>
+                  <MenuList minWidth='240px' zIndex='10'>
+                    <MenuOptionGroup>
+                    {options.map((value) => {
+                      const radio = getRadioProps({ value });
+                      return (
+                        <RadioCard key={value} {...radio}>
+                          {value}
+                        </RadioCard>
+                      );
+                    })}
+                    </MenuOptionGroup>
+                  </MenuList>
+                </Menu>
 
-            <IconButton
-              bgColor='#EFEFEF'
-              aria-label='Clear filters'
-              icon={<RiFilterOffLine />}
-              onClick={clearFilters}
-            />
-          </HStack>
+                <Menu closeOnSelect={false}>
+                  <MenuButton 
+                  w="50%"
+                    as={Button}
+                    bgColor='#EFEFEF'
+                    fontWeight='regular'
+                    rightIcon={<BiSortAlt2 />}>
+                    Ordenar
+                  </MenuButton>
+                  <MenuList minWidth='240px' zIndex='10'>
+                    <MenuOptionGroup
+                      type='radio'
+                      title='Preço'
+                      onChange={handlePriceOrder}>
+                      <MenuItemOption icon={<BsSortUp />} value='asc'>
+                        Preço ascendente
+                      </MenuItemOption>
+                      <MenuItemOption icon={<BsSortDown />} value='desc'>
+                        Preço descendente
+                      </MenuItemOption>
+                    </MenuOptionGroup>
+                    <MenuDivider />
+                    <MenuOptionGroup
+                      type='radio'
+                      title='Área'
+                      onChange={handleAreaOrder}>
+                      <MenuItemOption icon={<BsSortUp />} value='asc'>
+                        Área ascendente
+                      </MenuItemOption>
+                      <MenuItemOption icon={<BsSortDown />} value='desc'>
+                        Área descendente
+                      </MenuItemOption>
+                    </MenuOptionGroup>
+                  </MenuList>
+                </Menu>
+              </HStack>
+
+              <HStack spacing='1.5rem' w="100%" justify="flex-end">
+                <HStack
+                  w="48%"
+                >
+                <FilterRoomsBtn filter={query} />
+                <IconButton
+                  bgColor='#EFEFEF'
+                  aria-label='Clear filters'
+                  icon={<RiFilterOffLine />}  
+                  onClick={clearFilters}
+                />
+
+                </HStack>
+
+              </HStack>
+            </VStack>
+          ) : (
+            <>
+              <HStack 
+                spacing='1.5rem' 
+                color='#717171' 
+                fontFamily='Poppins' 
+              >
+                <HStack {...group}>
+                  {options.map((value) => {
+                    const radio = getRadioProps({ value });
+                    return (
+                      <RadioCard key={value} {...radio}>
+                        {value}
+                      </RadioCard>
+                    );
+                  })}
+                </HStack>
+              </HStack>
+              <HStack spacing='1.5rem'>
+                <Menu closeOnSelect={false}>
+                  <MenuButton
+                    as={Button}
+                    bgColor='#EFEFEF'
+                    fontWeight='regular'
+                    rightIcon={<BiSortAlt2 />}>
+                    Ordenar
+                  </MenuButton>
+                  <MenuList minWidth='240px' zIndex='10'>
+                    <MenuOptionGroup
+                      type='radio'
+                      title='Preço'
+                      onChange={handlePriceOrder}>
+                      <MenuItemOption icon={<BsSortUp />} value='asc'>
+                        Preço ascendente
+                      </MenuItemOption>
+                      <MenuItemOption icon={<BsSortDown />} value='desc'>
+                        Preço descendente
+                      </MenuItemOption>
+                    </MenuOptionGroup>
+                    <MenuDivider />
+                    <MenuOptionGroup
+                      type='radio'
+                      title='Área'
+                      onChange={handleAreaOrder}>
+                      <MenuItemOption icon={<BsSortUp />} value='asc'>
+                        Área ascendente
+                      </MenuItemOption>
+                      <MenuItemOption icon={<BsSortDown />} value='desc'>
+                        Área descendente
+                      </MenuItemOption>
+                    </MenuOptionGroup>
+                  </MenuList>
+                </Menu>
+                <FilterRoomsBtn filter={query} />
+
+                <IconButton
+                  bgColor='#EFEFEF'
+                  aria-label='Clear filters'
+                  icon={<RiFilterOffLine />}
+                  onClick={clearFilters}
+                />
+              </HStack>
+            </>
+          ) }
         </Flex>
         <CardGrid
           filter={query}
