@@ -33,7 +33,7 @@ export const Users = () => {
   }, []);
 
   return (
-    <Container maxW='container.xl'>
+    <Container maxW='container.xl' bgColor="#fff" borderRadius="lg">
       <Table size='lg' variant='striped' colorScheme='black' mt='16' mb='32'>
         <TableCaption placement='top'>Lista de Utilizadores</TableCaption>
         <Thead bgColor='#F2BB05'>

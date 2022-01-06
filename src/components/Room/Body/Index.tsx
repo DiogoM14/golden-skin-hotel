@@ -94,7 +94,7 @@ export const Body = ({ room }: Room) => {
     <>
       <SimpleGrid columns={{md: 2, base: 1}} my='4' gap='12' px={["4", "8", "12"]}>
         <Flex flexDir='column'>
-          <Header />
+          <Header room={room} />
 
           <Divider my='4' borderColor='#bbbbbb' />
 

@@ -21,10 +21,12 @@ export const BookingCard = ({ booking }: any) => {
       <Flex
         direction={{ base: "column", lg: "row" }}
         borderRadius='lg'
-        boxShadow='md'
+        boxShadow='sm'
         borderWidth='1px'
         p='4'
-        mb='8'>
+        mb='4'
+        bgColor="#fff"
+      >
         <Flex flex='1' direction='column' mr='4'>
           <Heading fontWeight='bold' fontSize='lg'>
             Detalhes da reserva
