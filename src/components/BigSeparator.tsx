@@ -20,7 +20,7 @@ export const BigSeparator = ({ title, subtitle, text, children }: any) => {
 
   return (
     <Container maxW='full'>
-      <Flex ml='10' mb='10' wrap={{ base: "wrap", md: "nowrap" }}>
+      <Flex ml={['0', '0', '10']} mb='10' wrap={{ base: "wrap", md: "nowrap" }}>
         <Box my='auto' w={{ base: "full", md: "max" }}>
           <Flex maxW={{ base: "full", md: "444px" }} direction='column'>
             <Flex w='100%' alignItems='center'>

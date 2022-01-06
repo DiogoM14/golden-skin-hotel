@@ -51,7 +51,7 @@ export const UserAuthDrawer = ({ user }: any) => {
             <NextLink href='/rooms'>Encontre um quarto</NextLink>
           </Text>
           <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/services'>Contactos</NextLink>
+            <NextLink href='/contact-us'>Contactos</NextLink>
           </Text>
         </VStack>
 

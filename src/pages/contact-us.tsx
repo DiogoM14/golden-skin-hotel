@@ -15,7 +15,7 @@ import { NextPage } from "next";
 const Contacts: NextPage = () => {
   return (
     <>
-      <Container maxW='container.xl'>
+      <Container maxW='container.xl' pb={{ base: "4" }}>
         <Flex
           align='center'
           direction={{ base: "column", lg: "row" }}
