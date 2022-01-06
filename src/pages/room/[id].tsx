@@ -1,6 +1,6 @@
 import Head from "next/head";
 import type { GetServerSideProps, NextPage } from "next";
-import { Container } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import Header from "../../components/Room/Header";
 import Images from "../../components/Room/Images";
 import { Suggestions } from "../../components/Room/Suggestions";
@@ -19,7 +19,7 @@ const Room: NextPage = ({ data }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Container maxW='1000px' px={["6", "8", "12"]}>
+      <Container maxW='1000px' px={["0", "8", "12"]} pb={{base: "10", md: "0"}}>
         {room && (
           <>
             <Header

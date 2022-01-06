@@ -1,15 +1,21 @@
-import { Button, Heading, HStack, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { AiOutlineShareAlt, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { api } from "../../services/apiClient";
 
-const Header = ({ type, room_no, price, room_id }: any) => {
+const Header = ({ price, room_id }: any) => {
+  const router = useRouter();
+
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState();
   const { "nextauth.token": token } = parseCookies();
-  const router = useRouter();
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
 
   useEffect(() => {
     if (token) {
@@ -67,39 +73,78 @@ const Header = ({ type, room_no, price, room_id }: any) => {
   };
 
   return (
-    <HStack justify='space-between' mt='2.3rem'>
-      <HStack>
-        <Heading fontWeight='medium' fontSize='2xl'>
-          Quarto {type} - {room_no}
-        </Heading>
-        <Text color='#383838' pl='2'>
-          Desde {price}€ /noite
-        </Text>
-      </HStack>
-      <HStack spacing='4'>
-        <Button
-          fontWeight='thin'
-          onClick={handleLikeChange}
-          leftIcon={
-            !isLiked ? (
-              <AiOutlineHeart fill='#E53E3E' />
-            ) : (
-              <AiFillHeart fill='#E53E3E' />
-            )
-          }
-          variant='ghost'
-          bgColor='#EFEFEF'>
-          {!isLiked ? "Guardar" : "Guardado"}
-        </Button>
-        <Button
-          fontWeight='thin'
-          leftIcon={<AiOutlineShareAlt />}
-          variant='ghost'
-          bgColor='#EFEFEF'>
-          Partilhar
-        </Button>
-      </HStack>
-    </HStack>
+    <Flex justify='space-between' mt='2.3rem' flexDir={{base: "column", md: "row"}} px={["4", "8", "12"]}>
+      { !isWideVersion ? (
+        <>
+          <HStack justify="space-between" mb="2">
+            <Heading fontWeight='medium' fontSize='2xl'>
+              Suite Executiva
+            </Heading>
+            <Button
+              fontWeight='thin'
+              onClick={handleLikeChange}
+              leftIcon={
+                !isLiked ? (
+                  <AiOutlineHeart fill='#E53E3E' />
+                ) : (
+                  <AiFillHeart fill='#E53E3E' />
+                )
+              }
+              variant='ghost'
+              bgColor='#EFEFEF'>
+              {!isLiked ? "Guardar" : "Guardado"}
+            </Button>
+          </HStack>
+          <HStack justify="space-between">
+            <Text color='#383838'>
+              Desde {price}€ /noite
+            </Text>
+
+            <Button
+              fontWeight='thin'
+              leftIcon={<AiOutlineShareAlt />}
+              variant='ghost'
+              bgColor='#EFEFEF'>
+              Partilhar
+            </Button>
+          </HStack>
+        </>
+      ) : (
+        <>
+          <HStack>
+            <Heading fontWeight='medium' fontSize='2xl'>
+              Suite Executiva
+            </Heading>
+            <Text color='#383838' pl='2'>
+              Desde {price}€ /noite
+            </Text>
+          </HStack>
+          <HStack spacing='4'>
+            <Button
+              fontWeight='thin'
+              onClick={handleLikeChange}
+              leftIcon={
+                !isLiked ? (
+                  <AiOutlineHeart fill='#E53E3E' />
+                ) : (
+                  <AiFillHeart fill='#E53E3E' />
+                )
+              }
+              variant='ghost'
+              bgColor='#EFEFEF'>
+              {!isLiked ? "Guardar" : "Guardado"}
+            </Button>
+            <Button
+              fontWeight='thin'
+              leftIcon={<AiOutlineShareAlt />}
+              variant='ghost'
+              bgColor='#EFEFEF'>
+              Partilhar
+            </Button>
+          </HStack>
+        </>
+      )}
+    </Flex>
   );
 };
 

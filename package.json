@@ -13,6 +13,7 @@
     "@emotion/styled": "^11",
     "@types/date-fns": "^2.6.0",
     "@types/react-datepicker": "^4.3.2",
+    "@types/react-slick": "^0.23.8",
     "axios": "^0.24.0",
     "date-fns": "^2.27.0",
     "firebase": "^9.6.1",
@@ -27,6 +28,7 @@
     "react-hook-form": "^7.22.0",
     "react-icons": "^4.3.1",
     "react-query": "^3.34.7",
+    "react-slick": "^0.28.1",
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {

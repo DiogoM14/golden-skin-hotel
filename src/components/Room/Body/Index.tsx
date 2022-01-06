@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Text,
   useToast,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Amenities } from "./Amenities";
 import { Description } from "./Description";
@@ -34,6 +35,11 @@ export const Body = ({ room }: Room) => {
   const [endDate, setEndDate] = useState(null);
   const [excludedDates, setExcludedDates] = useState([] as Date[]);
   const toast = useToast();
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
 
   useEffect(() => {
     if (room.reserved) {
@@ -86,7 +92,7 @@ export const Body = ({ room }: Room) => {
 
   return (
     <>
-      <SimpleGrid columns={2} my='4' gap='12'>
+      <SimpleGrid columns={{md: 2, base: 1}} my='4' gap='12' px={["4", "8", "12"]}>
         <Flex flexDir='column'>
           <Header />
 
@@ -102,7 +108,7 @@ export const Body = ({ room }: Room) => {
         </Flex>
 
         <Box borderRadius='lg' maxH='400px'>
-          <Center mt='4'>
+          <Center mt={{md: '4', base: '0'}}>
             <DatePicker
               selected={startDate}
               onChange={onChange}
@@ -115,7 +121,7 @@ export const Body = ({ room }: Room) => {
             />
           </Center>
 
-          <Center mt='2.3rem' mb='12'>
+          <Center mt={'2.3rem'} mb={{md: '12', base: "4"}}>
             <Button
               color='#fff'
               bgColor='#F2BB05'
