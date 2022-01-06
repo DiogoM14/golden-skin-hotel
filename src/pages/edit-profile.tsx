@@ -224,6 +224,7 @@ export const EditProfile: NextPage = () => {
                       NIF
                     </FormLabel>
                     <Input
+                      maxLength={9}
                       defaultValue={userInfo?.nif && userInfo.nif}
                       type='text'
                       id='nif'

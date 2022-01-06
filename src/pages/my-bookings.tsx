@@ -1,4 +1,4 @@
-import { Center, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Center, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
@@ -41,13 +41,11 @@ export const MyBookings: NextPage = () => {
           Minhas reservas
         </Heading>
         {bookings.length >= 1 ? (
-          <>
-            <Flex direction='column'>
-              {bookings.map((booking) => (
-                <BookingCard key={booking._id} booking={booking} />
-              ))}
-            </Flex>
-          </>
+          <Flex direction='column' pb='16'>
+            {bookings.map((booking) => (
+              <BookingCard key={booking._id} booking={booking} />
+            ))}
+          </Flex>
         ) : (
           <Center mb='16'>
             <Flex direction='column'>

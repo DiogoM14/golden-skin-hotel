@@ -16,6 +16,7 @@ import Head from "next/head";
 import { BigSeparator } from "../components/BigSeparator";
 import { SmallerSeparator } from "../components/SmallerSeparator";
 import { SiGithub } from "react-icons/si";
+import { AwardBox } from "../components/HomeAboutUsBanner/AwardBox";
 
 const AboutUs = () => {
   const isWideVersion = useBreakpointValue({
@@ -32,8 +33,7 @@ const AboutUs = () => {
       </Head>
 
       <Container maxW='container.xl' mt='8'>
-        {
-          !isWideVersion && (
+        {!isWideVersion && (
           <Circle
             bgColor='#fff'
             width='800px'
@@ -44,10 +44,9 @@ const AboutUs = () => {
             zIndex='-1'>
             <Text></Text>
           </Circle>
-          )
-        }
-        
-        <HStack h={{md: '100vh', base: "100%"}} pb={{md: '24', base: '4'}}>
+        )}
+
+        <HStack h={{ md: "100vh", base: "100%" }} pb={{ md: "24", base: "4" }}>
           <BigSeparator
             title='Origem'
             subtitle='Como surgiu o Golden Skin Hotel.'
@@ -56,65 +55,37 @@ const AboutUs = () => {
               Desenvolvimento para a Web e Dispositivos Móveis.'
           />
 
-          {
-            !isWideVersion && (
-              <Box pos='relative' w='100%'>
-                <Img
-                  w='646px'
-                  h='md'
-                  objectFit='cover'
-                  borderRadius='md'
-                  boxShadow='lg'
-                  src='about.jpeg'
-                  shadow='md'
-                />
+          {!isWideVersion && (
+            <Box pos='relative' w='100%'>
+              <Img
+                w='646px'
+                h='md'
+                objectFit='cover'
+                borderRadius='md'
+                boxShadow='lg'
+                src='about.jpeg'
+                shadow='md'
+              />
 
-                <Box
-                  bottom='-60px'
-                  left='50px'
-                  py='4'
-                  px='6'
-                  w='2xs'
-                  h={'122px'}
-                  position='absolute'
-                  bgColor='white'
-                  borderRadius='lg'
-                  boxShadow='xl'>
-                  <Heading as='h6' fontSize='lg' fontWeight='bold' mb='2'>
-                    Golden Skin Hotel
-                  </Heading>
-                  <Text fontSize='md' fontWeight='medium' mb='4'>
-                    Best Hotel Award 2021
-                  </Text>
-                  <Text fontSize='md' fontWeight='medium'>
-                    Avaliação ⭐️ 4.8
-                  </Text>
-                </Box>
-              </Box>
-            )
-          }
+              <AwardBox bottom='-60px' left='50px' />
+            </Box>
+          )}
         </HStack>
 
-        <Box h={{md: 'calc(100vh - 100px)', base: '100%'}} pb={{ base: '4' }}>
-          {
-            !isWideVersion && (
-              <SmallerSeparator />
-            )
-          }
+        <Box h={{ md: "calc(100vh - 100px)", base: "100%" }} pb={{ base: "4" }}>
+          {!isWideVersion && <SmallerSeparator />}
 
           <HStack justify='space-between' w='100%' mb='8'>
-            {
-              !isWideVersion && (
-                <Img
-                  w='lg'
-                  h='lg'
-                  objectFit='cover'
-                  borderRadius='2xl'
-                  boxShadow='lg'
-                  src='aboutUs.png'
-                />
-              )
-            }
+            {!isWideVersion && (
+              <Img
+                w='lg'
+                h='lg'
+                objectFit='cover'
+                borderRadius='2xl'
+                boxShadow='lg'
+                src='aboutUs.png'
+              />
+            )}
 
             <BigSeparator
               title='Fundadores'

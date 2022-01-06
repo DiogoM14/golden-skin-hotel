@@ -61,7 +61,7 @@ export const BookingCard = ({ booking }: any) => {
               </HStack>
               <HStack>
                 <Text fontSize='md' fontWeight='medium'>
-                  Nº de noite:
+                  Nº de noites:
                 </Text>
                 <Text>{booking.no_nights}</Text>
               </HStack>

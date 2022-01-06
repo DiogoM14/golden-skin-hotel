@@ -5,6 +5,7 @@ import {
   Button,
   SimpleGrid,
   GridItem,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -13,7 +14,8 @@ import { Input } from "../Finput";
 import { AuthOptions } from "./AuthOptions";
 
 export const RegisterPanel = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -22,13 +24,34 @@ export const RegisterPanel = () => {
   } = useForm();
 
   function onSubmit(values: any) {
-    api.post("auth/register", {
-      first_name: values.firstName,
-      last_name: values.lastName,
-      email: values.email,
-      phone_number: values.phone,
-      password: values.password,
-    }).then(() => router.push("/auth/login"))
+    api
+      .post("auth/register", {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+        phone_number: values.phone,
+        password: values.password,
+      })
+      .then(() => {
+        toast({
+          title: "Registado com sucesso!",
+          description: "Registo concluído com sucesso!",
+
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        router.push("/auth/login");
+      })
+      .catch((err) => {
+        toast({
+          title: "Erro!",
+          description: "Ocorreu um erro ao registar!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   }
 
   return (
@@ -49,7 +72,7 @@ export const RegisterPanel = () => {
               type='text'
               placeholder='Primeiro Nome'
               {...register("firstName")}
-              />
+            />
           </GridItem>
           <GridItem colSpan={1}>
             <Input

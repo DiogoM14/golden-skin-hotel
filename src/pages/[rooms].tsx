@@ -41,11 +41,11 @@ const Rooms = ({ query }: any) => {
     delete query.page;
     if (e == "Todos") {
       delete query.type;
-      setPage(1);
+      //setPage(1);
       router.push({ pathname: "/rooms", query: query });
     } else {
       delete query.type;
-      setPage(1);
+      //setPage(1);
       e = e.toLowerCase();
       router.push({ pathname: "/rooms", query: { ...query, type: e } });
     }
@@ -71,7 +71,7 @@ const Rooms = ({ query }: any) => {
       delete query[key];
     });
 
-    setPage(1);
+    //setPage(1);
 
     router.push({ pathname: "/rooms", query: {} });
   };
@@ -88,6 +88,12 @@ const Rooms = ({ query }: any) => {
       handlePage();
     }
   }, [page]);
+
+  useEffect(() => {
+    if (query.page) {
+      setPage(Number(query.page));
+    }
+  }, [query]);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "type",

@@ -43,8 +43,8 @@ export const Banner = () => {
             </Heading>
 
             <Text maxW={{ base: "full", md: "xs" }} color='#D4D4D4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              eget ex eu arcu porta vehicula et non ante.
+              Com um ambiente acolhedor e confortável, o Golden Skin Hotel
+              oferece uma experiência de férias única.
             </Text>
           </Box>
         </Center>

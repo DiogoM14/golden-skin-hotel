@@ -32,6 +32,7 @@ import {
   StatNumber,
   Text,
   Textarea,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { parseCookies } from "nookies";
@@ -39,6 +40,7 @@ import { useState } from "react";
 import { differenceInDays, format } from "date-fns";
 
 import { api } from "../../services/apiClient";
+import { useRouter } from "next/router";
 
 export const ReservationModal = ({
   onClose,
@@ -50,6 +52,8 @@ export const ReservationModal = ({
   const [guestsNumber, setGuestsNumber] = useState(1);
   const [extras, setExtras] = useState([]);
   const [observations, setObservations] = useState();
+  const toast = useToast();
+  const router = useRouter();
 
   let numberOfNights = differenceInDays(new Date(endDate), new Date(startDate));
   let price = room.price_night * numberOfNights;
@@ -66,26 +70,47 @@ export const ReservationModal = ({
     );
     const { "nextauth.token": token } = parseCookies();
 
-    api.put(
-      `/me/bookings`,
-      {
-        room: room._id,
-        no_guests: guestsNumber,
-        extras: extras,
-        observations: observations,
-        dates: {
-          from: startDate,
-          to: endDate,
+    api
+      .put(
+        `/me/bookings`,
+        {
+          room: room._id,
+          no_guests: guestsNumber,
+          extras: extras,
+          observations: observations,
+          dates: {
+            from: startDate,
+            to: endDate,
+          },
+          no_nights: numberOfNights,
+          final_price: finalPrice,
         },
-        no_nights: numberOfNights,
-        final_price: finalPrice,
-      },
-      {
-        headers: {
-          "x-access-token": token,
-        },
-      }
-    );
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      )
+      .then(() => {
+        toast({
+          title: "Sucesso!",
+          description: "Reserva realizada com sucesso!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        onClose();
+        router.push("/my-bookings");
+      })
+      .catch((error) => {
+        toast({
+          title: "Erro!",
+          description: "Não foi possível realizar a reserva",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   }
 
   return (

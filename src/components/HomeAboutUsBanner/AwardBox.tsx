@@ -1,11 +1,13 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-export const AwardBox = () => {
+export const AwardBox = ({ top, bottom, left, right }: any) => {
   return (
     <>
       <Box
-        top='50px'
-        left='0'
+        top={top}
+        left={left}
+        bottom={bottom}
+        right={right}
         py='4'
         px='6'
         w='2xs'

@@ -67,7 +67,7 @@ export const Header = () => {
                 <DrawerCloseButton />
 
                 {isAuthenticated ? (
-                  <UserAuthDrawer user={user} />
+                  <UserAuthDrawer user={user} close={onClose} />
                 ) : (
                   <DrawerBody>
                     <Center>

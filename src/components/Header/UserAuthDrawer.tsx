@@ -20,7 +20,7 @@ type Props = {
   avatar?: string;
 };
 
-export const UserAuthDrawer = ({ user }: any) => {
+export const UserAuthDrawer = ({ user, close }: any) => {
   let name = `${user.first_name} ${user.last_name}`;
 
   return (
@@ -36,23 +36,39 @@ export const UserAuthDrawer = ({ user }: any) => {
         <Divider mt='6' mb='6' />
 
         <VStack alignItems={"end"} mt='6'>
-          <Text
-            fontSize={"2xl"}
-            fontWeight={"bold"}
-            mb='3'
-            bgGradient='linear-gradient(45deg, rgba(247,222,37,1) 25%, rgba(242,187,5,1) 75%)'
-            bgClip='text'>
-            Golden Skin
-          </Text>
-          <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/about-us'>Sobre nós</NextLink>
-          </Text>
-          <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/rooms'>Encontre um quarto</NextLink>
-          </Text>
-          <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/contact-us'>Contactos</NextLink>
-          </Text>
+          <NextLink href='/'>
+            <Text
+              fontSize={"2xl"}
+              fontWeight={"bold"}
+              mb='3'
+              bgGradient='linear-gradient(45deg, rgba(247,222,37,1) 25%, rgba(242,187,5,1) 75%)'
+              bgClip='text'
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Golden Skin
+            </Text>
+          </NextLink>
+          <NextLink href='/about-us'>
+            <Text
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Sobre nós
+            </Text>
+          </NextLink>
+          <NextLink href='/rooms'>
+            <Text
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Encontre um quarto
+            </Text>
+          </NextLink>
+          <NextLink href='/contact-us'>
+            <Text
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Contactos
+            </Text>
+          </NextLink>
         </VStack>
 
         {user.role.includes("ADMIN") && (
@@ -62,18 +78,34 @@ export const UserAuthDrawer = ({ user }: any) => {
               <Text fontSize={"xl"} fontWeight={"bold"} mb='3'>
                 Administrador
               </Text>
-              <Text _hover={{ textDecoration: "underline" }}>
-                <NextLink href='/admin/rooms'>Quartos</NextLink>
-              </Text>
-              <Text _hover={{ textDecoration: "underline" }}>
-                <NextLink href='/admin/create-room'>Criar Quartos</NextLink>
-              </Text>
-              <Text _hover={{ textDecoration: "underline" }}>
-                <NextLink href='/admin/bookings'>Reservas</NextLink>
-              </Text>
-              <Text _hover={{ textDecoration: "underline" }}>
-                <NextLink href='/admin/users'>Utilizadores</NextLink>
-              </Text>
+              <NextLink href='/admin/rooms'>
+                <Text
+                  onClick={close}
+                  _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+                  Quartos
+                </Text>
+              </NextLink>
+              <NextLink href='/admin/create-room'>
+                <Text
+                  onClick={close}
+                  _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+                  Criar Quartos
+                </Text>
+              </NextLink>
+              <NextLink href='/admin/bookings'>
+                <Text
+                  onClick={close}
+                  _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+                  Reservas
+                </Text>
+              </NextLink>
+              <NextLink href='/admin/users'>
+                <Text
+                  onClick={close}
+                  _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+                  Utilizadores
+                </Text>
+              </NextLink>
             </VStack>
           </>
         )}
@@ -84,13 +116,21 @@ export const UserAuthDrawer = ({ user }: any) => {
           <Text fontSize={"xl"} fontWeight={"bold"} mb='3'>
             Utilizador
           </Text>
-          <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/my-bookings'>Minhas reservas</NextLink>
-          </Text>
+          <NextLink href='/my-bookings'>
+            <Text
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Minhas reservas
+            </Text>
+          </NextLink>
 
-          <Text _hover={{ textDecoration: "underline" }}>
-            <NextLink href='/fav-rooms'>Meus quartos favoritos</NextLink>
-          </Text>
+          <NextLink href='/fav-rooms'>
+            <Text
+              onClick={close}
+              _hover={{ textDecoration: "underline", cursor: "pointer" }}>
+              Meus quartos favoritos
+            </Text>
+          </NextLink>
         </VStack>
       </DrawerBody>
 

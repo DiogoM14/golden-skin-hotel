@@ -11,6 +11,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { AwardBox } from "./AwardBox";
+import NextLink from "next/link";
 
 export const HomeAboutUsBanner = () => {
   const isWideVersion = useBreakpointValue({
@@ -27,7 +28,7 @@ export const HomeAboutUsBanner = () => {
         {isWideVersion ? (
           <>
             <Box paddingLeft='5rem' w='574px' position='relative'>
-              <AwardBox />
+              <AwardBox top='50px' left='0' />
               <Img
                 w='lg'
                 h='lg'
@@ -65,17 +66,19 @@ export const HomeAboutUsBanner = () => {
               As suas melhores férias começam aqui.
             </Heading>
             <Text color='#717171' fontSize='lg' pb='4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              eget ex eu arcu porta vehicula et non ante.
+              Com um ambiente acolhedor e confortável, o Golden Skin Hotel
+              oferece uma experiência de férias única.
             </Text>
 
-            <Button
-              bgColor='#F2BB05'
-              color='#fff'
-              _hover={{ bg: "#e0ae09" }}
-              w='min-content'>
-              Ver mais
-            </Button>
+            <NextLink href='/rooms'>
+              <Button
+                bgColor='#F2BB05'
+                color='#fff'
+                _hover={{ bg: "#e0ae09" }}
+                w='min-content'>
+                Ver mais
+              </Button>
+            </NextLink>
           </Flex>
         </Box>
       </Flex>

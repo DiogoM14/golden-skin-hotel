@@ -45,6 +45,9 @@ export const FilterRoomsBtn = ({ filter }: any) => {
   }, [filter]);
 
   const submitFilters = () => {
+    if (filter.page) {
+      filter.page = 1;
+    }
     if (checkIn && checkOut) {
       if (checkIn > checkOut) {
         toast({
