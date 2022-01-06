@@ -13,7 +13,7 @@ export const Suggestions = ({ type }: any) => {
   }, []);
 
   return (
-    <Flex mb='2.3rem' flexDir='column' px={["4", "8", "12"]}>
+    <Flex mb='2.3rem' flexDir='column' px={{ base: "4", sm: "0" }}>
       <Heading mb='4' fontWeight='medium' fontSize='2xl'>
         Sugestões
       </Heading>

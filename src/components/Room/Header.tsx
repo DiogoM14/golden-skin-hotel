@@ -1,11 +1,18 @@
-import { Button, Flex, Heading, HStack, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { AiOutlineShareAlt, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { api } from "../../services/apiClient";
 
-const Header = ({ price, room_id }: any) => {
+const Header = ({ price, room_id, type, room_no }: any) => {
   const router = useRouter();
 
   const [isLiked, setIsLiked] = useState(false);
@@ -73,12 +80,16 @@ const Header = ({ price, room_id }: any) => {
   };
 
   return (
-    <Flex justify='space-between' mt='2.3rem' flexDir={{base: "column", md: "row"}} px={["4", "8", "12"]}>
-      { !isWideVersion ? (
+    <Flex
+      justify='space-between'
+      mt='2.3rem'
+      flexDir={{ base: "column", md: "row" }}
+      px={{ base: "4", sm: "0" }}>
+      {!isWideVersion ? (
         <>
-          <HStack justify="space-between" mb="2">
+          <HStack justify='space-between' mb='2'>
             <Heading fontWeight='medium' fontSize='2xl'>
-              Suite Executiva
+              Quarto {type} - {room_no}
             </Heading>
             <Button
               fontWeight='thin'
@@ -95,10 +106,8 @@ const Header = ({ price, room_id }: any) => {
               {!isLiked ? "Guardar" : "Guardado"}
             </Button>
           </HStack>
-          <HStack justify="space-between">
-            <Text color='#383838'>
-              Desde {price}€ /noite
-            </Text>
+          <HStack justify='space-between'>
+            <Text color='#383838'>Desde {price}€ /noite</Text>
 
             <Button
               fontWeight='thin'
@@ -113,7 +122,7 @@ const Header = ({ price, room_id }: any) => {
         <>
           <HStack>
             <Heading fontWeight='medium' fontSize='2xl'>
-              Suite Executiva
+              Quarto {type} - {room_no}
             </Heading>
             <Text color='#383838' pl='2'>
               Desde {price}€ /noite

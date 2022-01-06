@@ -2,6 +2,8 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import Router from "next/router";
 import { api } from "../services/apiClient";
+import { toast, useToast } from "@chakra-ui/react";
+import { AxiosError } from "axios";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -32,7 +34,7 @@ export const AuthContext = createContext({} as AuthContextData);
 let authChannel: BroadcastChannel;
 
 export function signOut() {
-  destroyCookie(undefined, "nextauth.token");
+  destroyCookie(null, "nextauth.token", { path: "/" });
 
   Router.push("/");
   Router.reload();
@@ -41,6 +43,7 @@ export function signOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const isAuthenticated = !!user;
+  const toast = useToast();
 
   useEffect(() => {
     authChannel = new BroadcastChannel("auth");
@@ -92,6 +95,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       const { token } = response.data;
 
+      if (token) {
+        toast({
+          title: "Successo",
+          description: "Login realizado com sucesso",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+
       setCookie(undefined, "nextauth.token", token, {
         path: "/",
       });
@@ -120,8 +133,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers.common["x-access-token"] = `${token}`;
 
       Router.push("/");
-    } catch (err) {
-      console.log(err);
+    } catch (error: any) {
+      toast({
+        title: "Erro",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
   return (

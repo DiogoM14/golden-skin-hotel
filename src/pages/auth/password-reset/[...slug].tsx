@@ -9,25 +9,28 @@ import {
 } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
+import { destroyCookie, parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/Finput";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { api } from "../../../services/apiClient";
 
-export const PasswordReset: NextPage = ({ params }: any) => {
+export const PasswordReset: NextPage = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
     reset,
   } = useForm();
-  const { slug } = params;
   const toast = useToast();
   const router = useRouter();
   const { signOut } = useContext(AuthContext);
 
   const onSubmit = async (data: any) => {
+    const { slug } = router.query;
+    if (!slug) return;
     api
       .post(`/auth/password-reset/${slug[0]}/${slug[1]}`, data)
       .then(() => {
@@ -38,6 +41,7 @@ export const PasswordReset: NextPage = ({ params }: any) => {
           duration: 5000,
           isClosable: true,
         });
+
         signOut();
       })
       .catch(() => {
@@ -92,11 +96,3 @@ export const PasswordReset: NextPage = ({ params }: any) => {
 };
 
 export default PasswordReset;
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  return {
-    props: {
-      params,
-    },
-  };
-};

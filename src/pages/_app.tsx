@@ -11,13 +11,13 @@ import { queryClient } from "../services/QueryClient";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <AuthProvider>
           <Header />
           <Component {...pageProps} />
           <Footer />
-        </ChakraProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ChakraProvider>
     </QueryClientProvider>
   );
 }

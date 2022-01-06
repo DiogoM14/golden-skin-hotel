@@ -22,18 +22,9 @@ export const LoginPanel = () => {
   } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { signIn } = useContext(AuthContext);
-  const toast = useToast();
 
   async function onSubmit({ email, password }: any) {
-    await signIn({ email, password }).then(() => {
-      toast({
-        title: "Login efetuado com sucesso!",
-        description: "Login efetuado com sucesso!",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-    });
+    await signIn({ email, password });
   }
 
   return (

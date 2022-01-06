@@ -24,6 +24,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 
 import { ReservationModal } from "../../RevervationModal";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { useRouter } from "next/router";
 
 interface Room {
   room: RoomProps;
@@ -35,6 +38,8 @@ export const Body = ({ room }: Room) => {
   const [endDate, setEndDate] = useState(null);
   const [excludedDates, setExcludedDates] = useState([] as Date[]);
   const toast = useToast();
+  const { isAuthenticated } = useContext(AuthContext);
+  const router = useRouter();
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -92,7 +97,11 @@ export const Body = ({ room }: Room) => {
 
   return (
     <>
-      <SimpleGrid columns={{md: 2, base: 1}} my='4' gap='12' px={["4", "8", "12"]}>
+      <SimpleGrid
+        columns={{ md: 2, base: 1 }}
+        my='4'
+        gap='12'
+        px={{ base: "4", sm: "0" }}>
         <Flex flexDir='column'>
           <Header room={room} />
 
@@ -108,7 +117,7 @@ export const Body = ({ room }: Room) => {
         </Flex>
 
         <Box borderRadius='lg' maxH='400px'>
-          <Center mt={{md: '4', base: '0'}}>
+          <Center mt={{ md: "4", base: "0" }}>
             <DatePicker
               selected={startDate}
               onChange={onChange}
@@ -121,12 +130,17 @@ export const Body = ({ room }: Room) => {
             />
           </Center>
 
-          <Center mt={'2.3rem'} mb={{md: '12', base: "4"}}>
+          <Center mt={"2.3rem"} mb={{ md: "12", base: "4" }}>
             <Button
               color='#fff'
               bgColor='#F2BB05'
               _hover={{ bg: "#e0ae09" }}
-              onClick={handleSubmitDates}>
+              disabled={!startDate || !endDate}
+              onClick={() => {
+                isAuthenticated
+                  ? handleSubmitDates()
+                  : router.push("/auth/login");
+              }}>
               Configurar reserva
             </Button>
           </Center>

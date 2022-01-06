@@ -24,34 +24,43 @@ export const RegisterPanel = () => {
   } = useForm();
 
   function onSubmit(values: any) {
-    api
-      .post("auth/register", {
-        first_name: values.firstName,
-        last_name: values.lastName,
-        email: values.email,
-        phone_number: values.phone,
-        password: values.password,
-      })
-      .then(() => {
-        toast({
-          title: "Registado com sucesso!",
-          description: "Registo concluído com sucesso!",
-
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        router.push("/auth/login");
-      })
-      .catch((err) => {
-        toast({
-          title: "Erro!",
-          description: "Ocorreu um erro ao registar!",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+    if (values.password !== values.repeatPassword) {
+      toast({
+        title: "Palavas-passe não coincidem",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
       });
+    } else {
+      api
+        .post("auth/register", {
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          phone_number: values.phone,
+          password: values.password,
+        })
+        .then(() => {
+          toast({
+            title: "Registado com sucesso!",
+            description: "Registo concluído com sucesso!",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+          router.push("/auth/login");
+        })
+        .catch((err: any) => {
+          console.log(err);
+          toast({
+            title: "Erro!",
+            description: "Ocorreu um erro ao registar!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    }
   }
 
   return (
@@ -60,6 +69,7 @@ export const RegisterPanel = () => {
         <SimpleGrid columns={2} columnGap='4'>
           <GridItem colSpan={2}>
             <Input
+              isRequired
               id='email'
               type='email'
               placeholder='E-mail'
@@ -68,6 +78,7 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={1}>
             <Input
+              isRequired
               id='firstName'
               type='text'
               placeholder='Primeiro Nome'
@@ -76,6 +87,7 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={1}>
             <Input
+              isRequired
               id='lastName'
               type='text'
               placeholder='Último Nome'
@@ -84,6 +96,8 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Input
+              isRequired
+              maxLength={9}
               id='telephone'
               type='tel'
               placeholder='Telemóvel'
@@ -92,6 +106,7 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Input
+              isRequired
               id='password'
               type='password'
               placeholder='Palavra-passe'
@@ -100,6 +115,7 @@ export const RegisterPanel = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Input
+              isRequired
               id='passwordConfirm'
               type='password'
               placeholder='Repita a Palavra-passe'
@@ -108,7 +124,7 @@ export const RegisterPanel = () => {
           </GridItem>
 
           <GridItem colSpan={2}>
-            <Checkbox>
+            <Checkbox isRequired>
               <Text fontFamily='Poppins' fontSize='xs' color='#717171'>
                 Tenho mais de 18 anos.
               </Text>

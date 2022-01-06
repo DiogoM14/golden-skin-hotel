@@ -20,7 +20,7 @@ import {
 import { Input } from "../Finput";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RoomProps } from "../../utils/TRoom";
 import { api } from "../../services/apiClient";
 import { parseCookies } from "nookies";
@@ -55,6 +55,8 @@ export const CreateRoom = () => {
     }
 
     const { "nextauth.token": token } = parseCookies();
+
+    uploadWarning();
 
     let imageFiles: any = [data.images][0];
 
@@ -111,6 +113,18 @@ export const CreateRoom = () => {
           position: "bottom",
         });
       });
+  };
+
+  const uploadWarning = () => {
+    toast({
+      title: "A criar quarto...",
+      description:
+        "Por favor aguarde, a crição de quarto pode demorar alguns minutos a ser concluída",
+      status: "info",
+      duration: 30000,
+      isClosable: true,
+      position: "bottom",
+    });
   };
 
   return (
