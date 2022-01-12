@@ -10,13 +10,14 @@ import { Users } from "../../components/AdminComponents/users";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Admin: NextPage = ({ param }: any) => {
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   const { push } = useRouter();
 
-  // useEffect(() => {
-  //   console.log(user)
-  //   user.role !== "admin" && push("/")
-  // }, [])
+  useEffect(() => {
+    if (!isAuthenticated || user?.role !== "ADMIN") {
+      push("/")
+    }
+  }, [])
 
   return (
     <>

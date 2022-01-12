@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { Input } from "../../../components/Finput";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import {
   storage,
@@ -32,6 +32,7 @@ import Head from "next/head";
 import { api } from "../../../services/apiClient";
 import { RoomProps } from "../../../utils/TRoom";
 import { useRouter } from "next/router";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 export const EditRoom: NextPage = ({ data }: any) => {
   const {
@@ -41,12 +42,17 @@ export const EditRoom: NextPage = ({ data }: any) => {
     setValue,
     reset,
   } = useForm();
+  const { user, isAuthenticated } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
   const [type, setType] = useState("" as string);
   const [amenities, setAmenities] = useState({} as any);
 
   useEffect(() => {
+    if (!isAuthenticated || user?.role !== "ADMIN") {
+      router.push("/")
+    }
+
     setValue("room_no", data.room_no);
     setType(data.type);
     setValue("no_beds", data.no_beds);
