@@ -8,14 +8,59 @@ import {
   Image,
   List,
   ListItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SimpleGrid,
+  Spacer,
   Text,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import pt from "date-fns/locale/pt";
 import NextLink from "next/link";
+import { parseCookies } from "nookies";
+import { api } from "../services/apiClient";
 
 export const BookingCard = ({ booking }: any) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const { "nextauth.token": token } = parseCookies();
+
+  const cancelBooking = () => {
+    api
+      .delete(`/me/bookings/${booking._id}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then(() => {
+        toast({
+          title: "Reserva cancelada com sucesso!",
+          description: "Pode verificar as suas reservas no histórico.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        onClose();
+      })
+      .catch((err: any) => {
+        console.log(err);
+        toast({
+          title: "Erro ao cancelar reserva!",
+          description: "Por favor, tente novamente mais tarde.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
   return (
     <>
       <Flex
@@ -25,12 +70,17 @@ export const BookingCard = ({ booking }: any) => {
         borderWidth='1px'
         p='4'
         mb='4'
-        bgColor="#fff"
-      >
+        bgColor='#fff'>
         <Flex flex='1' direction='column' mr='4'>
-          <Heading fontWeight='bold' fontSize='lg'>
-            Detalhes da reserva
-          </Heading>
+          <Flex alignItems={"center"}>
+            <Heading fontWeight='bold' fontSize='lg'>
+              Detalhes da reserva
+            </Heading>
+            <Spacer />
+            <Button size='sm' onClick={onOpen}>
+              Cancelar
+            </Button>
+          </Flex>
           <Divider my='4' borderColor='#bbbbbb' />
           <SimpleGrid columns={{ base: 1, sm: 1, md: 3 }} height='100%'>
             <Flex direction='column' justify='space-evenly'>
@@ -123,6 +173,26 @@ export const BookingCard = ({ booking }: any) => {
           </NextLink>
         </Box>
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Cancelar reserva</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody fontSize={"lg"}>
+            <Text>Tem a certeza que pretende cancelar a reserva?</Text>
+            <Text>Esta ação é irreverssível.</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='gray' mr={3} onClick={onClose}>
+              Voltar
+            </Button>
+            <Button colorScheme='red' mr={3} onClick={cancelBooking}>
+              Cancelar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

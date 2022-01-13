@@ -12,5 +12,7 @@ export type BookingProps = {
   extras: Array<string>;
   dates: ReservedDates;
   no_nights: Number;
+  observations: string;
+  cancelled: Boolean;
   final_price: Number;
 };
