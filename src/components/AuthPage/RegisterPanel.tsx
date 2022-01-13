@@ -146,7 +146,7 @@ export const RegisterPanel = () => {
             </Button>
           </GridItem>
         </SimpleGrid>
-        <AuthOptions />
+        {/* <AuthOptions /> */}
       </FormControl>
     </form>
   );

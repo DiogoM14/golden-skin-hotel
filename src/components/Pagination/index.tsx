@@ -52,7 +52,7 @@ export function Pagination({
       align='center'
       spacing='6'>
       <Box>
-        <strong>{(currentPage - 1) * 6}</strong> -{" "}
+        <strong>{((currentPage - 1) * 6) + 1}</strong> -{" "}
         <strong>
           {currentPage * registersPerPage > totalCountOfRegisters
             ? totalCountOfRegisters

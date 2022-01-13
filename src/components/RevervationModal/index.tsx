@@ -32,9 +32,11 @@ import {
   StatNumber,
   Text,
   Textarea,
+  useBreakpointValue,
   useToast,
   VStack,
 } from "@chakra-ui/react";
+
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import { differenceInDays, format } from "date-fns";
@@ -54,6 +56,11 @@ export const ReservationModal = ({
   const [observations, setObservations] = useState();
   const toast = useToast();
   const router = useRouter();
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
 
   let numberOfNights = differenceInDays(new Date(endDate), new Date(startDate));
   let price = room.price_night * numberOfNights;
@@ -121,12 +128,12 @@ export const ReservationModal = ({
           <ModalHeader>Configuração de reserva</ModalHeader>
           <Divider mb='4' />
           <ModalCloseButton />
-          <ModalBody>
-            <SimpleGrid columns={2} gap='12'>
+          <ModalBody px={{base: "1", sm: "2", md: "4"}}>
+            <SimpleGrid columns={{base: 1, md: 2}} gap={{base: '4', md: '12'}}>
               <GridItem>
-                <VStack align='left' spacing={4}>
-                  <HStack spacing={4}>
-                    <Box w='100%'>
+                <VStack align='left' spacing={{base: 2, md: 4}}>
+                  <Flex flexDir={{ base: "column", md: "row" }} align="center" justify="center">
+                    <Box w='100%' mr={{ base: "1", md: "2"}}>
                       <FormLabel htmlFor='email'>Número de hóspedes</FormLabel>
                       <NumberInput
                         max={room.capacity}
@@ -141,7 +148,7 @@ export const ReservationModal = ({
                       </NumberInput>
                     </Box>
 
-                    <Box w='100%'>
+                    <Box w='100%' mt={{ base: "4" }} ml={{ base: "1", md: "2"}} mb={{base: '0', md: '4'}}>
                       <Menu closeOnSelect={false}>
                         <FormLabel htmlFor='email'>Extras</FormLabel>
                         <MenuButton
@@ -175,7 +182,7 @@ export const ReservationModal = ({
                         </MenuList>
                       </Menu>
                     </Box>
-                  </HStack>
+                  </Flex>
 
                   <Box>
                     <FormLabel htmlFor='email'>Observações</FormLabel>
@@ -191,12 +198,12 @@ export const ReservationModal = ({
                   <Divider />
                 </VStack>
 
-                <Heading fontSize='xl' mt='4' fontWeight='medium'>
+                <Heading fontSize='xl' mt='4' fontWeight='medium' display={{ base: 'none' }}>
                   Métodos de pagamento
                 </Heading>
               </GridItem>
 
-              <GridItem marginX='auto' w='90%'>
+              <GridItem marginX='auto' w={{base: '100%', md: '90%'}}>
                 <Box
                   border='1px'
                   px={6}

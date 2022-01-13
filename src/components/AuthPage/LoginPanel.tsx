@@ -76,7 +76,7 @@ export const LoginPanel = () => {
               Entrar
             </Button>
           </Center>
-          <AuthOptions />
+          {/* <AuthOptions /> */}
         </FormControl>
       </form>
       <ForgotPWModal isOpen={isOpen} onClose={onClose} />
