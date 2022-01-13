@@ -1,11 +1,4 @@
-import {
-  Center,
-  Container,
-  Flex,
-  Heading,
-  HStack,
-  Text,
-} from "@chakra-ui/react";
+import { Center, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
@@ -17,9 +10,9 @@ import { api } from "../services/apiClient";
 
 export const FavRooms: NextPage = () => {
   const [rooms, setRooms] = useState([]);
+  const { "nextauth.token": token } = parseCookies();
 
   useEffect(() => {
-    const { "nextauth.token": token } = parseCookies();
     api
       .get("/me/favRooms", {
         headers: {

@@ -85,6 +85,7 @@ export function Card({ room }: Room) {
 
   return (
     <Box
+      hidden={!isLiked && router.pathname == "/fav-rooms"}
       borderRadius='lg'
       overflow='hidden'
       position='relative'
