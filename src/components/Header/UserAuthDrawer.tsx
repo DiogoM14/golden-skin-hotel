@@ -92,13 +92,6 @@ export const UserAuthDrawer = ({ user, close }: any) => {
                   Criar Quartos
                 </Text>
               </NextLink>
-              <NextLink href='/admin/bookings'>
-                <Text
-                  onClick={close}
-                  _hover={{ textDecoration: "underline", cursor: "pointer" }}>
-                  Reservas
-                </Text>
-              </NextLink>
               <NextLink href='/admin/users'>
                 <Text
                   onClick={close}

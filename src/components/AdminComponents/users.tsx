@@ -8,15 +8,18 @@ import {
   Tr,
   Td,
   Avatar,
+  Button,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
 import { api } from "../../services/apiClient";
 import { UserProps } from "../../utils/TUser";
 import { parseCookies } from "nookies";
+import { useRouter } from 'next/router'
 
 export const Users = () => {
   const [users, setUsers] = useState([] as UserProps[]);
+  const router = useRouter()
 
   const { "nextauth.token": token } = parseCookies();
 
@@ -32,6 +35,10 @@ export const Users = () => {
       });
   }, []);
 
+  function handleGetBookings(userId: string) {
+    router.push(`/admin/bookings?userId=${userId}`)
+  }
+
   return (
     <Container maxW='container.xl' bgColor="#fff" borderRadius="lg">
       <Table size='lg' variant='striped' colorScheme='black' mt='16' mb='32'>
@@ -42,7 +49,8 @@ export const Users = () => {
             <Th>Nome</Th>
             <Th>Email</Th>
             <Th>Nrº telemóvel</Th>
-            <Th>Role</Th>
+            <Th>Permissão</Th>
+            <Th>Reservas</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -59,6 +67,14 @@ export const Users = () => {
                 <Td>{user.email}</Td>
                 <Td>{user.phone_number}</Td>
                 <Td>{user.role}</Td>
+                <Td>
+                  <Button 
+                    fontWeight="medium"
+                    onClick={() => handleGetBookings(user._id)}
+                  >
+                    Ver
+                  </Button>
+                </Td>
               </Tr>
             </>
           ))}

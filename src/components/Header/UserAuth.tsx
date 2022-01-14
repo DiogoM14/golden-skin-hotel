@@ -43,9 +43,6 @@ export const UserAuth = () => {
                 <NextLink href='/admin/create-room'>
                   <MenuItem>Criar Quarto</MenuItem>
                 </NextLink>
-                <NextLink href='/admin/bookings'>
-                  <MenuItem>Listar Reservas</MenuItem>
-                </NextLink>
                 <NextLink href='/admin/users'>
                   <MenuItem>Listar Utilizadores</MenuItem>
                 </NextLink>

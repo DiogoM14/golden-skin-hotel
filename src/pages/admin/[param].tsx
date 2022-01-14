@@ -3,7 +3,6 @@ import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { Bookings } from "../../components/AdminComponents/bookings";
 import { CreateRoom } from "../../components/AdminComponents/create-room";
 import { Rooms } from "../../components/AdminComponents/rooms";
 import { Users } from "../../components/AdminComponents/users";
@@ -29,7 +28,6 @@ const Admin: NextPage = ({ param }: any) => {
         </Head>
 
         {param == "rooms" && <Rooms />}
-        {param == "bookings" && <Bookings />}
         {param == "users" && <Users />}
         {param == "create-room" && <CreateRoom />}
       </Container>
