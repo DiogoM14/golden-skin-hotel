@@ -1,16 +1,20 @@
 import {
   Avatar,
+  Box,
   Button,
   Divider,
   DrawerBody,
   DrawerFooter,
+  Flex,
   HStack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { BsBellFill } from "react-icons/bs";
 
 import { signOut } from "../../contexts/AuthContext";
+import { NotificationPopover } from "../NotificationPopover";
 
 type Props = {
   email?: string;
@@ -26,11 +30,15 @@ export const UserAuthDrawer = ({ user, close }: any) => {
   return (
     <>
       <DrawerBody>
-        <HStack mt='12'>
-          <Avatar name={name} src={user.avatar} bg='#F2BB05' size='md' />
-          <Text fontWeight='medium' mx='2'>
-            {name}
-          </Text>
+        <HStack mt='12' justify="space-between">
+          <Flex align="center">
+            <Avatar name={name} src={user.avatar} bg='#F2BB05' size='md' />
+            <Text fontWeight='medium' mx='2'>
+              {name}
+            </Text>
+          </Flex>
+
+          <NotificationPopover />
         </HStack>
 
         <Divider mt='6' mb='6' />
@@ -48,6 +56,7 @@ export const UserAuthDrawer = ({ user, close }: any) => {
               Golden Skin
             </Text>
           </NextLink>
+
           <NextLink href='/about-us'>
             <Text
               onClick={close}

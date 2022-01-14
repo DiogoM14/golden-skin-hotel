@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { AuthContext } from "../../contexts/AuthContext";
 
+import { NotificationPopover } from "../NotificationPopover";
+
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext);
 
@@ -28,6 +30,9 @@ export const UserAuth = () => {
         size='md'
         src={user.avatar}
       />
+
+      <NotificationPopover />
+
       <Text mx='2'>{name}</Text>
       <Menu isLazy>
         <MenuButton>

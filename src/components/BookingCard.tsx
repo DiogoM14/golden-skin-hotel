@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Divider,
@@ -21,6 +22,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+
 import { format } from "date-fns";
 import pt from "date-fns/locale/pt";
 import NextLink from "next/link";
@@ -76,10 +78,16 @@ export const BookingCard = ({ booking }: any) => {
             <Heading fontWeight='bold' fontSize='lg'>
               Detalhes da reserva
             </Heading>
+              
             <Spacer />
-            <Button size='sm' onClick={onOpen}>
-              Cancelar
-            </Button>
+            { booking?.cancelled === false ? (
+              <Button size='sm' onClick={onOpen}>
+                Cancelar
+              </Button>
+            ) : (
+              <Badge colorScheme='red' ml="4">Reserva cancelada</Badge>
+            )}
+
           </Flex>
           <Divider my='4' borderColor='#bbbbbb' />
           <SimpleGrid columns={{ base: 1, sm: 1, md: 3 }} height='100%'>
