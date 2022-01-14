@@ -2,8 +2,8 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import Router from "next/router";
 import { api } from "../services/apiClient";
-import { toast, useToast } from "@chakra-ui/react";
-import { AxiosError } from "axios";
+import { useToast } from "@chakra-ui/react";
+import { BookingProps } from "../utils/TBooking";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -42,6 +42,7 @@ export function signOut() {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
+  const [upcomingBookings, setUpcomingBookings] = useState<BookingProps[]>([]);
   const isAuthenticated = !!user;
   const toast = useToast();
 
@@ -61,7 +62,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const { "nextauth.token": token } = parseCookies();
-
 
     if (token) {
       api
@@ -144,6 +144,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
     }
   }
+
   return (
     <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
       {children}

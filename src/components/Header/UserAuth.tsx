@@ -8,18 +8,49 @@ import {
   MenuItem,
   MenuGroup,
   MenuDivider,
+  Box,
 } from "@chakra-ui/react";
+import { differenceInDays } from "date-fns";
 import NextLink from "next/link";
-import { useContext } from "react";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { AuthContext } from "../../contexts/AuthContext";
-
-import { NotificationPopover } from "../NotificationPopover";
+import { api } from "../../services/apiClient";
+import { BookingProps } from "../../utils/TBooking";
+import { NotificationPopover } from "../Notification/NotificationPopover";
 
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext);
-
+  const [upcomingBookings, setUpcomingBookings] = useState<BookingProps[]>([]);
+  const [notifOpen, setNotifOpen] = useState(false);
   let name = `${user.first_name} ${user.last_name}`;
+
+  useEffect(() => {
+    const { "nextauth.token": token } = parseCookies();
+    if (user) {
+      api
+        .get("/me/bookings", {
+          headers: {
+            "x-access-token": token,
+          },
+        })
+        .then((response) => {
+          let bookings: any = response.data.filter((booking: BookingProps) => {
+            return (
+              booking.cancelled !== true &&
+              differenceInDays(new Date(booking.dates.from), new Date()) <= 7 &&
+              differenceInDays(new Date(booking.dates.from), new Date()) >= 0 &&
+              new Date(booking.dates.from) > new Date()
+            );
+          });
+          setUpcomingBookings(bookings);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    }
+  }, [user]);
 
   return (
     <Flex align='center'>
@@ -31,7 +62,7 @@ export const UserAuth = () => {
         src={user.avatar}
       />
 
-      <NotificationPopover />
+      <NotificationPopover bookings={upcomingBookings} />
 
       <Text mx='2'>{name}</Text>
       <Menu isLazy>

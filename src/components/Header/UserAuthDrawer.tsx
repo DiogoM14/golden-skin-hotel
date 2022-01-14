@@ -10,11 +10,14 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { differenceInDays } from "date-fns";
 import NextLink from "next/link";
-import { BsBellFill } from "react-icons/bs";
-
+import { parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 import { signOut } from "../../contexts/AuthContext";
-import { NotificationPopover } from "../NotificationPopover";
+import { api } from "../../services/apiClient";
+import { BookingProps } from "../../utils/TBooking";
+import { NotificationPopover } from "../Notification/NotificationPopover";
 
 type Props = {
   email?: string;
@@ -25,20 +28,47 @@ type Props = {
 };
 
 export const UserAuthDrawer = ({ user, close }: any) => {
+  const [upcomingBookings, setUpcomingBookings] = useState<BookingProps[]>([]);
   let name = `${user.first_name} ${user.last_name}`;
+
+  useEffect(() => {
+    const { "nextauth.token": token } = parseCookies();
+    if (user) {
+      api
+        .get("/me/bookings", {
+          headers: {
+            "x-access-token": token,
+          },
+        })
+        .then((response) => {
+          let bookings: any = response.data.filter((booking: BookingProps) => {
+            return (
+              booking.cancelled !== true &&
+              differenceInDays(new Date(booking.dates.from), new Date()) <= 7 &&
+              differenceInDays(new Date(booking.dates.from), new Date()) >= 0 &&
+              new Date(booking.dates.from) > new Date()
+            );
+          });
+          setUpcomingBookings(bookings);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    }
+  }, [user]);
 
   return (
     <>
       <DrawerBody>
-        <HStack mt='12' justify="space-between">
-          <Flex align="center">
+        <HStack mt='12' justify='space-between'>
+          <Flex align='center'>
             <Avatar name={name} src={user.avatar} bg='#F2BB05' size='md' />
             <Text fontWeight='medium' mx='2'>
               {name}
             </Text>
           </Flex>
 
-          <NotificationPopover />
+          <NotificationPopover bookings={upcomingBookings} />
         </HStack>
 
         <Divider mt='6' mb='6' />
