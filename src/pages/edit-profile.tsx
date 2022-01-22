@@ -27,7 +27,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "../services/firebase";
-import { ForgotPWModal } from "../components/ForgotPWModal";
+import ForgotPWModal from "../components/ForgotPWModal";
 
 type userInfo = {
   email: string;

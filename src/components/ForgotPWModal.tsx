@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { api } from "../services/apiClient";
 import { Input } from "./Finput";
 
-export const ForgotPWModal = ({ isOpen, onClose }: any) => {
+const ForgotPWModal = ({ isOpen, onClose }: any) => {
   const {
     handleSubmit,
     register,
@@ -56,10 +56,10 @@ export const ForgotPWModal = ({ isOpen, onClose }: any) => {
       size='lg'
       motionPreset='slideInBottom'>
       <ModalOverlay />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ModalContent bgColor={"#F4F4F5"}>
+      <form onSubmit={handleSubmit(onSubmit)} data-cy='forgot-pw-form'>
+        <ModalContent bgColor={"#F4F4F5"} data-cy='forgot-pw-modal'>
           <ModalHeader>Repor palavra-passe</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton data-cy='forgot-pw-modal-close-btn' />
           <ModalBody>
             <Text>
               Vai receber um email com um link para repor a palavra-passe.
@@ -68,6 +68,7 @@ export const ForgotPWModal = ({ isOpen, onClose }: any) => {
             <FormControl mt='4'>
               <FormLabel htmlFor='email'>Email:</FormLabel>
               <Input
+                data-cy='forgot-pw-modal-email-input'
                 isRequired
                 placeholder='Ex: golden-skin@gmail.com'
                 type='email'
@@ -78,6 +79,7 @@ export const ForgotPWModal = ({ isOpen, onClose }: any) => {
           </ModalBody>
           <ModalFooter>
             <Button
+              data-cy='forgot-pw-modal-submit-btn'
               color='#fff'
               bgColor='#F2BB05'
               _hover={{ bg: "#e0ae09" }}
@@ -92,3 +94,6 @@ export const ForgotPWModal = ({ isOpen, onClose }: any) => {
     </Modal>
   );
 };
+
+ForgotPWModal.displayName = "ForgotPWModal";
+export default ForgotPWModal;

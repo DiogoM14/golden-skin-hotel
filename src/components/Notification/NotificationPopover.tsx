@@ -18,7 +18,7 @@ interface Props {
   bookings: BookingProps[];
 }
 
-export const NotificationPopover = ({ bookings }: Props) => {
+const NotificationPopover = ({ bookings }: Props) => {
   const [notifOpen, setNotifOpen] = useState(false);
 
   return (
@@ -26,6 +26,7 @@ export const NotificationPopover = ({ bookings }: Props) => {
       <PopoverTrigger>
         <Box position={"relative"}>
           <IconButton
+            data-cy='notification-button'
             onClick={() => {
               if (notifOpen == false) {
                 setNotifOpen(true);
@@ -50,7 +51,7 @@ export const NotificationPopover = ({ bookings }: Props) => {
           )}
         </Box>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent data-cy='notification-popover'>
         {bookings.length > 0 ? (
           <>
             <PopoverHeader fontWeight='semibold'>
@@ -58,7 +59,7 @@ export const NotificationPopover = ({ bookings }: Props) => {
             </PopoverHeader>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverBody>
+            <PopoverBody data-cy='notification-popover-bookings'>
               {bookings.map((booking: BookingProps) => (
                 <NotificationBookingCard booking={booking} />
               ))}
@@ -70,10 +71,13 @@ export const NotificationPopover = ({ bookings }: Props) => {
               Não tem notificações.
             </PopoverHeader>
             <PopoverArrow />
-            <PopoverCloseButton />
+            <PopoverCloseButton data-cy='popover-close-btn' />
           </>
         )}
       </PopoverContent>
     </Popover>
   );
 };
+
+NotificationPopover.displayName = "NotificationPopover";
+export default NotificationPopover;

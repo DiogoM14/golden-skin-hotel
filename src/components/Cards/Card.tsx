@@ -20,7 +20,6 @@ import { useRouter } from "next/router";
 type Room = {
   room: RoomProps;
 };
-
 export function Card({ room }: Room) {
   const { "nextauth.token": token } = parseCookies();
 

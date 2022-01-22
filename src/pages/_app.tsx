@@ -4,7 +4,7 @@ import { theme } from "../styles/theme";
 import { AuthProvider } from "../contexts/AuthContext";
 import { QueryClientProvider } from "react-query";
 
-import { Footer } from "../components/Footer";
+import Footer from "../components/Footer";
 import { Header } from "../components/Header";
 import { queryClient } from "../services/QueryClient";
 

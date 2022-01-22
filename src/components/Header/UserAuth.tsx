@@ -18,7 +18,7 @@ import { FiChevronDown } from "react-icons/fi";
 import { AuthContext } from "../../contexts/AuthContext";
 import { api } from "../../services/apiClient";
 import { BookingProps } from "../../utils/TBooking";
-import { NotificationPopover } from "../Notification/NotificationPopover";
+import NotificationPopover from "../Notification/NotificationPopover";
 
 export const UserAuth = () => {
   const { user, signOut } = useContext(AuthContext);

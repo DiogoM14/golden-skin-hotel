@@ -5,7 +5,7 @@ import { Container } from "@chakra-ui/react";
 import { Banner } from "../components/Banner";
 import { CardGrid } from "../components/Cards/CardGrid";
 import { HomeAboutUsBanner } from "../components/HomeAboutUsBanner";
-import { SeeMoreBtn } from "../components/SeeMoreBtn";
+import SeeMoreBtn from "../components/SeeMoreBtn";
 
 const Home: NextPage = () => {
   return (

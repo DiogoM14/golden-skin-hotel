@@ -2,7 +2,7 @@ import { Button, Center } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
 import NextLink from "next/link";
 
-export const SeeMoreBtn = () => {
+const SeeMoreBtn = () => {
   return (
     <Center mt='2.3rem' mb='12'>
       <NextLink href='/rooms'>
@@ -17,3 +17,6 @@ export const SeeMoreBtn = () => {
     </Center>
   );
 };
+
+SeeMoreBtn.displayName = "SeeMoreBtn";
+export default SeeMoreBtn;

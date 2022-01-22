@@ -11,10 +11,9 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Input } from "../Finput";
-import { ForgotPWModal } from "../ForgotPWModal";
-import { AuthOptions } from "./AuthOptions";
+import ForgotPWModal from "../ForgotPWModal";
 
-export const LoginPanel = () => {
+const LoginPanel = () => {
   const {
     handleSubmit,
     register,
@@ -29,7 +28,7 @@ export const LoginPanel = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} data-cy='login-form'>
         <FormControl id='login' isInvalid={errors.name}>
           <Input
             id='email'
@@ -52,6 +51,7 @@ export const LoginPanel = () => {
               Esqueceu-se da palavra-passe?
             </Text>
             <Text
+              data-cy='forgot-pw-modal-btn'
               fontFamily='Poppins'
               fontWeight='bold'
               fontSize='xs'
@@ -83,3 +83,6 @@ export const LoginPanel = () => {
     </>
   );
 };
+
+LoginPanel.displayName = "LoginPanel";
+export default LoginPanel;

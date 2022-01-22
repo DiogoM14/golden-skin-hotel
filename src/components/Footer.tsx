@@ -36,9 +36,9 @@ const SocialButton = ({
   );
 };
 
-export const Footer = () => {
+const Footer = () => {
   return (
-    <Box bgColor='#1C1C1C' color='white'>
+    <Box as='footer' bgColor='#1C1C1C' color='white'>
       <Container
         as={Stack}
         maxW={"6xl"}
@@ -66,3 +66,6 @@ export const Footer = () => {
     </Box>
   );
 };
+
+Footer.displayName = "Footer";
+export default Footer;

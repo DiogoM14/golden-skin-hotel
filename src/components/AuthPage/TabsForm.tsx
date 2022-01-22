@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
-import { LoginPanel } from "./LoginPanel";
+import LoginPanel from "./LoginPanel";
 import { RegisterPanel } from "./RegisterPanel";
 
 export const TabsForm = ({ authOption }: any) => {

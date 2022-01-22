@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { CardGrid } from "../components/Cards/CardGrid";
-import { SeeMoreBtn } from "../components/SeeMoreBtn";
+import SeeMoreBtn from "../components/SeeMoreBtn";
 import { api } from "../services/apiClient";
 
 export const FavRooms: NextPage = () => {

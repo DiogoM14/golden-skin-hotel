@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { signOut } from "../../contexts/AuthContext";
 import { api } from "../../services/apiClient";
 import { BookingProps } from "../../utils/TBooking";
-import { NotificationPopover } from "../Notification/NotificationPopover";
+import NotificationPopover from "../Notification/NotificationPopover";
 
 type Props = {
   email?: string;

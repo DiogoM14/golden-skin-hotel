@@ -18,7 +18,7 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 
-import { AuthButtons } from "./AuthButtons";
+import AuthButtons from "./AuthButtons";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserAuth } from "./UserAuth";
